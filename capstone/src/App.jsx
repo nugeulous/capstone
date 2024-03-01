@@ -26,7 +26,7 @@ function App() {
     <div>
       <NavBar setToken={setToken}/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
         <Route
           path="/login"
           element={

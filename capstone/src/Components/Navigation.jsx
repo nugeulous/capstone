@@ -12,13 +12,12 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
-
-const pages = ["Home","Services"];
-const settings = [ "Account", "Logout", "Switch to Caretaker"];
+const pages = ["Home", "Services", "Playground"];
+const settings = ["Switch to Caretaker", "Account", "Messages", "Logout"];
 const authPages = ["Register", "Login"];
 
-function NavBar({token, setToken}) {
-    console.log(token);
+function NavBar({ token, setToken }) {
+  console.log(token);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -65,30 +64,33 @@ function NavBar({token, setToken}) {
           >
             AllTails
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={() => {navigate(`/${page.toLowerCase()}`)}}
+                onClick={() => {
+                  navigate(`/${page.toLowerCase()}`);
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
             ))}
-            {!token && (
-                authPages.map((page) => (
-                    <Button
-                      key={page}
-                      onClick={() => {navigate(`/${page.toLowerCase()}`)}}
-                      sx={{ my: 2, color: "white", display: "block" }}
-                    >
-                      {page}
-                    </Button>
-                  ))
-            )}
+          </Box>
+
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {!token &&
+              authPages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={() => {
+                    navigate(`/${page.toLowerCase()}`);
+                  }}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -114,18 +116,18 @@ function NavBar({token, setToken}) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-
-                <MenuItem key={setting} onClick={() => {
-                handleCloseUserMenu();
-                if (setting === 'Logout') {
-                  setToken('');
-                  navigate('/login');
-
-                } else {
-                  navigate(`/${setting.toLowerCase()}`);
-                }
-              }}>
-                
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    if (setting === "Logout") {
+                      setToken("");
+                      navigate("/login");
+                    } else {
+                      navigate(`/${setting.toLowerCase()}`);
+                    }
+                  }}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
