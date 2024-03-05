@@ -37,6 +37,7 @@ const Register = ({ setToken }) => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("")
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [validationError, setValidationError] = useState("");
@@ -74,6 +75,7 @@ const Register = ({ setToken }) => {
             firstname,
             lastname,
             email,
+            phonenumber,
             password,
           }),
         }
@@ -143,6 +145,19 @@ const Register = ({ setToken }) => {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phonenumber"
+                  label="Phone Number"
+                  name="phonenumber"
+                  autoComplete="phone-number"
+                  value={phonenumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
 
                 />
               </Grid>

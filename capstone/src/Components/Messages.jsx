@@ -1,7 +1,7 @@
-export default function Services() {
+export default function Messages() {
     return (
         <div className="home">
-            <h1>Services</h1>
+            <h1>Messages</h1>
         </div>
     );
 }
