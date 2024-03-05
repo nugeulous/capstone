@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import aiPets from "./assets/aipets.png";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/Navigation";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
@@ -15,7 +15,6 @@ import Sitters from "./Components/Sitters";
 import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
-import { Button } from "@mui/material";
 
 
 function App() {
@@ -34,7 +33,6 @@ function App() {
   return (
     <div>
       <NavBar setToken={setToken}/>
-      <Button variant="outlined">Outlined</Button>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route

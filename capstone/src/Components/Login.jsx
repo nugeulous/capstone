@@ -92,7 +92,7 @@ const Login = ({ setToken }) => {
             required
             fullWidth
             id="email"
-            label="Email Address (Optional)"
+            label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
