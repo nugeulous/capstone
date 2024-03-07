@@ -1,4 +1,5 @@
 const { client } = require('./index')
+const {options} = require("pg/lib/defaults");
 
 const {
     createOwner,
@@ -11,7 +12,6 @@ const {
     getPetById,
   } = require('./index');
 
-const {options} = require("pg/lib/defaults");
 
 async function dropTables() {
     try {
@@ -19,8 +19,8 @@ async function dropTables() {
   
       // have to make sure to drop in correct order
       await client.query(`
-        DROP TABLE IF EXISTS owners;
-        DROP TABLE IF EXISTS pets;
+      DROP TABLE IF EXISTS pets;  
+      DROP TABLE IF EXISTS owners;
       `);
   
       console.log("Finished dropping tables!");
@@ -58,8 +58,8 @@ async function dropTables() {
           pet_owner_id INTEGER REFERENCES owners(id),
           CONSTRAINT fk_owners
             FOREIGN KEY(pet_owner_id)
-              REFERENCES owners(id)
-              ON DELETE CASCADE
+            REFERENCES owners(id)
+            ON DELETE CASCADE
         );
       `);
   
@@ -83,5 +83,4 @@ async function dropTables() {
   }
 
 rebuildDB()
-  .catch(console.error)
-  .finally(() => client.end());
+  .catch(console.error);
