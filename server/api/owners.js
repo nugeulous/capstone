@@ -2,9 +2,9 @@ const express = require('express');
 const ownersRouter = express.Router();
 
 const { 
-  createUser,
-  getAllOwners,
-  getUserByUsername,
+  createOwner,
+  getAllOwners
+  // getOwnerById
 } = require('../db');
 
 ownersRouter.get('/', async (req, res, next) => {
