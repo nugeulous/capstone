@@ -19,7 +19,7 @@ async function dropTables() {
   
       // have to make sure to drop in correct order
       await client.query(`
-      DROP TABLE IF EXISTS pets;  
+      DROP TABLE IF EXISTS pets; 
       DROP TABLE IF EXISTS owners;
       `);
   
@@ -70,12 +70,55 @@ async function dropTables() {
     }
   }
 
+  async function createInitialOwners() {
+    try {
+      console.log("Starting to create users...");
+  
+      await createOwner({
+        email: "albert@gmail.com",
+        password: "bertie99",
+        fname: "Albathy",
+        lname: "Bertrude",
+        location: "Sidney, Australia",
+        phone: "123-456-7891",
+        image: "somedayIWillBeARealImage.com",
+        gender: "all of them"
+      });
+      await createOwner({
+        email: "sandra@gmail.com",
+        password: "sandy123",
+        fname: "Sandreth",
+        lname: "Sannington",
+        location: "Perth, Australia",
+        phone: "123-456-7111",
+        image: "somedayIWillBeARealImage2.com",
+        gender: "all of them"
+      });
+      await createOwner({
+        email: "glamgal@gmail.com",
+        password: "soglam123",
+        fname: "Glammoth",
+        lname: "Galilei",
+        location: "Melbourne, Australia",
+        phone: "123-456-7222",
+        image: "somedayIWillBeARealImage3.com",
+        gender: "yeah right i aint tellin u"
+      });
+  
+      console.log("Finished creating users!");
+    } catch (error) {
+      console.error("Error creating users!");
+      throw error;
+    }
+  }
+
   async function rebuildDB() {
     try {
       await client.connect(options);
   
       await dropTables();
       await createTables();
+      await createInitialOwners();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;

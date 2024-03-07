@@ -9,18 +9,18 @@ const client = new Client({
             : undefined,
   });
 
-  async function createOwner({ email, password, fname, lname, location, phone, gender }) {
+  async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
     try {
       const {
         rows: [owner],
       } = await client.query(
-          `
-        INSERT INTO owners(email, password, fname, lname, location, phone, gender) 
-        VALUES($1, $2, $3, $4, $5, $6, $7) 
-        ON CONFLICT (email, phone) DO NOTHING 
+        `
+        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+        ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-          [email, password, fname, lname, location, phone, gender]
+        [email, password, fname, lname, location, phone, image, gender]
       );
   
       return owner;
@@ -28,6 +28,7 @@ const client = new Client({
       throw error;
     }
   }
+
   async function updateOwner(id, fields = {}) {
     // Set up initial update SQL
     const setString = Object.keys(fields).map(
