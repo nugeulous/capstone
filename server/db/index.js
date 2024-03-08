@@ -56,8 +56,7 @@ const client = new Client({
   async function getAllOwners() {
     try {
       const { rows } = await client.query(`
-        SELECT id, email, fname, lname, 
-        location, active, phone, image, gender
+        SELECT *
         FROM owners;
       `);
   

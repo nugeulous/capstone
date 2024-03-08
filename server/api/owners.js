@@ -9,12 +9,13 @@ const {
 
 ownersRouter.get('/', async (req, res, next) => {
     try {
-      console.log('getting...')
       const owners = await getAllOwners();
-  
-      res.send({
+      
+      // by putting {owners} in brackets, creates an 
+      // owners object with an array of objects with owner info
+      res.send(
         owners
-      });
+      );
     } catch ({ name, message }) {
       next({ name, message });
     }
