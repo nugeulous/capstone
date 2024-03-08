@@ -5,18 +5,15 @@ const {
   createOwner,
   getAllOwners,
   getOwnerById
-} = require('../db');
+} = require('../db/index');
 
 ownersRouter.get('/', async (req, res, next) => {
     try {
       const owners = await getAllOwners();
-  
-      res.send({
-        owners
-      });
-    } catch ({ name, message }) {
-      next({ name, message });
-    }
+      res.send(owners);
+    } catch (error) {
+      
+    } 
   });
 
 ownersRouter.post('/', async (req, res, next) => {

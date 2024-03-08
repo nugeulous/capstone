@@ -3,9 +3,7 @@ const express = require('express');
 const apiRouter = express.Router();
 
 
-const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db');
-const { JWT_SECRET } = process.env;
 
 // set `req.user` if possible
 apiRouter.use(async (req, res, next) => {
@@ -49,7 +47,7 @@ apiRouter.use((req, res, next) => {
   next();
 });
 
-// ROUTER: /api/users
+// ROUTER: /api/owners
 const ownersRouter = require('./owners');
 apiRouter.use('/owners', ownersRouter);
 
