@@ -55,12 +55,13 @@ const client = new Client({
   }
   async function getAllOwners() {
     try {
-      const { rows: owners } = await client.query(`
-        SELECT *
+      const { rows } = await client.query(`
+        SELECT id, email, fname, lname, 
+        location, active, phone, image, gender
         FROM owners;
       `);
   
-      return owners;
+      return rows;
     } catch (error) {
       throw error;
     }
