@@ -2,14 +2,7 @@ const { client } = require('./index')
 const {options} = require("pg/lib/defaults");
 
 const {
-    createOwner,
-    updateOwner,
-    getAllOwners,
-    getOwnerById,
-    createPet,
-    updatePet,
-    getAllPets,
-    getPetById,
+    createOwner, createPet,
   } = require('./index');
 
 
@@ -112,13 +105,69 @@ async function dropTables() {
     }
   }
 
+  async function createInitialPets() {
+    try {
+      console.log("Starting to create pets...");
+  
+      await createPet({
+        pet_name:"Lil Snickums", 
+        pet_type:"dog", 
+        breed:"Schnauzer", 
+        age:"3", 
+        weight:"400", 
+        pet_owner_id:"1"
+      });
+
+      await createPet({
+        pet_name:"Wisely", 
+        pet_type:"dog", 
+        breed:"Chihuahua", 
+        age:"400", 
+        weight:"3", 
+        pet_owner_id:"1"
+      });
+
+      await createPet({
+        pet_name:"The Colonel", 
+        pet_type:"dog", 
+        breed:"Black Labrador", 
+        age:"11", 
+        weight:"50", 
+        pet_owner_id:"3"
+      });
+
+      await createPet({
+        pet_name:"Chester", 
+        pet_type:"dog", 
+        breed:"Golden Retriever", 
+        age:"1", 
+        weight:"69", 
+        pet_owner_id:"2"
+      });
+
+      await createPet({
+        pet_name:"Sergeant Barko", 
+        pet_type:"dog", 
+        breed:"Poodle", 
+        age:"13", 
+        weight:"9001", 
+        pet_owner_id:"3"
+      });
+  
+      console.log("Finished creating pets!");
+    } catch (error) {
+      console.error("Error creating pets!");
+      throw error;
+    }
+  }
+
   async function rebuildDB() {
     try {
       await client.connect(options);
-  
       await dropTables();
       await createTables();
       await createInitialOwners();
+      await createInitialPets()
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;

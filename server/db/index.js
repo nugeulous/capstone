@@ -90,17 +90,17 @@ const client = new Client({
    * PET Methods
    */
   
-  async function createPet({ pet_name, pet_type, breed, age, weight }) {
+  async function createPet({ pet_name, pet_type, breed, age, weight, pet_owner_id }) {
     try {
       const {
         rows: [pet],
       } = await client.query(
           `
-        INSERT INTO pets(pet_name, pet_type, breed, age, weight) 
-        VALUES($1, $2, $3, $4, $5) 
+        INSERT INTO pets(pet_name, pet_type, breed, age, weight, pet_owner_id) 
+        VALUES($1, $2, $3, $4, $5, $6) 
         RETURNING *;
       `,
-          [pet_name, pet_type, breed, age, weight]
+          [pet_name, pet_type, breed, age, weight, pet_owner_id]
       );
   
       return pet;
