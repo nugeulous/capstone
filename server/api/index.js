@@ -51,6 +51,9 @@ apiRouter.use((req, res, next) => {
 const ownersRouter = require('./owners');
 apiRouter.use('/owners', ownersRouter);
 
+const petsRouter = require('./pets');
+apiRouter.use('/pets', petsRouter);
+
 // // ROUTER: /api/posts
 // const postsRouter = require('./posts');
 // apiRouter.use('/posts', postsRouter);
