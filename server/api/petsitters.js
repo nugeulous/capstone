@@ -4,7 +4,8 @@ const petsittersRouter = express.Router();
 const { 
   getAllPetsitters, 
   createPetsitter,
-  getPetsitterById
+  getPetsitterById,
+  updatePetsitter
 } = require('../db');
 
 petsittersRouter.get('/', async (req, res, next) => {
@@ -54,7 +55,8 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.put('/:id', async (req, res, next) => {
     try {
-      const petsitters = await createPetsitter();
+      console.log('routing to petsitter...')
+      const petsitters = await updatePetsitter();
   
       res.send({
         petsitters

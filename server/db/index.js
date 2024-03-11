@@ -224,6 +224,7 @@ const client = new Client({
   }
 
   async function updatePetsitter(id, fields = {}) {
+    console.log('beginning to update petsitter...')
       // Set up initial update SQL
       const setString = Object.keys(fields).map(
           (key, index) => `"${key}"=$${index + 1}`
@@ -236,7 +237,7 @@ const client = new Client({
     
       try {
         const { rows: [petsitter] } = await client.query(`
-          UPDATE petsitters
+          UPDATE petsitter
           SET ${setString}
           WHERE id=${id}
           RETURNING *;
