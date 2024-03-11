@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { register } from "../API/api";
 function Copyright(props) {
   return (
     <Typography
@@ -57,23 +58,7 @@ const Register = ({ setToken }) => {
       return;
     }
     try {
-      const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstname,
-            lastname,
-            email,
-            phonenumber,
-            password,
-          }),
-        }
-      );
-      const result = await response.json();
+      await register(firstname,lastname,email,phonenumber,password);
       console.log(result);
       setToken(result.token, result.user);
     } catch (error) {

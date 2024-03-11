@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { login } from "../API/api";
 function Copyright(props) {
   return (
     <Typography
@@ -41,24 +42,11 @@ const Login = ({ setToken }) => {
     setEmail("");
     setPassword("");
     try {
-      const response = await fetch(
-        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
-      const result = await response.json();
-      console.log('Token receive in Login component:', result.token);
+      await login(email, password);
+      console.log("Token receive in Login component:", result.token);
       setToken(result.token);
     } catch (error) {
-      setError('incorrect email or password');
+      setError("incorrect email or password");
     }
   }
   return (
@@ -117,10 +105,15 @@ const Login = ({ setToken }) => {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-            </Grid>
+            <Grid item xs></Grid>
             <Grid item>
-              <Link href="#" onClick={() => {navigate(`/Register`)}} variant="body2">
+              <Link
+                href="#"
+                onClick={() => {
+                  navigate(`/Register`);
+                }}
+                variant="body2"
+              >
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
