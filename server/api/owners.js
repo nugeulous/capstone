@@ -7,10 +7,6 @@ const {
   getOwnerById,
   updateOwner
 } = require('../db/index');
-  getAllOwners,
-  getOwnerById,
-  updateOwner
-} = require('../db/index');
 
 ownersRouter.get('/', async (req, res, next) => {
     try {
