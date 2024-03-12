@@ -23,7 +23,7 @@ ownersRouter.post('/', async (req, res, next) => {
 
       const owner = await createOwner({ email, password, fname, lname, location, phone, image, gender });
   
-      res.send({ owner });
+      res.send( owner );
     } catch ({ name, message }) {
       next({ name, message });
     }
