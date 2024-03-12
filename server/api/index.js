@@ -3,12 +3,12 @@ const express = require('express');
 const apiRouter = express.Router();
 
 
-// const { getUserById } = require('../db');
+const { getUserById } = require('../db');
 
-// // set `req.user` if possible
-// apiRouter.use(async (req, res, next) => {
-//   const prefix = 'Bearer ';
-//   const auth = req.header('Authorization');
+// set `req.user` if possible
+apiRouter.use(async (req, res, next) => {
+  const prefix = 'Bearer ';
+  const auth = req.header('Authorization');
 
 //   if (!auth) {
 //     // nothing to see here
@@ -50,6 +50,9 @@ const apiRouter = express.Router();
 // ROUTER: /api/owners
 const ownersRouter = require('./owners');
 apiRouter.use('/owners', ownersRouter);
+
+const petsRouter = require('./pets');
+apiRouter.use('/pets', petsRouter);
 
 // ROUTER: /api/pets
 const petsRouter = require('./pets');

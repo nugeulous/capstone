@@ -7,6 +7,10 @@ const {
   getOwnerById,
   updateOwner
 } = require('../db/index');
+  getAllOwners,
+  getOwnerById,
+  updateOwner
+} = require('../db/index');
 
 ownersRouter.get('/', async (req, res, next) => {
     try {
@@ -23,7 +27,7 @@ ownersRouter.post('/', async (req, res, next) => {
 
       const owner = await createOwner({ email, password, fname, lname, location, phone, image, gender });
   
-      res.send( owner );
+      res.send({ owner });
     } catch ({ name, message }) {
       next({ name, message });
     }
