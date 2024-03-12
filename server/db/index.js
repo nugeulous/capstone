@@ -2,72 +2,71 @@ const { Client } = require("pg"); // imports the pg module to connect with postg
 
 const client = new Client({
   connectionString:
-      process.env.DATABASE_URL || "postgresql://localhost:5432/alltails",
+    process.env.DATABASE_URL || "postgresql://localhost:5432/alltails",
   ssl:
-      process.env.NODE_ENV === "production"
-          ? { rejectUnauthorized: false }
-          : undefined,
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : undefined,
 });
 
-  async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
-    try {
-      const {
-        rows: [owner],
-      } = await client.query(
-        `
+async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
+  try {
+    const {
+      rows: [owner],
+    } = await client.query(
+      `
         INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, location, phone, image, gender]
-      );
-  
-      return owner;
-    } catch (error) {
-      throw error;
-    }
-  }
+      [email, password, fname, lname, location, phone, image, gender]
+    );
 
-  async function updateOwner(id, fields = {}) {
-    // Set up initial update SQL
-    const setString = Object.keys(fields).map(
-        (key, index) => `"${key}"=$${index + 1}`
-    ).join(', ');
-  
-    // Return early if this is called without fields
-    if (setString.length === 0) {
-      return;
-    }
-  
-    try {
-      const { rows: [owner] } = await client.query(`
-        UPDATE owners
-        SET ${setString}
-        WHERE id=${id}
-        RETURNING *;
-      `, Object.values(fields));
-  
-      return owner;
-    } catch (error) {
-      throw error;
-    }
+    return owner;
+  } catch (error) {
+    throw error;
   }
-  async function getAllOwners() {
-    try {
-      const { rows: owners } = await client.query(`
+}
+
+async function updateOwner(ownerId, { email, password, fname, lname, location, phone, image, gender }) {
+
+  try {
+    const { rows: [updatedOwner] } = await client.query(`
+        UPDATE owners
+        SET email=$1, password=$2, fname=$3, lname=$4, location=$5, phone=$6, image=$7, gender=$8
+        WHERE id=$9
+        RETURNING *;
+      `, [email, password, fname, lname, location, phone, image, gender, ownerId]);
+
+    if (!updatedOwner) {
+      throw {
+        name: "OwnerNotFoundError",
+        message: "Owner with the provided ID was not found."
+      };
+    }
+
+    return updatedOwner;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAllOwners() {
+  try {
+    const { rows: owners } = await client.query(`
         SELECT *
         FROM owners;
       `);
-  
-      return owners;
-    } catch (error) {
-      throw error;
-    }
+
+    return owners;
+  } catch (error) {
+    throw error;
   }
-  async function getOwnerById(id) {
-    try {
-      const { rows: [ owner ] } = await client.query(`
+}
+async function getOwnerById(id) {
+  try {
+    const { rows: [owner] } = await client.query(`
         SELECT id, email, fname, lname, location, active
         FROM owners
         WHERE id=$1
@@ -126,27 +125,27 @@ const client = new Client({
         WHERE id=${id}
         RETURNING *;
       `, Object.values(fields));
-  
-      return pet;
-    } catch (error) {
-      throw error;
-    }
+
+    return pet;
+  } catch (error) {
+    throw error;
   }
-  async function getAllPets() {
-    try {
-      const { rows: pets } = await client.query(`
+}
+async function getAllPets() {
+  try {
+    const { rows: pets } = await client.query(`
         SELECT *
         FROM pets;
       `);
-  
-      return pets;
-    } catch (error) {
-      throw error;
-    }
+
+    return pets;
+  } catch (error) {
+    throw error;
   }
-  async function getPetById(id) {
-    try {
-      const { rows: [ pet ] } = await client.query(`
+}
+async function getPetById(id) {
+  try {
+    const { rows: [pet] } = await client.query(`
         SELECT id, pet_name, pet_type, breed, age, weight
         FROM pets
         WHERE id=$1
