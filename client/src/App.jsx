@@ -15,7 +15,7 @@ import Sitters from "./Components/Sitters";
 import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
-import PetInfo from "./Components/PetInfo";
+import PetInfo from "./Components/PetInfo/PetInfo";
 
 import './App.css'
 
