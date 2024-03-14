@@ -1,4 +1,6 @@
 const { Client } = require("pg"); // imports the pg module to connect with postgres db
+const bcrypt = require('bcrypt');
+const SALT_COUNT = 10;
 
 const client = new Client({
   connectionString:
@@ -9,25 +11,23 @@ const client = new Client({
       : undefined,
 });
 
-async function createOwner({ email, password, fname, lname, phone}) {
-  try {
-    const {
-      rows: [owner],
-    } = await client.query(
-      `
-        INSERT INTO owners(email, password, fname, lname, phone) 
-        VALUES($1, $2, $3, $4, $5) 
+  async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    try {
+      const { rows: [owner] } = await client.query(`
+        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-      [email, password, fname, lname, phone]
-    );
-
-    return owner;
-  } catch (error) {
-    throw error;
+        [email, hashedPassword, fname, lname, location, phone, image, gender]
+      );
+  
+      return owner;
+    } catch (error) {
+      throw error;
+    }
   }
-}
 
 async function updateOwner(ownerId, { email, password, fname, lname, location, phone, image, gender }) {
 
@@ -37,36 +37,44 @@ async function updateOwner(ownerId, { email, password, fname, lname, location, p
         SET email=$1, password=$2, fname=$3, lname=$4, location=$5, phone=$6, image=$7, gender=$8
         WHERE id=$9
         RETURNING *;
-      `, [email, password, fname, lname, location, phone, image, gender, ownerId]);
-
-    if (!updatedOwner) {
-      throw {
-        name: "OwnerNotFoundError",
-        message: "Owner with the provided ID was not found."
-      };
+      `, Object.values(fields));
+  
+      return owner;
+    } catch (error) {
+      throw error;
     }
-
-    return updatedOwner;
-  } catch (error) {
-    throw error;
   }
-}
 
-async function getAllOwners() {
-  try {
-    const { rows: owners } = await client.query(`
+  async function getAllOwners() {
+    try {
+      const { rows: owners } = await client.query(`
         SELECT *
         FROM owners;
       `);
-
-    return owners;
-  } catch (error) {
-    throw error;
+  
+      return owners;
+    } catch (error) {
+      throw error;
+    }
   }
-}
-async function getOwnerById(id) {
-  try {
+
+  async function getOwner(email) {
+    console.log(email);
+    try {
     const { rows: [owner] } = await client.query(`
+        SELECT *
+        FROM owners
+        WHERE email=$1
+      `, [email]);
+      return owner;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function getOwnerById(id) {
+    try {
+      const { rows: [ owner ] } = await client.query(`
         SELECT id, email, fname, lname, location, active
         FROM owners
         WHERE id=$1
@@ -84,6 +92,26 @@ async function getOwnerById(id) {
       throw error;
     }
   }
+
+  async function getOwnerByEmail(email) {
+    try {
+        const { rows } = await client.query(`
+            SELECT *
+            FROM owners
+            WHERE email=$1
+        `, [email]);
+
+        if (!rows || !rows.length) return null; 
+
+        const [owner] = rows;
+        delete owner.password;
+
+        return owner;
+    } catch (error) {
+      console.error(error);
+        throw error;
+    }
+}
   
   /**
    * PET Methods
@@ -163,6 +191,27 @@ async function getPetById(id) {
       throw error;
     }
   }
+
+  async function getOwnerByEmail(email) {
+    try {
+        const { rows: [owner] } = await client.query(`
+            SELECT id, email, fname, lname, location, active
+            FROM owners
+            WHERE email=$1
+        `, [email]);
+
+        if (!owner) {
+            throw {
+                name: "OwnerNotFoundError",
+                message: "An owner with that email does not exist"
+            };
+        }
+
+        return owner;
+    } catch (error) {
+        throw error;
+    }
+}
   
   // ** PETSITTER METHODS **
   async function createPetsitter({ email, password, fname, lname, location, phone, image, gender }) {
@@ -253,7 +302,9 @@ async function getPetById(id) {
     createOwner,
     updateOwner,
     getAllOwners,
+    getOwner,
     getOwnerById,
+    getOwnerByEmail,
     createPet,
     updatePet,
     getAllPets,
