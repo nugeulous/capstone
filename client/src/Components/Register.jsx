@@ -32,10 +32,10 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 const Register = ({ setToken }) => {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [fname, setFirstName] = useState("");
+  const [lname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phonenumber, setPhoneNumber] = useState("");
+  const [phone, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [validationError, setValidationError] = useState("");
@@ -58,7 +58,7 @@ const Register = ({ setToken }) => {
       return;
     }
     try {
-      await register(firstname,lastname,email,phonenumber,password);
+      const result = await register(fname,lname,email,phone,password);
       console.log(result);
       setToken(result.token, result.user);
     } catch (error) {
@@ -101,7 +101,7 @@ const Register = ({ setToken }) => {
                   id="firstname"
                   label="First Name"
                   autoFocus
-                  value={firstname}
+                  value={fname}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
@@ -113,7 +113,7 @@ const Register = ({ setToken }) => {
                   label="Last Name"
                   name="lastname"
                   autoComplete="family-name"
-                  value={lastname}
+                  value={lname}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </Grid>
@@ -137,7 +137,7 @@ const Register = ({ setToken }) => {
                   label="Phone Number"
                   name="phonenumber"
                   autoComplete="phone-number"
-                  value={phonenumber}
+                  value={phone}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </Grid>

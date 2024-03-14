@@ -9,18 +9,18 @@ const client = new Client({
       : undefined,
 });
 
-async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
+async function createOwner({ email, password, fname, lname, phone}) {
   try {
     const {
       rows: [owner],
     } = await client.query(
       `
-        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+        INSERT INTO owners(email, password, fname, lname, phone) 
+        VALUES($1, $2, $3, $4, $5) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-      [email, password, fname, lname, location, phone, image, gender]
+      [email, password, fname, lname, phone]
     );
 
     return owner;

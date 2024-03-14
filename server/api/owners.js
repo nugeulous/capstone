@@ -17,13 +17,13 @@ ownersRouter.get('/', async (req, res, next) => {
     } 
   });
 
-ownersRouter.post('/', async (req, res, next) => {
+ownersRouter.post('/register', async (req, res, next) => {
     try {
-      const { email, password, fname, lname, location, phone, image, gender } = req.body;
+      const { email, password, fname, lname, phone } = req.body;
 
-      const owner = await createOwner({ email, password, fname, lname, location, phone, image, gender });
+      const owner = await createOwner({ email, password, fname, lname, phone});
   
-      res.send({ owner });
+      res.send(owner);
     } catch ({ name, message }) {
       next({ name, message });
     }

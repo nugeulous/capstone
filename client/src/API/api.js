@@ -1,28 +1,30 @@
 const API_URL =
   import.meta.env.VITE_API_URL ||
-  "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/";
+  "http://localhost:3000/api";
 export const register = async (
-  firstname,
-  lastname,
+  fname,
+  lname,
   email,
-  phonenumber,
+  phone,
   password
 ) => {
   try {
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${API_URL}/owners/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstname,
-        lastname,
+        fname,
+        lname,
         email,
-        phonenumber,
+        phone,
         password,
       }),
     });
+    console.log(response);
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error("error from register");
@@ -32,7 +34,7 @@ export const register = async (
 
 export const login = async (email, password) => {
   try {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(`${API_URL}/owners/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,3 +51,4 @@ export const login = async (email, password) => {
     throw error;
   }
 };
+
