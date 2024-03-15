@@ -19,6 +19,7 @@ async function dropTables() {
       DROP TABLE IF EXISTS pets; 
       DROP TABLE IF EXISTS owners;
       DROP TABLE IF EXISTS petsitters;
+      DROP TABLE IF EXISTS availability
 
       `);
   
@@ -71,6 +72,35 @@ async function dropTables() {
           gender varchar(255) NOT NULL,
           snakes_petsitter boolean DEFAULT false
         );
+
+        CREATE TABLE availability (
+          id SERIAL PRIMARY KEY,
+          petsitter_id INTEGER REFERENCES petsitters(id),
+          monday_1 boolean DEFAULT false,
+          monday_2 boolean DEFAULT false,
+          monday_3 boolean DEFAULT false,
+          monday_4 boolean DEFAULT false,
+          monday_5 boolean DEFAULT false,
+          monday_6 boolean DEFAULT false,
+          monday_7 boolean DEFAULT false,
+          monday_8 boolean DEFAULT false,
+          monday_9 boolean DEFAULT false,
+          monday_10 boolean DEFAULT false,
+          monday_11 boolean DEFAULT false,
+          monday_12 boolean DEFAULT false,
+          monday_13 boolean DEFAULT false,
+          monday_14 boolean DEFAULT false,
+          monday_15 boolean DEFAULT false,
+          monday_16 boolean DEFAULT false,
+          monday_17 boolean DEFAULT false,
+          monday_18 boolean DEFAULT false,
+          monday_19 boolean DEFAULT false,
+          monday_20 boolean DEFAULT false,
+          monday_21 boolean DEFAULT false,
+          monday_22 boolean DEFAULT false,
+          monday_23 boolean DEFAULT false,
+          monday_24 boolean DEFAULT false
+          );
 
       `);
   
@@ -208,6 +238,22 @@ async function dropTables() {
       console.log("Finished creating petsitters!");
     } catch (error) {
       console.error("Error creating petsitters!");
+      throw error;
+    }
+  }
+
+  async function createInitialAvailability() {
+    try {
+      console.log("Starting to create availability...");
+  
+      await createAvailability({
+        petsitter_id: '1',
+        monday_1: true,
+      });
+
+      console.log("Finished creating availability!");
+    } catch (error) {
+      console.error("Error creating availability!");
       throw error;
     }
   }
