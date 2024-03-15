@@ -40,8 +40,11 @@ async function dropTables() {
           password varchar(255) NOT NULL,
           fname varchar(255) NOT NULL,
           lname varchar(255) NOT NULL,
+          location varchar(255),
           active boolean DEFAULT true,
-          phone varchar(255) UNIQUE NOT NULL
+          phone varchar(255) UNIQUE NOT NULL,
+          image varchar(255),
+          gender varchar(255)
         );
   
         CREATE TABLE pets (
