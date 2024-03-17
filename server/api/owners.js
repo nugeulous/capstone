@@ -5,7 +5,8 @@ const ownersRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const { requireUser } = require('./utils');
-// const { JWT_SECRET } = process.env;
+const SALT_ROUNDS = 10;
+const { JWT_SECRET } = process.env;
 
 const { 
   createOwner,
@@ -26,10 +27,8 @@ ownersRouter.get('/', async (req, res, next) => {
 
 ownersRouter.post('/register', async (req, res, next) => {
     try {
-      const salt = await bcrypt.genSalt()
-      const hashedPassword = await bcrypt.hash(req.body.password, salt)
       const { email, password, fname, lname, location, phone, image, gender } = req.body;
-      // Extract necessary properties from the request body
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
 
       const owner = await createOwner({ email, password: hashedPassword, fname, lname, location, phone, image, gender });  
       res.send({ owner });
@@ -39,28 +38,35 @@ ownersRouter.post('/register', async (req, res, next) => {
   });
 
   ownersRouter.post('/login', async (req, res, next) => {
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     // request must have both
-  if (!email) {
-    next({
-      name: 'MissingCredentialsError',
-      message: 'Please supply both a username and password'
-    });
-  }
-
+    if (!email && !password) {
+      next({
+        name: 'MissingCredentialsError',
+        message: 'Please supply both a username and password'
+      });
+    }
+    
     try {
-        const owner = await getOwner(email);
-        if (!owner) {
-          next({
-            name: 'IncorrectCredentialsError',
-            message: 'Username or password is incorrect',
-          })
-        } else {
-          console.log(owner)
-          const token = jwt.sign({id: owner.id, email}, process.env.JWT_SECRET, { expiresIn: '1w', });
+      const owner = await getOwner(email);
+      if (!owner) {
+        next({
+          name: 'IncorrectCredentialsError',
+          message: 'Username or password is incorrect',
+        })
+      } else {
+          const passwordMatch = await bcrypt.compare(password, owner.password);
+          if (!passwordMatch) {
+            next({
+              name: "Incorrect Username Password Error",
+              message: "Incorrect Username or Password"
+            })
+            return 
+          }
+          const token = jwt.sign({id: owner.id, email}, JWT_SECRET, { expiresIn: '1w', });
           console.log(token)
-          res.send({ message: "you're logged in!", token,  });
+          res.send({ message: "you're logged in!", token });
         } 
       
     } catch (error) {

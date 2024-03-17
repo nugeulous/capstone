@@ -1,5 +1,5 @@
 // pulls from db/index.js import of connecting to postgres db
-const { client } = require('./index')
+const { client } = require('./client.js')
 // pulls from db/index.js options for configuration settings (host, port, username, pw)
 const {options} = require("pg/lib/defaults");
 
