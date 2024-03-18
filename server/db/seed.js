@@ -254,6 +254,12 @@ async function dropTables() {
         monday_1: true,
       });
 
+      await createAvailability({
+        petsitter_id: '3',
+        monday_4: true,
+        monday_5: true,
+      });
+
       console.log("Finished creating availability!");
     } catch (error) {
       console.error("Error creating availability!");
@@ -269,6 +275,7 @@ async function dropTables() {
       await createInitialOwners();
       await createInitialPets();
       await createInitialPetsitters();
+      await createInitialAvailability();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
