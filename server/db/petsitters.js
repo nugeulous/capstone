@@ -1,11 +1,6 @@
-module.exports = {
-  ...require("./owners.js"),
-  ...require("./pets.js"),
-  ...require("./petsitters.js")
-}
-  
-  // ** PETSITTER METHODS **
-  async function createPetsitter({ email, password, fname, lname, location, phone, image, gender }) {
+const { client } = require("./client.js");
+
+async function createPetsitter({ email, password, fname, lname, location, phone, image, gender }) {
     try {
       const {
         rows: [petsitter],
@@ -88,41 +83,9 @@ module.exports = {
       }
   }
 
-  // AVAILABILITY METHODS - MOVE TO NEW FILE
-  async function createAvailability({ pet_name, pet_type, breed, age, weight, pet_owner_id }) {
-    try {
-      const {
-        rows: [pet],
-      } = await client.query(
-          `
-        INSERT INTO pets(pet_name, pet_type, breed, age, weight, pet_owner_id) 
-        VALUES($1, $2, $3, $4, $5, $6) 
-        RETURNING *;
-      `,
-          [pet_name, pet_type, breed, age, weight, pet_owner_id]
-      );
-  
-      return pet;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   module.exports = {
-    client,
-    createOwner,
-    updateOwner,
-    getAllOwners,
-    getOwner,
-    getOwnerById,
-    getOwnerByEmail,
-    createPet,
-    updatePet,
-    getAllPets,
-    getPetById,
-    createPetsitter,
-    updatePetsitter,
     getAllPetsitters,
-    getPetsitterById
-
+    getPetsitterById,
+    updatePetsitter,
+    createPetsitter
   }
