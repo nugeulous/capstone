@@ -332,6 +332,7 @@ async function getPetById(id) {
     createPetsitter,
     updatePetsitter,
     getAllPetsitters,
-    getPetsitterById
+    getPetsitterById,
+    createAvailability
 
   }

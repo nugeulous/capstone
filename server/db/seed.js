@@ -6,7 +6,8 @@ const {options} = require("pg/lib/defaults");
 const {
     createOwner,
     createPet,
-    createPetsitter
+    createPetsitter,
+    createAvailability
   } = require('./index');
 
 
@@ -102,7 +103,11 @@ async function dropTables() {
           monday_21 boolean DEFAULT false,
           monday_22 boolean DEFAULT false,
           monday_23 boolean DEFAULT false,
-          monday_24 boolean DEFAULT false
+          monday_24 boolean DEFAULT false,
+          CONSTRAINT fk_petsitters
+            FOREIGN KEY(petsitter_id)
+            REFERENCES petsitters(id)
+            ON DELETE CASCADE
           );
 
       `);
@@ -269,6 +274,7 @@ async function dropTables() {
       await createInitialOwners();
       await createInitialPets();
       await createInitialPetsitters();
+      await createInitialAvailability();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
