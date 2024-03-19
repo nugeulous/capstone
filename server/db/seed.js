@@ -42,7 +42,7 @@ async function dropTables() {
           password varchar(255) NOT NULL,
           fname varchar(255) NOT NULL,
           lname varchar(255) NOT NULL,
-          location varchar(255),
+          location varchar(255) NOT NULL,
           active boolean DEFAULT true,
           phone varchar(255) UNIQUE NOT NULL,
           image varchar(255),
@@ -51,11 +51,15 @@ async function dropTables() {
   
         CREATE TABLE pets (
           id SERIAL PRIMARY KEY,
-          pet_name varchar(255) NOT NULL,
-          pet_type varchar(255) NOT NULL,
+          name varchar(255) NOT NULL,
           breed varchar(255) NOT NULL,
           age varchar(255) NOT NULL,
           weight varchar(255) NOT NULL,
+          image varchar(255),
+          gender varchar(255) NOT NULL,
+          favoriteToy varchar(255),
+          favoriteTreat varchar(255),
+          personality varchar(255) NOT NULL,
           pet_owner_id INTEGER REFERENCES owners(id),
           CONSTRAINT fk_owners
             FOREIGN KEY(pet_owner_id)
@@ -130,7 +134,7 @@ async function dropTables() {
         lname: "Bertrude",
         location: "Sidney, Australia",
         phone: "123-456-7891",
-        image: "somedayIWillBeARealImage.com",
+        image: "01110101100001110111101010101010",
         gender: "all of them"
       });
       await createOwner({
@@ -140,19 +144,10 @@ async function dropTables() {
         lname: "Sannington",
         location: "Perth, Australia",
         phone: "123-456-7111",
-        image: "somedayIWillBeARealImage2.com",
+        image: "010101010101010101010111010110",
         gender: "all of them"
       });
-      await createOwner({
-        email: "glamgal@gmail.com",
-        password: "soglam123",
-        fname: "Glammoth",
-        lname: "Galilei",
-        location: "Melbourne, Australia",
-        phone: "123-456-7222",
-        image: "somedayIWillBeARealImage3.com",
-        gender: "yeah right i aint tellin u"
-      });
+
   
       console.log("Finished creating users!");
     } catch (error) {
@@ -166,48 +161,42 @@ async function dropTables() {
       console.log("Starting to create pets...");
   
       await createPet({
-        pet_name:"Lil Snickums", 
-        pet_type:"dog", 
-        breed:"Schnauzer", 
-        age:"3", 
-        weight:"400", 
-        pet_owner_id:"1"
+        name: "Lil Snickums", 
+        breed: "Schnauzer", 
+        age: "3", 
+        weight: "400",
+        image: "0000011010010101010101010101",
+        gender: "Male",
+        favoriteToy: "Bone",
+        favoriteTreat: "bacon",
+        personality: "Freindly and a little shy",
+        pet_owner_id: "1"
       });
 
       await createPet({
-        pet_name:"Wisely", 
-        pet_type:"dog", 
-        breed:"Chihuahua", 
-        age:"400", 
-        weight:"3", 
-        pet_owner_id:"1"
+        name: "Wisely", 
+        breed: "Chihuahua", 
+        age: "3", 
+        weight: "12",
+        image: "00000110100101010100101010101010101",
+        gender: "male",
+        favoriteToy: "dead mouse",
+        favoriteTreat: "Peanut Butter",
+        personality: "Loco",
+        pet_owner_id: "1"
       });
 
       await createPet({
-        pet_name:"The Colonel", 
-        pet_type:"dog", 
-        breed:"Black Labrador", 
-        age:"11", 
-        weight:"50", 
-        pet_owner_id:"3"
-      });
-
-      await createPet({
-        pet_name:"Chester", 
-        pet_type:"dog", 
-        breed:"Golden Retriever", 
-        age:"1", 
-        weight:"69", 
+        name: "Chester", 
+        breed: "Golden Retriever", 
+        age: "7", 
+        weight: "36",
+        image: "00000110100101010100101010101010101",
+        gender: "male",
+        favoriteToy: "Tennis Ball",
+        favoriteTreat: "Anything",
+        personality: "Lovable and Loyal",
         pet_owner_id:"2"
-      });
-
-      await createPet({
-        pet_name:"Sergeant Barko", 
-        pet_type:"dog", 
-        breed:"Poodle", 
-        age:"13", 
-        weight:"9001", 
-        pet_owner_id:"3"
       });
   
       console.log("Finished creating pets!");

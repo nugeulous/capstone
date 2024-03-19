@@ -12,8 +12,8 @@ const {
   createOwner,
   getAllOwners,
   getOwnerById,
-  getOwnerByEmail,
-  getOwner
+  getOwner,
+  updateOwner
 } = require('../db/index');
 
 ownersRouter.get('/', async (req, res, next) => {
