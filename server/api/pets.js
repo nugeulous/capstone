@@ -20,9 +20,9 @@ petsRouter.get('/', async (req, res, next) => {
 //Create Pet
 petsRouter.post('/', async (req, res, next) => {
     try {
-      const { pet_name, pet_type, breed, age, weight } = req.body;
+      const { name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality } = req.body;
 
-      const pet = await createPet({ pet_name, pet_type, breed, age, weight });
+      const pet = await createPet({ name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality });
   
       res.send({ pet });
     } catch ({ name, message }) {
@@ -34,9 +34,9 @@ petsRouter.post('/', async (req, res, next) => {
   petsRouter.put('/:id', async (req, res, next) => {
     try {
         const petId = req.params.id;
-        const { pet_name, pet_type, breed, age, weight } = req.body;
+        const { name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality } = req.body;
 
-        const updatedPet = await updatePet(petId, { pet_name, pet_type, breed, age, weight });
+        const updatedPet = await updatePet(petId, { name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality });
 
         res.send({ pet: updatedPet });
     } catch (error) {

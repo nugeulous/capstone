@@ -1,16 +1,16 @@
 const { client } = require("./client.js");
 
-async function createPet({ pet_name, pet_type, breed, age, weight, pet_owner_id }) {
+async function createPet({ name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality, pet_owner_id }) {
     try {
       const {
         rows: [pet],
       } = await client.query(
           `
-        INSERT INTO pets(pet_name, pet_type, breed, age, weight, pet_owner_id) 
-        VALUES($1, $2, $3, $4, $5, $6) 
+        INSERT INTO pets(name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality, pet_owner_id) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
         RETURNING *;
       `,
-          [pet_name, pet_type, breed, age, weight, pet_owner_id]
+          [name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality, pet_owner_id]
       );
   
       return pet;
@@ -57,7 +57,7 @@ async function getAllPets() {
 async function getPetById(id) {
   try {
     const { rows: [pet] } = await client.query(`
-        SELECT id, pet_name, pet_type, breed, age, weight
+        SELECT *
         FROM pets
         WHERE id=$1
       `, [id]);
