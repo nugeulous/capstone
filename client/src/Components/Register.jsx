@@ -54,6 +54,7 @@ const Register = ({ setToken }) => {
     setFirstName("");
     setLastName("");
     setPassword("");
+    setPhoneNumber("");
     if (!validateForm()) {
       return;
     }

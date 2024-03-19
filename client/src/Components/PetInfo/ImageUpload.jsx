@@ -2,19 +2,19 @@ import { useState } from "react";
 
 const ImageUpload = () => {
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [image, setImage] = useState(null);
 
   return (
     <div>
-      {selectedImage && (
+      {image && (
         <div>
           <img
             alt="not found"
             width={"250px"}
-            src={URL.createObjectURL(selectedImage)}
+            src={URL.createObjectURL(image)}
           />
           <br />
-          <button onClick={() => setSelectedImage(null)}>Remove</button>
+          <button onClick={() => setImage(null)}>Remove</button>
         </div>
       )}
 
@@ -26,7 +26,7 @@ const ImageUpload = () => {
         name="myImage"
         onChange={(event) => {
           console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
+          setImage(event.target.files[0]);
         }}
       />
     </div>

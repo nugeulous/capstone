@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div>
-      <NavBar setToken={setToken}/>
+      <NavBar setToken={setToken} token={token}/>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route
@@ -49,7 +49,7 @@ function App() {
           }
         />
         <Route path="/register" element={<Register setToken={setToken} />} />
-        <Route path="/account" element={<Account token={token} />} />
+        <Route path="/account" element={<Account token={token} setToken={setToken} />} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />

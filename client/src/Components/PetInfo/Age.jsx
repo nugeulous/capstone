@@ -17,9 +17,9 @@ const marks = [
 ];
 
 export default function Age() {
-    const [val, setVal] = useState(MIN);
+    const [age, setAge] = useState(MIN);
     const handleChange2 = (_, newValue) => {
-        setVal(newValue);
+        setAge(newValue);
       };
 
     return (
@@ -27,7 +27,7 @@ export default function Age() {
     <Slider
       marks={marks}
       step={1}
-      value={val}
+      value={age}
       valueLabelDisplay="on"
       min={MIN}
       max={MAX}
@@ -36,14 +36,14 @@ export default function Age() {
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Typography
         variant="body2"
-        onClick={() => setVal(MIN)}
+        onClick={() => setAge(MIN)}
         sx={{ cursor: "pointer" }}
       >
         {MIN}
       </Typography>
       <Typography
         variant="body2"
-        onClick={() => setVal(MAX)}
+        onClick={() => setAge(MAX)}
         sx={{ cursor: "pointer" }}
       >
         {MAX}
