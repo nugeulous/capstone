@@ -6,7 +6,8 @@ const {options} = require("pg/lib/defaults");
 const {
     createOwner,
     createPet,
-    createPetsitter
+    createPetsitter,
+    createAvailability
   } = require('./index');
 
 
@@ -18,8 +19,8 @@ async function dropTables() {
       await client.query(`
       DROP TABLE IF EXISTS pets; 
       DROP TABLE IF EXISTS owners;
+      DROP TABLE IF EXISTS availability;
       DROP TABLE IF EXISTS petsitters;
-      DROP TABLE IF EXISTS availability
 
       `);
   
@@ -102,7 +103,11 @@ async function dropTables() {
           monday_21 boolean DEFAULT false,
           monday_22 boolean DEFAULT false,
           monday_23 boolean DEFAULT false,
-          monday_24 boolean DEFAULT false
+          monday_24 boolean DEFAULT false,
+            CONSTRAINT fk_petsitters
+            FOREIGN KEY(petsitter_id)
+            REFERENCES petsitters(id)
+            ON DELETE CASCADE
           );
 
       `);
@@ -250,12 +255,12 @@ async function dropTables() {
       console.log("Starting to create availability...");
   
       await createAvailability({
-        petsitter_id: '1',
+        petsitter_id: "1",
         monday_1: true,
       });
 
       await createAvailability({
-        petsitter_id: '3',
+        petsitter_id: "2",
         monday_4: true,
         monday_5: true,
       });
