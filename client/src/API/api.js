@@ -52,3 +52,59 @@ export const login = async (email, password) => {
   }
 };
 
+export const addPet = async (
+  image,
+  name,
+  age,
+  gender,
+  breed,
+  weight,
+  favoriteToy,
+  favoriteTreat,
+  personality
+) => {
+  try {
+    const response = await fetch(`${API_URL}/owners/addPet `, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        image,
+        name,
+        age,
+        gender,
+        breed,
+        weight,
+        favoriteToy,
+        favoriteTreat,
+        personality
+      }),
+    });
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("error from register");
+    throw error;
+  }
+};
+
+export const fetchAccount = async (token) => {
+  try {
+        const response = await fetch(`${API_URL}/owners/:id`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) throw new Error("Please log in or create an account!");
+        const user = await response.json();
+        return user; // Return the entire response data, which includes user and books properties
+  } catch (error) {
+    console.error("Error fetching account:", error);
+    throw error;
+  }
+}

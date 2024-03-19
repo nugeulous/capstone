@@ -36,14 +36,15 @@ const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   async function handleSubmit(event) {
     event.preventDefault();
     setEmail("");
     setPassword("");
     try {
-      await login(email, password);
+      const result = await login(email, password);
       console.log("Token receive in Login component:", result.token);
+      console.log(result);
       setToken(result.token);
     } catch (error) {
       setError("incorrect email or password");

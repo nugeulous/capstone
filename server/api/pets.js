@@ -18,7 +18,7 @@ petsRouter.get('/', async (req, res, next) => {
   });
 
 //Create Pet
-petsRouter.post('/', async (req, res, next) => {
+petsRouter.post('/addPet', async (req, res, next) => {
     try {
       const { pet_name, pet_type, breed, age, weight } = req.body;
 
