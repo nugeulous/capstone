@@ -32,8 +32,7 @@
             $25) 
         RETURNING *;
       `,
-        [petsitter_id, monday_1, monday_2, monday_3, monday_4, monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24
-        ]
+        [petsitter_id, monday_1, monday_2, monday_3, monday_4, monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24]
       );
       return availability;
     } catch (error) {
@@ -41,7 +40,7 @@
     }
   }
 
- async function getAllAvailability({ petsitter_id, monday_1, monday_2, monday_3, monday_4,monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24 }) {
+ async function getAllAvailability() {
     try {
       const { rows: availabilities } = await client.query(`
           SELECT *
