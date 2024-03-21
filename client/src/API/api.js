@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-export const register = async (fname, lname, email, phone, password) => {
+export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
       method: "POST",
@@ -10,6 +10,7 @@ export const register = async (fname, lname, email, phone, password) => {
         fname,
         lname,
         email,
+        address,
         phone,
         password,
       }),

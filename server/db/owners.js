@@ -1,14 +1,14 @@
 const { client } = require("./client.js");
 
-async function createOwner({ email, password, fname, lname, phone, image, gender }) {
+async function createOwner({ email, password, fname, lname, address, phone, image, gender }) {
     try {
       const { rows: [owner] } = await client.query(`
-        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
+        INSERT INTO owners(email, password, fname, lname, address, phone, image, gender) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, phone, image, gender]
+        [email, password, fname, lname, address, phone, image, gender]
       );
       delete owner.password;
       return owner;
@@ -17,12 +17,12 @@ async function createOwner({ email, password, fname, lname, phone, image, gender
     }
   }
 
-async function updateOwner(ownerId, { email, password, fname, lname, location, phone, image, gender }) {
+async function updateOwner(ownerId, { email, password, fname, lname, address, phone, image, gender }) {
 
   try {
     const { rows: [updatedOwner] } = await client.query(`
         UPDATE owners
-        SET email=$1, password=$2, fname=$3, lname=$4, location=$5, phone=$6, image=$7, gender=$8
+        SET email=$1, password=$2, fname=$3, lname=$4, address=$5, phone=$6, image=$7, gender=$8
         WHERE id=$9
         RETURNING *;
       `, Object.values(fields));
@@ -63,7 +63,7 @@ async function getOwner(email) {
 async function getOwnerById(id) {
     try {
       const { rows: [ owner ] } = await client.query(`
-        SELECT id, email, fname, lname, phone, location, active
+        SELECT id, email, fname, lname, phone, address, active
         FROM owners
         WHERE id=$1
       `, [id]);
@@ -105,7 +105,7 @@ async function getOwnerByEmail(email) {
 async function getOwnerByEmail(email) {
     try {
         const { rows: [owner] } = await client.query(`
-            SELECT id, email, fname, lname, location, active
+            SELECT id, email, fname, lname, address, active
             FROM owners
             WHERE email=$1
         `, [email]);

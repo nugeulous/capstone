@@ -1,26 +1,30 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Sheet from "@mui/joy/Sheet";
 import ImageUpload from "./ImageUpload";
 import Age from "./Age";
 import Weight from "./Weight";
+import './GenderToggle.css'
 
 export default function PetInfo({ setToken, age, setAge, weight, setWeight, image, setImage }) {
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
+  const [selectedGender, setSelectedGender] = useState(null);
   const [breed, setBreed] = useState("");
   const [favoriteToy, setFavoriteToy] = useState("");
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
+
+  const handleGenderChange = (gender) => {
+    setSelectedGender(gender === selectedGender ? null : gender);
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
     setImage(null);
     setName("");
     setAge(0);
-    setGender("");
+    setSelectedGender(null);
     setBreed("");
     setWeight("");
     setFavoriteToy("");
@@ -65,25 +69,22 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
             variant="outlined"
           />
           <h2>Gender:</h2>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              "& > *": {
-                m: 1,
-              },
-            }}
-          >
-            <ButtonGroup variant="outlined" aria-label="Basic button group">
-              <Button value={gender} onClick={() => setGender(e.value.target)}>
-                ♂ Male
-              </Button>
-              <Button value={gender} onClick={() => setGender(e.value.target)}>
-                ♀ Female
-              </Button>
-            </ButtonGroup>
-          </Box>
+          <div className="gender-toggle">
+      <button
+        id="male"
+        className={`toggle-button ${selectedGender === 'male' ? 'active' : ''}`}
+        onClick={() => handleGenderChange('male')}
+      >
+        Male
+      </button>
+      <button
+        id="female"
+        className={`toggle-button ${selectedGender === 'female' ? 'active' : ''}`}
+        onClick={() => handleGenderChange('female')}
+      >
+        Female
+      </button>
+    </div>
           <h2>Age:</h2>
           <Age />
           <h2>Breed:</h2>

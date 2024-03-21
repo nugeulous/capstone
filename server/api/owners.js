@@ -25,7 +25,7 @@ ownersRouter.get("/", async (req, res, next) => {
 
 ownersRouter.post("/register", async (req, res, next) => {
   try {
-    const { email, password, fname, lname, location, phone, image, gender } =
+    const { email, password, fname, lname, address, phone, image, gender } =
       req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
@@ -34,7 +34,7 @@ ownersRouter.post("/register", async (req, res, next) => {
       password: hashedPassword,
       fname,
       lname,
-      location,
+      address,
       phone,
       image,
       gender,
@@ -87,7 +87,7 @@ ownersRouter.post("/login", async (req, res, next) => {
 ownersRouter.put("/:id", async (req, res, next) => {
   try {
     const ownerId = req.params.id;
-    const { email, password, fname, lname, location, phone, image, gender } =
+    const { email, password, fname, lname, address, phone, image, gender } =
       req.body;
 
     const updatedOwner = await updateOwner(ownerId, {
@@ -95,7 +95,7 @@ ownersRouter.put("/:id", async (req, res, next) => {
       password,
       fname,
       lname,
-      location,
+      address,
       phone,
       image,
       gender,
