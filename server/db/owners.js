@@ -3,8 +3,8 @@ const { client } = require("./client.js");
 async function createOwner({ email, password, fname, lname, phone, image, gender }) {
     try {
       const { rows: [owner] } = await client.query(`
-        INSERT INTO owners(email, password, fname, lname, phone, image, gender) 
-        VALUES($1, $2, $3, $4, $5, $6, $7) 
+        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
