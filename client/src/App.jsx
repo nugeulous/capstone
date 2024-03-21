@@ -12,6 +12,7 @@ import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
 import Walkers from "./Components/Walkers";
 import Sitters from "./Components/Sitters";
+import Services from "./Components/DefaultLayout/Services";
 import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
@@ -52,6 +53,7 @@ function App() {
         <Route path="/account" element={<Account token={token} />} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
+        <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
         <Route path="/Walkers" element={<Walkers token={token} />} />
         <Route path="/Sitters" element={<Sitters token={token} />} />
