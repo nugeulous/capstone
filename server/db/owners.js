@@ -1,14 +1,14 @@
 const { client } = require("./client.js");
 
-async function createOwner({ email, password, fname, lname, location, phone, image, gender }) {
+async function createOwner({ email, password, fname, lname, phone, image, gender }) {
     try {
       const { rows: [owner] } = await client.query(`
-        INSERT INTO owners(email, password, fname, lname, location, phone, image, gender) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+        INSERT INTO owners(email, password, fname, lname, phone, image, gender) 
+        VALUES($1, $2, $3, $4, $5, $6, $7) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, location, phone, image, gender]
+        [email, password, fname, lname, phone, image, gender]
       );
       delete owner.password;
       return owner;
@@ -63,7 +63,7 @@ async function getOwner(email) {
 async function getOwnerById(id) {
     try {
       const { rows: [ owner ] } = await client.query(`
-        SELECT id, email, fname, lname, location, active
+        SELECT id, email, fname, lname, phone, location, active
         FROM owners
         WHERE id=$1
       `, [id]);

@@ -1,106 +1,123 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const express = require('express');
+const express = require("express");
 const ownersRouter = express.Router();
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
-const { requireUser } = require('./utils');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const { requireOwner } = require("./utils");
 const SALT_ROUNDS = 10;
 const { JWT_SECRET } = process.env;
 
-const { 
+const {
   createOwner,
   getAllOwners,
   getOwnerById,
   getOwner,
-  updateOwner
-} = require('../db/index');
+  updateOwner,
+} = require("../db/index");
 
-ownersRouter.get('/', async (req, res, next) => {
-    try {
-      const owners = await getAllOwners();
-      res.send(owners);
-    } catch (error) {
-      
-    } 
-  });
+ownersRouter.get("/", async (req, res, next) => {
+  try {
+    const owners = await getAllOwners();
+    res.send(owners);
+  } catch (error) {}
+});
 
-ownersRouter.post('/register', async (req, res, next) => {
-    try {
-      const { email, password, fname, lname, location, phone, image, gender } = req.body;
-      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
+ownersRouter.post("/register", async (req, res, next) => {
+  try {
+    const { email, password, fname, lname, location, phone, image, gender } =
+      req.body;
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-      const owner = await createOwner({ email, password: hashedPassword, fname, lname, location, phone, image, gender });  
-      res.send({ owner });
-    } catch ({ name, message }) {
-      next({ name, message });
-    }
-  });
+    const owner = await createOwner({
+      email,
+      password: hashedPassword,
+      fname,
+      lname,
+      location,
+      phone,
+      image,
+      gender,
+    });
+    res.send({ owner });
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
-  ownersRouter.post('/login', async (req, res, next) => {
-    const { email, password } = req.body;
+ownersRouter.post("/login", async (req, res, next) => {
+  const { email, password } = req.body;
 
-    // request must have both
-    if (!email && !password) {
+  // request must have both
+  if (!email && !password) {
+    next({
+      name: "MissingCredentialsError",
+      message: "Please supply both a username and password",
+    });
+  }
+
+  try {
+    const owner = await getOwner(email);
+    if (!owner) {
       next({
-        name: 'MissingCredentialsError',
-        message: 'Please supply both a username and password'
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect",
       });
-    }
-    
-    try {
-      const owner = await getOwner(email);
-      if (!owner) {
+    } else {
+      const passwordMatch = await bcrypt.compare(password, owner.password);
+      if (!passwordMatch) {
         next({
-          name: 'IncorrectCredentialsError',
-          message: 'Username or password is incorrect',
-        })
-      } else {
-          const passwordMatch = await bcrypt.compare(password, owner.password);
-          if (!passwordMatch) {
-            next({
-              name: "Incorrect Username Password Error",
-              message: "Incorrect Username or Password"
-            })
-            return 
-          }
-          const token = jwt.sign({id: owner.id, email}, JWT_SECRET, { expiresIn: '1w', });
-          console.log(token)
-          res.send({ message: "you're logged in!", token });
-        } 
-      
-    } catch (error) {
-        next(error);
-    }
-});
-
-  ownersRouter.get('/:id', async (req, res, next) => {
-    try {
-      const ownerId = req.params.id;
-      const owner = await getOwnerById(ownerId);
-
-      res.send({ owner });
-    } catch (error) {
-      if (error.name === "OwnerNotFoundError") {
-        res.send(404).send({ message: error.message });
-      } else {
-        next(error);
+          name: "Incorrect Username Password Error",
+          message: "Incorrect Username or Password",
+        });
+        return;
       }
+      console.log(owner.id, "this is the owner id");
+      const token = jwt.sign({ id: owner.id, email }, JWT_SECRET, {
+        expiresIn: "1w",
+      });
+      res.send({ message: "you're logged in!", token });
     }
-  });
-
-  // update owners
-  ownersRouter.put('/:id', async (req, res, next) => {
-    try {
-        const ownerId = req.params.id;
-        const { email, password, fname, lname, location, phone, image, gender } = req.body;
-
-        const updatedOwner = await updateOwner(ownerId, { email, password, fname, lname, location, phone, image, gender });
-
-        res.send({ owner: updatedOwner });
-    } catch (error) {
-        next(error); 
-    }
+  } catch (error) {
+    next(error);
+  }
 });
 
-  module.exports = ownersRouter;
+// update owners
+ownersRouter.put("/:id", async (req, res, next) => {
+  try {
+    const ownerId = req.params.id;
+    const { email, password, fname, lname, location, phone, image, gender } =
+      req.body;
+
+    const updatedOwner = await updateOwner(ownerId, {
+      email,
+      password,
+      fname,
+      lname,
+      location,
+      phone,
+      image,
+      gender,
+    });
+
+    res.send({ owner: updatedOwner });
+  } catch (error) {
+    next(error);
+  }
+});
+
+ownersRouter.get("/me", requireOwner, async (req, res, next) => {
+  try {
+    console.log(req.user, "req");
+    res.send(req.user);
+  } catch (error) {
+    if (error.name === "OwnerNotFoundError") {
+      res.send(404).send({ message: error.message });
+    } else {
+      next(error);
+    }
+  }
+});
+
+module.exports = ownersRouter;

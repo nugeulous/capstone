@@ -1,5 +1,5 @@
 function requireOwner(req, res, next) {
-    if (!req.owner) {
+    if (!req.user) {
       res.status(401);
       next({
         name: "MissingUserError",
