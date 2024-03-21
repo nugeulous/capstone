@@ -1,13 +1,5 @@
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:3000/api";
-export const register = async (
-  fname,
-  lname,
-  email,
-  phone,
-  password
-) => {
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+export const register = async (fname, lname, email, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
       method: "POST",
@@ -78,7 +70,7 @@ export const addPet = async (
         weight,
         favoriteToy,
         favoriteTreat,
-        personality
+        personality,
       }),
     });
     console.log(response);
@@ -93,18 +85,19 @@ export const addPet = async (
 
 export const fetchAccount = async (token) => {
   try {
-        const response = await fetch(`${API_URL}/owners/:id`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error("Please log in or create an account!");
-        const user = await response.json();
-        return user; // Return the entire response data, which includes user and books properties
+    const response = await fetch(`${API_URL}/owners/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Please log in or create an account!");
+    const owner = await response.json();
+    console.log(owner);
+    return owner;
   } catch (error) {
     console.error("Error fetching account:", error);
     throw error;
   }
-}
+};

@@ -37,6 +37,7 @@ const Register = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [error, setError] = useState(null);
   const [validationError, setValidationError] = useState("");
   const navigate = useNavigate();
@@ -55,11 +56,12 @@ const Register = ({ setToken }) => {
     setLastName("");
     setPassword("");
     setPhoneNumber("");
+    setAddress("");
     if (!validateForm()) {
       return;
     }
     try {
-      const result = await register(fname,lname,email,phone,password);
+      const result = await register(fname,lname,email,phone,password, address);
       console.log(result);
       setToken(result.token, result.user);
     } catch (error) {
@@ -140,6 +142,18 @@ const Register = ({ setToken }) => {
                   autoComplete="phone-number"
                   value={phone}
                   onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="address"
+                  label="Address"
+                  name="address"
+                  autoComplete="address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

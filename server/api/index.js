@@ -1,9 +1,10 @@
 // api/index.js
 const express = require('express');
 const apiRouter = express.Router();
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = process.env;
 
-
-const { getUserById } = require('../db');
+const { getOwnerById } = require('../db/owners');
 
 // set `req.user` if possible
 apiRouter.use(async (req, res, next) => {
@@ -15,12 +16,12 @@ apiRouter.use(async (req, res, next) => {
     next();
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
-
     try {
-      const { id } = jwt.verify(token, JWT_SECRET);
-
+      const parseToken = jwt.verify(token, JWT_SECRET);
+      const id = parseToken && parseToken.id;
+      console.log(parseToken, "hello id jwt");
       if (id) {
-        req.user = await getUserById(id);
+        req.user = await getOwnerById(id);
         next();
       } else {
         next({

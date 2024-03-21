@@ -13,7 +13,6 @@ export default function Account({ token }) {
     const getAccount = async () => {
       try {
         const fetchedAccount = await fetchAccount(token);
-        console.log(fetchedAccount);
         setOwner(fetchedAccount);
       } catch (error) {
         setError(error.message);
@@ -22,16 +21,16 @@ export default function Account({ token }) {
     getAccount();
   }, []);
   if (error) return <div>Error: {error}</div>;
-  // if (!owner.id) {
-  //   // User is not logged in, render a message
-  //   return <p>Please log in or create an account.</p>;
-  // }
+  if (!owner.id) {
+    // User is not logged in, render a message
+    return <p>Please log in or create an account.</p>;
+  }
   return (
     <Sheet color="neutral" variant="soft">
     <div className="account">
       <h1>Account</h1>
       <h2>Owner</h2>
-      <p>First Name: {owner.fname} </p>
+      <p>First Name: {owner.fname}</p>
       <p>Last Name: {owner.lname} </p>
       <p>Email: {owner.email} </p>
       <p>Phone Number: {owner.phone} </p>
