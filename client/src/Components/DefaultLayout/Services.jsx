@@ -155,7 +155,7 @@ const Services = () => {
           </div>
           <Button onClick={() => {
               navigate(`/Groomers`)
-            }} >Grooming Services</Button>
+            }} ></Button>
         </div>
         <div className="service">
           <img src={petsitter} alt="" />

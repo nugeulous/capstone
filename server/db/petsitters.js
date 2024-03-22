@@ -1,17 +1,17 @@
 const { client } = require("./client.js");
 
-async function createPetsitter({ email, password, fname, lname, location, phone, image, gender }) {
+async function createPetsitter({ email, password, fname, lname, address, phone, image, gender }) {
     try {
       const {
         rows: [petsitter],
       } = await client.query(
         `
-        INSERT INTO petsitters(email, password, fname, lname, location, phone, image, gender) 
+        INSERT INTO petsitters(email, password, fname, lname, address, phone, image, gender) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, location, phone, image, gender]
+        [email, password, fname, lname, address, phone, image, gender]
       );
         
       // petsitter array [email: , pw: ]
@@ -39,7 +39,7 @@ async function createPetsitter({ email, password, fname, lname, location, phone,
     
     try {
       const { rows: [ petsitter ] } = await client.query(`
-        SELECT id, email, fname, lname, location, phone, active
+        SELECT id, email, fname, lname, address, phone, active
         FROM petsitters
         WHERE id=$1
       `, [id]);
