@@ -1,5 +1,5 @@
 .services {
-    margin: 50px auto;
+    margin: 30px auto;
     width: 90%;
     display: flex;
     align-items: center;
@@ -44,3 +44,19 @@
 h1 {
     text-align: center;
 }
+
+.title {
+    text-align: center;
+    color: #212EA0;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 50px 0 15px;
+  }
+  
+  .title h2 {
+    font-size: 32px;
+    color: #000F38;
+    margin-top: 5px;
+    text-transform: none;
+  }
