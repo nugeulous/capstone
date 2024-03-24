@@ -17,7 +17,7 @@ const settings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Lo
 const authPages = ["Register", "Login"];
 
 function NavBar({ token, setToken }) {
-  console.log(token);
+  console.log('token:', token);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
