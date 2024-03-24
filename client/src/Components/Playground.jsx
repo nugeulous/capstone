@@ -26,7 +26,7 @@ export default function Playground() {
       <h1>Playground</h1>
       <Button
         onClick={() => {
-          navigate(`/Services`);
+          navigate(`/new-event`);
         }}
       >
         Add new Event

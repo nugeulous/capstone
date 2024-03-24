@@ -121,7 +121,7 @@ async function dropTables() {
           address TEXT NOT NULL,
           date VARCHAR NOT NULL,
           time VARCHAR NOT NULL,
-          photos TEXT[],
+          photos TEXT,
           description TEXT NOT NULL,
           event_type VARCHAR(50) NOT NULL,
           pet_type VARCHAR(50) NOT NULL,
