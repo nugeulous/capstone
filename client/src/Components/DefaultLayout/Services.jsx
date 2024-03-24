@@ -1,6 +1,6 @@
 
 import React from "react";
-import "./services.css";
+import "./defaultLayout.css";
 import grooming from "../../images/grooming.jpg";
 import petsitter from "../../images/petsitter.png";
 import walking from "../../images/walking.jpg";
@@ -31,11 +31,13 @@ const Services = () => {
             <SpaIcon sx={{ fontSize: 40 }} />
             <p>Grooming Services</p>
           </div>
-          <Button onClick={() => {
-              navigate(`/Groomers`)
-            }} ></Button>
-        </div>
-        <div className="service">
+        </Button>
+        <Button
+          className="service"
+          onClick={() => {
+            navigate(`/Sitters`);
+          }}
+        >
           <img src={petsitter} alt="" />
           <div className="caption">
             <HomeOutlinedIcon sx={{ fontSize: 40 }} />
@@ -45,7 +47,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/Sitters`);
+            navigate(`/Walkers`);
           }}
         >
           <img src={walking} alt="" />
