@@ -1,11 +1,13 @@
 import Hero from "./DefaultLayout/Hero";
 import Services from "./DefaultLayout/Services";
+import PlaygroundDefault from "./EventsPages/PlaygroundDefault";
 
 export default function AboutUs() {
   return (
     <div>
       <Hero />
       <Services />
+      <PlaygroundDefault />
     </div>
 
     // <div className="AboutUs">

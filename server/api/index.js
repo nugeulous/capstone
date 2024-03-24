@@ -65,6 +65,10 @@ apiRouter.use('/petsitters', petsitterRouter);
 const availabilityRouter = require('./availability');
 apiRouter.use('/availability', availabilityRouter);
 
+// ROUTER: /api/events
+const eventsRouter = require('./events');
+apiRouter.use('/events', eventsRouter);
+
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });
