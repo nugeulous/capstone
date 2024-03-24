@@ -21,6 +21,7 @@ import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import ServiceResults from "./Components/ServiceResults";
+import NewEvent from "./Components/EventsPages/NewEvent"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
@@ -70,6 +71,7 @@ function App() {
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} />} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
+        <Route path="/new-event" element={<NewEvent token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
         <Route path="/Walkers" element={<Walkers token={token} />} />
