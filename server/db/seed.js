@@ -7,7 +7,8 @@ const {
     createOwner,
     createPet,
     createPetsitter,
-    createAvailability
+    createAvailability,
+    createEvent
   } = require('./index');
 
 
@@ -18,10 +19,10 @@ async function dropTables() {
       // have to make sure to drop in correct order
       await client.query(`
       DROP TABLE IF EXISTS pets; 
-      DROP TABLE IF EXISTS owners;
+      DROP TABLE IF EXISTS events;
       DROP TABLE IF EXISTS availability;
       DROP TABLE IF EXISTS petsitters;
-
+      DROP TABLE IF EXISTS owners;
       `);
   
       console.log("Finished dropping tables!");
@@ -115,6 +116,19 @@ async function dropTables() {
             REFERENCES petsitters(id)
             ON DELETE CASCADE
           );
+
+        CREATE TABLE events (
+          id SERIAL PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          address TEXT NOT NULL,
+          date VARCHAR NOT NULL,
+          time VARCHAR NOT NULL,
+          photos TEXT[],
+          description TEXT NOT NULL,
+          event_type VARCHAR(50) NOT NULL,
+          pet_type VARCHAR(50) NOT NULL,
+          owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+        );
 
       `);
   
@@ -263,6 +277,29 @@ async function dropTables() {
     }
   }
 
+  async function createInitalEvent() {
+    try {
+      console.log("Starting to create events...");
+
+      await createEvent({
+        title: "Franks BDay",
+        address: "Lake Meritt, Oakland CA",
+        date: "May 25, 2025",
+        time: "9:00 AM",
+        photos: [],
+        description: "Franks 12th pupday party",
+        event_type: "Birthday",
+        pet_type: "Hamster",
+        owner_id: 1
+      });
+
+      console.log("Finished creating events!");
+    } catch (error) {
+      console.error("Error creating events");
+      throw error;
+    }
+  }
+
   async function rebuildDB() {
     try {
       await client.connect(options);
@@ -272,6 +309,7 @@ async function dropTables() {
       await createInitialPets();
       await createInitialPetsitters();
       await createInitialAvailability();
+      await createInitalEvent();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
