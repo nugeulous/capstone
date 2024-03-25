@@ -1,13 +1,25 @@
 import React from "react";
 import "../DefaultLayout/defaultLayout.css";
-import walking from "../../images/walking.jpg"
+import walking from "../../images/walking.jpg";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const PlaygroundDefault = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="pgDefault">
       <div className="pgDefaultLeft">
-        <img src={walking} alt="" className="pgDefault-img" />
+        <Button
+          className="service"
+          onClick={() => {
+            navigate(`/Playground`);
+          }}
+        >
+          <img src={walking} alt="" className="pgDefault-img" />
+        </Button>
       </div>
+
       <div className="pgDefaultRight">
         <h3>Playground</h3>
         <h2>Mingle with other pets in your local area</h2>
