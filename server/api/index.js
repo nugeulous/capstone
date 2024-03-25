@@ -61,7 +61,6 @@ const petsitterRouter = require('./petsitters');
 apiRouter.use('/petsitters', petsitterRouter);
 
 // ROUTER: /api/availability
-  // goal: indicate availability/:petsitter_id
 const availabilityRouter = require('./availability');
 apiRouter.use('/availability', availabilityRouter);
 

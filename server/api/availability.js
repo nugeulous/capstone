@@ -1,15 +1,13 @@
+// ROUTERS
 const express = require('express');
 const availabilityRouter = express.Router();
 
 const {  
-    getAllAvailability
-    //, 
-    // createAvailability,
-    // getAvailabilityById,
-    // updateAvailability
+    getAllAvailability, 
+    getAvailablePetsitters
 } = require('../db/index');
 
-// Get all availability assoc with petsitter ids
+// GET all availability assoc with petsitter ids
 availabilityRouter.get('/', async (req, res, next) => {
     try {
       const availabilities = await getAllAvailability();
@@ -19,6 +17,16 @@ availabilityRouter.get('/', async (req, res, next) => {
     } 
   });
 
+// GET availability and petsitter info through table join
+availabilityRouter.get('/petsitters/available', async (req, res, next) => {
+  console.log('hit availabillity router')
+  try {
+    const sitter_availabilities = await getAvailablePetsitters();
+      res.send(sitter_availabilities);
+  } catch (error) {
+      
+  } 
+});  
 // //Create availability
 // petsRouter.post('/', async (req, res, next) => {
 //     try {

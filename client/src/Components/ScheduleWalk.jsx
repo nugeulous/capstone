@@ -1,17 +1,13 @@
 // BOOK A WALK
   // GET all owners
   // filter for owners who have XYZ availability
-  // return info
+  // return info of those owners
 
 import { useEffect, useState } from "react";
-import { fetchAccount, fetchAllSitters } from "../API/api";
+import { fetchAccount, fetchAllSitters, fetchAvailablePetsitters } from "../API/api";
 
-// pass in token (how does it know what token is?)
+// pass in token
 export default function Walkers({token}) {
-
-  console.log('walkers function running...')
-
-  console.log('token has arrived: ', token);
 
   const [owner, setOwner] = useState({});
   // const [pet, setPet] = useState({});
@@ -46,11 +42,9 @@ export default function Walkers({token}) {
   // get all owner info when pressing submit
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log('Submit works!')
     // GET petsitter info
     try {
-      console.log('trying to fetch petsitter info...')
-      const result = await fetchAllSitters(token);
+      const result = await fetchAvailablePetsitters(token);
       console.log("result from fetching sitters info:", result);
       // extract fnames from result and insert into array
       const fnames = result.map((walker)=>walker.fname);
@@ -72,6 +66,9 @@ export default function Walkers({token}) {
           <label>Start Time:
             <input type="time" placeholder=" 12:00PM" step={36000}/>
           </label>
+          <label>End Time:
+            <input type="time" placeholder=" 12:00PM" step={36000}/>
+          </label>
           <label>Pet:
             <input type="text" placeholder=" Sergeant Barksalot" />
           </label>
@@ -85,3 +82,5 @@ export default function Walkers({token}) {
         </div>
     );
 }
+
+// if OWNER start time is greater than or equal to WALKER start time and OWNER end time is less than or equal to WALKER end time, return name

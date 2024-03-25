@@ -123,3 +123,24 @@ export const fetchAllSitters = async (token) => {
     throw error;
   }
 };
+
+// write func to get all sitters and avail info
+export const fetchAvailablePetsitters = async (token) => {
+  console.log('Token successfully made it to aPI call:', token)
+  try {
+    const response = await fetch(`${API_URL}/petsitters/available`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Please log in or create an account!");
+    const petsitters = await response.json();
+    console.log('response from client api: ', petsitters);
+    return petsitters;
+  } catch (error) {
+    console.error("Error fetching petsitter account:", error);
+    throw error;
+  }
+};

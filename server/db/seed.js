@@ -78,36 +78,17 @@ async function dropTables() {
           phone varchar(255) UNIQUE NOT NULL,
           image varchar(255) NOT NULL,
           gender varchar(255) NOT NULL,
-          snakes_petsitter boolean DEFAULT false
+          dogs boolean DEFAULT false,
+          cats boolean DEFAULT false
         );
 
         CREATE TABLE availability (
           id SERIAL PRIMARY KEY,
           petsitter_id INTEGER REFERENCES petsitters(id),
-          monday_1 boolean DEFAULT false,
-          monday_2 boolean DEFAULT false,
-          monday_3 boolean DEFAULT false,
-          monday_4 boolean DEFAULT false,
-          monday_5 boolean DEFAULT false,
-          monday_6 boolean DEFAULT false,
-          monday_7 boolean DEFAULT false,
-          monday_8 boolean DEFAULT false,
-          monday_9 boolean DEFAULT false,
-          monday_10 boolean DEFAULT false,
-          monday_11 boolean DEFAULT false,
-          monday_12 boolean DEFAULT false,
-          monday_13 boolean DEFAULT false,
-          monday_14 boolean DEFAULT false,
-          monday_15 boolean DEFAULT false,
-          monday_16 boolean DEFAULT false,
-          monday_17 boolean DEFAULT false,
-          monday_18 boolean DEFAULT false,
-          monday_19 boolean DEFAULT false,
-          monday_20 boolean DEFAULT false,
-          monday_21 boolean DEFAULT false,
-          monday_22 boolean DEFAULT false,
-          monday_23 boolean DEFAULT false,
-          monday_24 boolean DEFAULT false,
+          date DATE,
+          start_time TIME,
+          end_time TIME,
+          is_available BOOLEAN DEFAULT false,
             CONSTRAINT fk_petsitters
             FOREIGN KEY(petsitter_id)
             REFERENCES petsitters(id)
@@ -219,6 +200,8 @@ async function dropTables() {
         phone: "916-432-7811",
         image: "imagery",
         gender: "non-binary",
+        dogs: true,
+        cats: true
       });
 
       await createPetsitter({
@@ -230,6 +213,8 @@ async function dropTables() {
         phone: "222-333-7811",
         image: "pictcha",
         gender: "girlllll",
+        dogs: true,
+        cats: false
       });
 
       console.log("Finished creating petsitters!");
@@ -245,13 +230,18 @@ async function dropTables() {
   
       await createAvailability({
         petsitter_id: "1",
-        monday_1: true,
+        date: '2024-10-10',
+        start_time: '09:00:00',
+        end_time: '5:00:00',
+        is_available: true
       });
 
       await createAvailability({
         petsitter_id: "2",
-        monday_4: true,
-        monday_5: true,
+        date: '2024-10-10',
+        start_time: '8:00:00',
+        end_time: '12:00:00',
+        is_available: true
       });
 
       console.log("Finished creating availability!");
