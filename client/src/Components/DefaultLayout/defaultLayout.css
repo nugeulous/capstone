@@ -147,11 +147,12 @@ h1 {
   width: 360px; 
   height: 380px; 
   margin: 10px; 
-  background-color: rgb(121, 158, 181);
+  background-color: rgb(205, 184, 206);
   border-radius: 10px;
   overflow: hidden; 
   position: relative;
   transition: transform 0.3s; 
+  border: #423146 3px solid;
 }
 
 /* Styling for when a user hovers over a player card. */
