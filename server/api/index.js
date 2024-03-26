@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
 const { getOwnerById } = require('../db/owners');
+const { getPetsitterById} = require('../db/petsitters');
 
 // set `req.user` if possible
 apiRouter.use(async (req, res, next) => {
@@ -21,7 +22,14 @@ apiRouter.use(async (req, res, next) => {
       const id = parseToken && parseToken.id;
       console.log(parseToken, "hello id jwt");
       if (id) {
-        req.user = await getOwnerById(id);
+        let user;
+        const isOwner = parseToken.role === 'owners';
+        if (isOwner) {
+          user = await getOwnerById(id);
+        } else {
+          user = await getPetsitterById(id);
+        }
+        req.user = user;
         next();
       } else {
         next({

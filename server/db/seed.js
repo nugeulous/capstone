@@ -76,8 +76,8 @@ async function dropTables() {
           address varchar(255) NOT NULL,
           active boolean DEFAULT true,
           phone varchar(255) UNIQUE NOT NULL,
-          image varchar(255) NOT NULL,
-          gender varchar(255) NOT NULL,
+          image varchar(255),
+          gender varchar(255),
           snakes_petsitter boolean DEFAULT false
         );
 

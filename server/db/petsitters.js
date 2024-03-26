@@ -35,6 +35,20 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
     }
   }
 
+  async function getPetsitter(email) {
+    console.log(email);
+    try {
+    const { rows: [ petsitter ] } = await client.query(`
+        SELECT *
+        FROM petsitters
+        WHERE email=$1
+      `, [email]);
+      return petsitter;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async function getPetsitterById(id){
     
     try {
@@ -86,6 +100,7 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
   module.exports = {
     getAllPetsitters,
     getPetsitterById,
+    getPetsitter,
     updatePetsitter,
     createPetsitter
   }

@@ -1,8 +1,14 @@
 const express = require('express');
 const petsittersRouter = express.Router();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const { requirePetsitter } = require("./utils");
+const SALT_ROUNDS = 10;
+const { JWT_SECRET } = process.env;
 
 const { 
-  getAllPetsitters, 
+  getAllPetsitters,
+  getPetsitter, 
   createPetsitter,
   getPetsitterById,
   updatePetsitter
@@ -12,8 +18,6 @@ petsittersRouter.get('/', async (req, res, next) => {
     try {
       const petsitters = await getAllPetsitters();
       
-      // by putting {owners} in brackets, creates an 
-      // owners object with an array of objects with owner info
       res.send(
         petsitters
       );
@@ -22,34 +26,76 @@ petsittersRouter.get('/', async (req, res, next) => {
     }
   });
 
-  petsittersRouter.post('/', async (req, res, next) => {
+  petsittersRouter.post("/register", async (req, res, next) => {
     try {
-      const petsitters = await createPetsitter();
+      const { email, password, fname, lname, address, phone, image, gender } =
+        req.body;
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   
-      res.send({
-        petsitters
+      const petsitter = await createPetsitter({
+        email,
+        password: hashedPassword,
+        fname,
+        lname,
+        address,
+        phone,
+        image,
+        gender,
       });
+      res.send({ petsitter });
     } catch ({ name, message }) {
       next({ name, message });
     }
   });
 
-  petsittersRouter.get('/:id', async (req, res, next) => {
+  petsittersRouter.post("/login", async (req, res, next) => {
+    const { email, password } = req.body;
+  
+    // request must have both
+    if (!email && !password) {
+      next({
+        name: "MissingCredentialsError",
+        message: "Please supply both a username and password",
+      });
+    }
+  
     try {
-      console.log('petsitters router id is working...')
-      const petsitterId = req.params.id;
-      console.log('petsitter id:', petsitterId)
-      const petsitter = await getPetsitterById(petsitterId);
-      
-      console.log('petsitter: ', petsitter)
+      const petsitter = await getPetsitter(email);
       if (!petsitter) {
-        res.status(404).send({ message: 'Petsitter not found' });
-        return;
+        next({
+          name: "IncorrectCredentialsError",
+          message: "Username or password is incorrect",
+        });
+      } else {
+        const passwordMatch = await bcrypt.compare(password, petsitter.password);
+        if (!passwordMatch) {
+          next({
+            name: "Incorrect Username Password Error",
+            message: "Incorrect Username or Password",
+          });
+          return;
+        }
+        console.log(petsitter.id, "this is the petsitter id");
+        const token = jwt.sign({ id: petsitter.id, email }, JWT_SECRET, {
+          expiresIn: "1w",
+        });
+        res.send({ message: "you're logged in!", token });
       }
-
-      res.send({ petsitter });
     } catch (error) {
       next(error);
+    }
+  });
+
+  petsittersRouter.get('/me', requirePetsitter, async (req, res, next) => {
+    try {
+      console.log(req.user, "req");
+      res.send(req.user);
+    } catch (error) {
+      if (error.name === "PetsitterNotFoundError") {
+        res.send(404).send({ message: error.message });
+      } else {
+        next(error);
+      }
     }
   });
 

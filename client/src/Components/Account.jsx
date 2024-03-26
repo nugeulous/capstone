@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
-import { fetchAccount } from "../API/api";
+import { fetchOwner } from "../API/api";
 import { useState, useEffect } from "react";
 
 export default function Account({ token }) {
@@ -12,8 +12,8 @@ export default function Account({ token }) {
   useEffect(() => {
     const getAccount = async () => {
       try {
-        const fetchedAccount = await fetchAccount(token);
-        setOwner(fetchedAccount);
+        const fetchedOwner = await fetchOwner(token);
+        setOwner(fetchedOwner);
       } catch (error) {
         setError(error.message);
       }
@@ -34,7 +34,7 @@ export default function Account({ token }) {
       <p>Last Name: {owner.lname} </p>
       <p>Email: {owner.email} </p>
       <p>Phone Number: {owner.phone} </p>
-      <p>Address: {owner.location} </p>
+      <p>Address: {owner.address} </p>
       <h2>Pet(s)</h2>
       <p>Name: {pet.name} </p>
       <p>Age: {pet.age} </p>
