@@ -23,13 +23,14 @@ apiRouter.use(async (req, res, next) => {
       console.log(parseToken, "hello id jwt");
       if (id) {
         let user;
-        const isOwner = parseToken.role === 'owners';
+        const isOwner = parseToken.role === 'owner';
+        console.log(isOwner, "THIS IS THE OWNER")
         if (isOwner) {
           user = await getOwnerById(id);
         } else {
           user = await getPetsitterById(id);
         }
-        req.user = user;
+        res.json(user);
         next();
       } else {
         next({

@@ -75,8 +75,8 @@ petsittersRouter.get('/', async (req, res, next) => {
           });
           return;
         }
-        console.log(petsitter.id, "this is the petsitter id");
-        const token = jwt.sign({ id: petsitter.id, email }, JWT_SECRET, {
+        console.log(petsitter, "this is the petsitter id");
+        const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role }, JWT_SECRET, {
           expiresIn: "1w",
         });
         res.send({ message: "you're logged in!", token });
