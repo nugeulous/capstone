@@ -13,8 +13,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Home", "Services", "Playground", "About Us"];
-const settings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
-const authPages = ["Register", "Login"];
+const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favorites", "Messages", "Logout"];
+const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
 
 function NavBar({ token, setToken }) {
   console.log(token);
