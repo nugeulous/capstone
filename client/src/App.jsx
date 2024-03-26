@@ -17,6 +17,10 @@ import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
 import PetInfo from "./Components/PetInfo/PetInfo";
+import ServiceConfirmed from "./Components/ServiceConfirmed";
+import PaymentInfo from "./Components/PaymentInfo";
+import OrderConfirmed from "./Components/OrderConfirmed";
+import ServiceResults from "./Components/ServiceResults";
 
 import './App.css'
 
@@ -61,6 +65,10 @@ function App() {
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
         <Route path="/Pet Info" element={<PetInfo token={token} />} />
+        <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
+        <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
+        <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
+        <Route path="/ServiceResults" element={<ServiceResults token={token} />} />
       </Routes>
     </div>
   );

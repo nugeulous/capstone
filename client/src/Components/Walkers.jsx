@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 export default function Walkers() {
-
+  const navigate = useNavigate();
     return (
         <div className="home">
             <h1>Walkers</h1>
@@ -17,6 +19,7 @@ export default function Walkers() {
             <input type="submit" />
           </label>
         </form>
+     
         </div>
     );
 }

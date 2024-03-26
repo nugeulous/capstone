@@ -1,43 +1,20 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ServiceForm from "./ServiceForm";
 export default function Home() {
     const navigate = useNavigate();
   return (
     <div className="home">
-      <h1>Home</h1>
-      <Button
+      <h1>Get Started Here!</h1>
+     <ServiceForm/>
+     <Button
         variant="outlined"
         onClick={() => {
-          navigate(`/Walkers`);
+          navigate(`/ServiceResults`);
         }}
       >
-        Take a Walk
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Groomers`);
-        }}
-      >
-        Groom your baby
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Trainers`);
-        }}
-      >
-        Teach your pet new tricks
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Sitters`);
-        }}
-      >
-        Find a siiter
-      </Button>
-     
+       Pretend submit did something by pressing this button
+</Button>
     </div>
   );
 }
