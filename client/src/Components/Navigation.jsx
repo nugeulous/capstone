@@ -116,6 +116,7 @@ function NavBar({ token, setToken }) {
                     handleCloseUserMenu();
                     if (setting === "Logout") {
                       setToken("");
+                      console.log(token, "this is my token");
                       navigate("/login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
