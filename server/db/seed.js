@@ -230,7 +230,7 @@ async function dropTables() {
   
       await createAvailability({
         petsitter_id: "1",
-        date: '2024-10-10',
+        date: new Date(),
         start_time: '09:00:00',
         end_time: '5:00:00',
         is_available: true
@@ -238,7 +238,7 @@ async function dropTables() {
 
       await createAvailability({
         petsitter_id: "2",
-        date: '2024-10-10',
+        date: new Date(),
         start_time: '8:00:00',
         end_time: '12:00:00',
         is_available: true

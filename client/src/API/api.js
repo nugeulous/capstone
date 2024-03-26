@@ -128,7 +128,7 @@ export const fetchAllSitters = async (token) => {
 export const fetchAvailablePetsitters = async (token) => {
   console.log('Token successfully made it to aPI call:', token)
   try {
-    const response = await fetch(`${API_URL}/petsitters/available`, {
+    const response = await fetch(`${API_URL}/availability/petsitters`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

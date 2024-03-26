@@ -7,9 +7,15 @@ const {
     getAvailablePetsitters
 } = require('../db/index');
 
+availabilityRouter.use((req, res, next) => {
+  console.log('router is going!!');
+  next();
+});
+
 // GET all availability assoc with petsitter ids
 availabilityRouter.get('/', async (req, res, next) => {
-    try {
+  console.log('avail router....')  
+  try {
       const availabilities = await getAllAvailability();
       res.send(availabilities);
     } catch (error) {
@@ -18,7 +24,7 @@ availabilityRouter.get('/', async (req, res, next) => {
   });
 
 // GET availability and petsitter info through table join
-availabilityRouter.get('/petsitters/available', async (req, res, next) => {
+availabilityRouter.get('/petsitters', async (req, res, next) => {
   console.log('hit availabillity router')
   try {
     const sitter_availabilities = await getAvailablePetsitters();

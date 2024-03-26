@@ -36,8 +36,8 @@
     try {
       const { rows: sitter_availabilities } = await client.query(`
         SELECT ps.fname, ps.lname, av.date, av.start_time, av.end_time, av.is_available
-        FROM petsitters ps
-        INNER JOIN availability av ON ps.id = av.petsitter_id
+        FROM petsitters AS ps
+        INNER JOIN availability AS av ON ps.id = av.petsitter_id
       `)
       return sitter_availabilities;
     } catch (error) {

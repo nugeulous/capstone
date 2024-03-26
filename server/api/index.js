@@ -19,7 +19,7 @@ apiRouter.use(async (req, res, next) => {
     try {
       const parseToken = jwt.verify(token, JWT_SECRET);
       const id = parseToken && parseToken.id;
-      console.log(parseToken, "hello id jwt");
+      // console.log(parseToken, "hello id jwt");
       if (id) {
         req.user = await getOwnerById(id);
         next();
@@ -42,7 +42,7 @@ apiRouter.use(async (req, res, next) => {
 
 apiRouter.use((req, res, next) => {
   if (req.user) {
-    console.log('User is set:', req.user);
+    console.log(req.user.email, req.method, req.path);
   }
 
   next();
