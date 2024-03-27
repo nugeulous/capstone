@@ -58,7 +58,7 @@ ownersRouter.post("/login", async (req, res, next) => {
 
   try {
     const owner = await getOwner(email);
-    if (!owner) {
+    if (!owner === true) {
       next({
         name: "IncorrectCredentialsError",
         message: "Username or password is incorrect",

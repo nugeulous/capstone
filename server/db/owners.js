@@ -47,7 +47,6 @@ async function getAllOwners() {
   }
 
 async function getOwner(email) {
-    console.log(email);
     try {
     const { rows: [owner] } = await client.query(`
         SELECT *

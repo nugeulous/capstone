@@ -217,6 +217,32 @@ async function dropTables() {
         cats: false
       });
 
+      await createPetsitter({
+        email: "yoyoyooo@gmail.com",
+        password: "b9dssfds30298!9",
+        fname: "John",
+        lname: "Jmes",
+        address: "backend, USA",
+        phone: "932-432-7811",
+        image: "pcturee",
+        gender: "male",
+        dogs: false,
+        cats: true
+      });
+
+      await createPetsitter({
+        email: "luvpeace24@gmail.com",
+        password: "gamstop2",
+        fname: "Cool",
+        lname: "Sam",
+        address: "NYC",
+        phone: "275-333-7811",
+        image: "a pic",
+        gender: "female",
+        dogs: true,
+        cats: false
+      });
+
       console.log("Finished creating petsitters!");
     } catch (error) {
       console.error("Error creating petsitters!");
@@ -230,7 +256,7 @@ async function dropTables() {
   
       await createAvailability({
         petsitter_id: "1",
-        date: new Date(),
+        date: '10-10-24',
         start_time: '09:00:00',
         end_time: '5:00:00',
         is_available: true
@@ -238,9 +264,25 @@ async function dropTables() {
 
       await createAvailability({
         petsitter_id: "2",
-        date: new Date(),
+        date: '09-17-24',
         start_time: '8:00:00',
         end_time: '12:00:00',
+        is_available: true
+      });
+
+      await createAvailability({
+        petsitter_id: "3",
+        date: '01-08-24',
+        start_time: '12:00:00',
+        end_time: '16:00:00',
+        is_available: true
+      });
+
+      await createAvailability({
+        petsitter_id: "4",
+        date: '10-10-24',
+        start_time: '14:00:00',
+        end_time: '24:00:00',
         is_available: true
       });
 
