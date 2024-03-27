@@ -16,7 +16,6 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
         
       // petsitter array [email: , pw: ]
 
-      console.log('petsitter: ', petsitter);
       return petsitter;
     } catch (error) {
       throw error;
@@ -36,7 +35,6 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
   }
 
   async function getPetsitter(email) {
-    console.log(email);
     try {
     const { rows: [ petsitter ] } = await client.query(`
         SELECT *
@@ -53,7 +51,7 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
     
     try {
       const { rows: [ petsitter ] } = await client.query(`
-        SELECT id, email, fname, lname, address, phone, active
+        SELECT id, email, fname, lname, address, phone, active, role
         FROM petsitters
         WHERE id=$1
       `, [id]);
@@ -72,7 +70,6 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
   }
 
   async function updatePetsitter(id, fields = {}) {
-    console.log('beginning to update petsitter...')
       // Set up initial update SQL
       const setString = Object.keys(fields).map(
           (key, index) => `"${key}"=$${index + 1}`

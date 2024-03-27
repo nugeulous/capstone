@@ -47,7 +47,6 @@ async function getAllOwners() {
   }
 
 async function getOwner(email) {
-    console.log(email);
     try {
     const { rows: [owner] } = await client.query(`
         SELECT *
@@ -63,7 +62,7 @@ async function getOwner(email) {
 async function getOwnerById(id) {
     try {
       const { rows: [ owner ] } = await client.query(`
-        SELECT id, email, fname, lname, phone, address, active
+        SELECT id, email, fname, lname, phone, address, active, role
         FROM owners
         WHERE id=$1
       `, [id]);

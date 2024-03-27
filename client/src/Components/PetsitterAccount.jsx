@@ -23,6 +23,9 @@ export default function PetsitterAccount({ token }) {
     // User is not logged in, render a message
     return <p>Please log in or create an account.</p>;
   }
+  if (petsitter.role !== "petsitter") {
+    return <p>Oops, This is not the right page for a Pet Owner</p>;
+   }
   return (
     <Sheet color="neutral" variant="soft">
     <div className="account">

@@ -20,11 +20,9 @@ apiRouter.use(async (req, res, next) => {
     try {
       const parseToken = jwt.verify(token, JWT_SECRET);
       const id = parseToken && parseToken.id;
-      console.log(parseToken, "hello id jwt");
       if (id) {
         let user;
         const isOwner = parseToken.role === 'owner';
-        console.log(isOwner, "THIS IS THE OWNER")
         if (isOwner) {
           user = await getOwnerById(id);
         } else {

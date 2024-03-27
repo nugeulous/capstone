@@ -9,6 +9,7 @@ export default function Account({ token }) {
   const [pet, setPet] = useState({});
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const getAccount = async () => {
       try {
@@ -25,6 +26,9 @@ export default function Account({ token }) {
     // User is not logged in, render a message
     return <p>Please log in or create an account.</p>;
   }
+  if (owner.role !== "owner") {
+    return <p>Oops, This is not the right page for a Petsitter</p>;
+   }
   return (
     <Sheet color="neutral" variant="soft">
     <div className="account">
@@ -50,7 +54,7 @@ export default function Account({ token }) {
         onClick={() => {
           navigate(`/Pet Info`);
         }}
-      >
+        >
         + Add Pet
       </Button>
     </div>

@@ -44,7 +44,6 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
         favoriteToy,
         favoriteTreat,
         personality);
-      console.log(result);
       setToken(result.token, result.user);
     } catch (error) {
       setError(error.message);
