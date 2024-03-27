@@ -11,7 +11,7 @@ export default function PaymentInfo() {
 <Button
         variant="outlined"
         onClick={() => {
-          navigate(`/`);
+          navigate(`/Home`);
         }}
       >
        BACK TO SEARCH
