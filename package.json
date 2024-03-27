@@ -15,6 +15,7 @@
     "dotenv": "^16.4.5",
     "env": "^0.0.2",
     "express": "^4.18.3",
+    "image-downloader": "^4.3.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "react": "^18.2.0",
