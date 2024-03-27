@@ -46,7 +46,8 @@ async function dropTables() {
           active boolean DEFAULT true,
           phone varchar(255) UNIQUE NOT NULL,
           image varchar(255),
-          gender varchar(255)
+          gender varchar(255),
+          role varchar(50)
         );
   
         CREATE TABLE pets (
@@ -76,9 +77,10 @@ async function dropTables() {
           address varchar(255) NOT NULL,
           active boolean DEFAULT true,
           phone varchar(255) UNIQUE NOT NULL,
-          image varchar(255) NOT NULL,
-          gender varchar(255) NOT NULL,
-          snakes_petsitter boolean DEFAULT false
+          image varchar(255),
+          gender varchar(255),
+          snakes_petsitter boolean DEFAULT false,
+          role varchar(50)
         );
 
         CREATE TABLE availability (

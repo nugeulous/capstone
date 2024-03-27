@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { register } from "../API/api";
+import { petsitterRegister } from "../API/api";
 function Copyright(props) {
   return (
     <Typography
@@ -31,7 +31,7 @@ function Copyright(props) {
 }
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const Register = ({ setToken }) => {
+const PetsitterRegister = ({ setToken }) => {
   const [fname, setFirstName] = useState("");
   const [lname, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,7 +61,7 @@ const Register = ({ setToken }) => {
       return;
     }
     try {
-      const result = await register(fname,lname,email,address,phone,password, address,);
+      const result = await petsitterRegister(fname,lname,email,address,phone,password, address);
       setToken(result.token, result.user);
     } catch (error) {
       setError(error.message);
@@ -183,7 +183,7 @@ const Register = ({ setToken }) => {
                 <Link
                   href="#"
                   onClick={() => {
-                    navigate(`/Login`);
+                    navigate(`/PetsitterLogin`);
                   }}
                   variant="body2"
                 >
@@ -198,4 +198,4 @@ const Register = ({ setToken }) => {
     </ThemeProvider>
   );
 };
-export default Register;
+export default PetsitterRegister;

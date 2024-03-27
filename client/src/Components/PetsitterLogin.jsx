@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { login } from "../API/api";
+import { petsitterLogin } from "../API/api";
 function Copyright(props) {
   return (
     <Typography
@@ -42,7 +42,7 @@ const Login = ({ setToken }) => {
     setEmail("");
     setPassword("");
     try {
-      const result = await login(email, password);
+      const result = await petsitterLogin(email, password);
       setToken(result.token);
     } catch (error) {
       setError("incorrect email or password");

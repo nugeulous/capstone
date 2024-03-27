@@ -72,8 +72,7 @@ ownersRouter.post("/login", async (req, res, next) => {
         });
         return;
       }
-      console.log(owner.id, "this is the owner id");
-      const token = jwt.sign({ id: owner.id, email }, JWT_SECRET, {
+      const token = jwt.sign({ id: owner.id, email, role: owner.role }, JWT_SECRET, {
         expiresIn: "1w",
       });
       res.send({ message: "you're logged in!", token });
@@ -109,7 +108,6 @@ ownersRouter.put("/:id", async (req, res, next) => {
 
 ownersRouter.get("/me", requireOwner, async (req, res, next) => {
   try {
-    console.log(req.user, "req");
     res.send(req.user);
   } catch (error) {
     if (error.name === "OwnerNotFoundError") {

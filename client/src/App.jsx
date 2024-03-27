@@ -17,9 +17,9 @@ import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
 import PetInfo from "./Components/PetInfo/PetInfo";
-
-import './App.css'
-
+import PetsitterRegister from "./Components/PetsitterRegister";
+import PetsitterLogin from "./Components/PetsitterLogin";
+import PetsitterAccount from "./Components/PetsitterAccount";
 function App() {
   const [token, setToken] = useState(
     window.localStorage.getItem("token") ?? null
@@ -50,7 +50,20 @@ function App() {
           }
         />
         <Route path="/register" element={<Register setToken={setToken} />} />
+        <Route
+          path="/Petsitter Login"
+          element={
+            <PetsitterLogin
+              setToken={setToken}
+              token={token}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
+        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
         <Route path="/account" element={<Account token={token} setToken={setToken} />} />
+        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} />} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/services" element={<Services token={token} />} />

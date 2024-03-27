@@ -11,13 +11,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+// import { setPetsitter } from ""
 
 const pages = ["Home", "Services", "Playground", "About Us"];
-const settings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
-const authPages = ["Register", "Login"];
+const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favorites", "Messages", "Logout"];
+const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
 
-function NavBar({ token, setToken }) {
-  console.log(token);
+function NavBar({ token, setToken, petsitter, setPetsitter, setOwner }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -116,6 +116,9 @@ function NavBar({ token, setToken }) {
                     handleCloseUserMenu();
                     if (setting === "Logout") {
                       setToken("");
+                      // const [petsitter, setPetsitter] = useState(null);
+                      // setOwner(null);
+                      // setPetsitter(null);
                       navigate("/login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
