@@ -61,7 +61,7 @@ function App() {
             />
           }
         />
-         <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
+        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
         <Route path="/account" element={<Account token={token} setToken={setToken} />} />
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} />} />
         <Route path="/About Us" element={<AboutUs />} />

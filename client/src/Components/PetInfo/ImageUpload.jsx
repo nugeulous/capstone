@@ -25,7 +25,6 @@ const ImageUpload = () => {
         type="file"
         name="myImage"
         onChange={(event) => {
-          console.log(event.target.files[0]);
           setImage(event.target.files[0]);
         }}
       />

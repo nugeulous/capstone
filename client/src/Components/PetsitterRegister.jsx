@@ -62,7 +62,6 @@ const PetsitterRegister = ({ setToken }) => {
     }
     try {
       const result = await petsitterRegister(fname,lname,email,address,phone,password, address);
-      console.log(result);
       setToken(result.token, result.user);
     } catch (error) {
       setError(error.message);

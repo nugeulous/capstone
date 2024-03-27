@@ -15,9 +15,7 @@ export const register = async (fname, lname, email, address, phone, password) =>
         password,
       }),
     });
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (error) {
     console.error("error from register");
@@ -74,9 +72,7 @@ export const addPet = async (
         personality,
       }),
     });
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (error) {
     console.error("error from register");
@@ -95,7 +91,6 @@ export const fetchOwner = async (token) => {
     });
     if (!response.ok) throw new Error("Please log in or create an account!");
     const owner = await response.json();
-    console.log(owner);
     return owner;
   } catch (error) {
     console.error("Error fetching account:", error);
@@ -119,9 +114,7 @@ export const petsitterRegister = async (fname, lname, email, address, phone, pas
         password,
       }),
     });
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (error) {
     console.error("error from register");

@@ -75,7 +75,6 @@ petsittersRouter.get('/', async (req, res, next) => {
           });
           return;
         }
-        console.log(petsitter, "this is the petsitter id");
         const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role }, JWT_SECRET, {
           expiresIn: "1w",
         });
@@ -88,7 +87,6 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.get('/me', requirePetsitter, async (req, res, next) => {
     try {
-      console.log(req.user, "req");
       res.send(req.user);
     } catch (error) {
       if (error.name === "PetsitterNotFoundError") {
@@ -101,7 +99,6 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.put('/:id', async (req, res, next) => {
     try {
-      console.log('routing to petsitter...')
       const petsitters = await updatePetsitter();
   
       res.send({
