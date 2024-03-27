@@ -1,12 +1,14 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { createEvent } from "../../API/eventsApi";
+import { uploadPhoto } from "../../API/photoUploadApi";
 import { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import { Grid, Select, MenuItem, InputLabel } from "@mui/material/";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -54,6 +56,26 @@ const NewEvent = () => {
       setError(error.message);
     }
   }
+
+  async function addPhotobyLink(e) {
+    e.preventDefault();
+    if (!photos) {
+      setError("Please enter a photo link.");
+      return;
+    }
+    try {
+      const result = await uploadPhoto(photos);
+      console.log(result);
+      setError(null); // Reset error state
+      setPhotos(""); // Clear input field after successful upload
+      alert("Photo uploaded successfully!");
+    } catch (error) {
+      setError("Failed to upload photo. Please try again later.");
+      console.error("Error uploading photo:", error);
+    }
+  }
+  
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -69,7 +91,7 @@ const NewEvent = () => {
           <Typography component="h1" variant="h5">
             Create New Event
             {validationError && <p>{validationError}</p>}
-            {error && <p>{error}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </Typography>
           <Box
             component="form"
@@ -122,7 +144,7 @@ const NewEvent = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={8}>
+              <Grid item xs={12} sm={12} style={{display: "flex", gap: 5}}>
                 <TextField
                   required
                   fullWidth
@@ -132,9 +154,39 @@ const NewEvent = () => {
                   value={photos}
                   onChange={(e) => setPhotos(e.target.value)}
                 />
+                <Button 
+                onClick={addPhotobyLink}
+                  style={{
+                    width: 100,
+                    height: 55,
+                    border: "1px solid lightgrey",
+                    borderRadius: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "lightgrey",
+                  }}
+                  type="button"
+                >
+                  <AddIcon />
+                </Button>
               </Grid>
-              <Grid item xs={12} sm={4}>
-              <Button variant="contained" startIcon={<CloudUploadIcon />}>Photo</Button>
+              <Grid item xs={12}>
+                <div
+                  style={{
+                    width: 100,
+                    height: 100,
+                    border: "1px solid mediumorchid",
+                    borderRadius: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button >
+                    <CloudUploadOutlinedIcon />
+                  </Button>
+                </div>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -143,6 +195,8 @@ const NewEvent = () => {
                   name="descriptiom"
                   label="Event Description"
                   id="description"
+                  multiline
+                  maxRows={2}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -154,6 +208,7 @@ const NewEvent = () => {
                   name="event_type"
                   label="Event Type"
                   id="event_type"
+                  defaultValue="Birthday"
                   value={event_type}
                   onChange={(e) => setEventType(e.target.value)}
                 >

@@ -76,6 +76,10 @@ apiRouter.use('/availability', availabilityRouter);
 const eventsRouter = require('./events');
 apiRouter.use('/events', eventsRouter);
 
+// ROUTER: /api/uploads
+const uploadsRouter = require('./uploads');
+apiRouter.use('/uploads', uploadsRouter);
+
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });
