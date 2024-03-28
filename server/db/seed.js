@@ -286,7 +286,7 @@ async function dropTables() {
         address: "Lake Meritt, Oakland CA",
         date: "May 25, 2025",
         time: "9:00 AM",
-        photos: [],
+        photos: ["https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w300/2023/10/free-images.jpg"],
         description: "Franks 12th pupday party",
         event_type: "Birthday",
         pet_type: "Hamster",

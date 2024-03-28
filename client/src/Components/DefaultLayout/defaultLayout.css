@@ -136,6 +136,8 @@ h1 {
   margin-bottom: 15px;
 }
 
+/* CARD STYLING */
+
 /* Styling for the container that holds the player cards. */
 .events {
   display: flex;
