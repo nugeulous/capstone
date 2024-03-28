@@ -1,0 +1,190 @@
+.hero {
+  width: 100%;
+  min-height: 70vh;
+  background: linear-gradient(rgba(8, 0, 58, 0.7), rgba(8, 0, 58, 0.7)),
+    url(../../images/allpets.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-text h1 {
+  font-size: 60px;
+  font-weight: 600;
+}
+
+.hero-text p {
+  max-width: 700px;
+  margin: 10px auto 20px;
+  line-height: 1.4;
+}
+
+
+/* SERVICES */
+
+.services {
+  margin: 30px auto;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.service img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+
+}
+
+.service {
+  flex-basis: 31%;
+  position: relative;
+}
+
+
+.caption {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 15, 152, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.service:hover .caption {
+  opacity: 1;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: #212EA0;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 50px 0 15px;
+}
+
+.title h2 {
+  font-size: 32px;
+  color: #000F38;
+  margin-top: 5px;
+  text-transform: none;
+}
+
+/* PLAYGROUND DEFAULT */
+
+.pgDefault {
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.pgDefaultLeft {
+  flex-basis: 40%;
+}
+
+.pgDefaultRight {
+  flex-basis: 56%;
+}
+
+.pgDefault-img {
+  width: 100%;
+  border-radius: 10px;
+}
+.pgDefault h3 {
+  color: #212EA0;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 50px 0 15px;
+}
+
+.pgDefault h2 {
+  font-size: 35px;
+  color: #000F38;
+  margin: 10px 0;
+  max-width: 400px;
+}
+
+.pgDefault p {
+  color: #676767;
+  margin-bottom: 15px;
+}
+
+/* CARD STYLING */
+
+/* Styling for the container that holds the player cards. */
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Styling for individual player cards. */
+.event-card {
+  width: 360px; 
+  height: 380px; 
+  margin: 10px; 
+  background-color: rgb(205, 184, 206);
+  border-radius: 10px;
+  overflow: hidden; 
+  position: relative;
+  transition: transform 0.3s; 
+  border: #423146 3px solid;
+}
+
+/* Styling for when a user hovers over a player card. */
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Styling for the container that holds the player's image. */
+.event-image-container {
+  height: 300px; 
+  padding: 10px; 
+}
+
+/* Styling for the player's image. */
+.event-image {
+  width: 250px; 
+  height: 250px; 
+
+  object-fit: cover;
+  display: grid;
+  margin-left: 55px;
+}
+
+/* Styling for the player's details (name, breed, status). */
+.event-details {
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  color: #000; 
+  font-size: 16px; 
+  text-align: center; 
+}
