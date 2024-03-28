@@ -76,10 +76,6 @@ apiRouter.use('/availability', availabilityRouter);
 const eventsRouter = require('./events');
 apiRouter.use('/events', eventsRouter);
 
-// ROUTER: /api/uploads
-const photosRouter = require('./photos');
-apiRouter.use('/photos', photosRouter);
-
 // ROUTER: return error message if error hits in conditional
 apiRouter.use((error, req, res, next) => {
   // TODO: proper error handling to send back to client - not showing up on client side
