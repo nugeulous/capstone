@@ -111,7 +111,7 @@ async function dropTables() {
           description TEXT NOT NULL,
           eventType VARCHAR(50) NOT NULL,
           petType VARCHAR(50),
-          ownerId INTEGER REFERENCES owners(id) ON DELETE CASCADE
+          userId INTEGER REFERENCES owners(id) ON DELETE CASCADE
         );
 
       `);
@@ -360,9 +360,9 @@ async function dropTables() {
         time: "9:00 AM",
         file: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w300/2023/10/free-images.jpg",
         description: "Franks 12th pupday party",
-        event_type: "Birthday",
-        pet_type: "Hamster",
-        user_id: 1,
+        eventType: "Birthday",
+        petType: "Hamster",
+        userId: 1,
       });
       
       await createEvent({
@@ -372,9 +372,9 @@ async function dropTables() {
         time: "11:00 AM",
         file: "https://images.ctfassets.net/sfnkq8lmu5d7/1SOkYVbLFsuLdn8RXjdOn9/c2c86370552871a392d3ab48a070c321/The_Wildest_Who_Is_The_Dog___s_Birthday_Party_For?w=1000&h=750&q=70&fm=webp",
         description: "Celebrating Lucy's 5th Birthday with a fun-filled party!",
-        event_type: "Birthday",
-        pet_type: "Dog",
-        user_id: 1,
+        eventType: "Birthday",
+        petType: "Dog",
+        userId: 1,
       });
       
       await createEvent({
@@ -384,9 +384,9 @@ async function dropTables() {
         time: "12:00 PM",
         file: "https://www.petpost.com.au/cdn/shop/articles/planning-a-picnic-with-your-dog-288815.jpg?v=1699415283",
         description: "Enjoy a lovely picnic with your furry friends!",
-        event_type: "Pet-freindly Picnic",
-        pet_type: "Dog",
-        user_id: 1,
+        eventType: "Pet-freindly Picnic",
+        petType: "Dog",
+        userId: 1,
       });
       
       await createEvent({
@@ -396,9 +396,9 @@ async function dropTables() {
         time: "10:00 AM",
         file: "https://images.squarespace-cdn.com/content/v1/6439b3af348357708c9a0ec8/1690565832977-5DNFWITCQV0CSLJ9K5YT/image-asset.jpeg?format=1500w",
         description: "Join us for a delightful picnic with your pets!",
-        event_type: "Pet-freindly Picnic",
-        pet_type: "Cat",
-        user_id: 2,
+        eventType: "Pet-freindly Picnic",
+        petType: "Cat",
+        userId: 2,
       });
 
       await createEvent({
@@ -408,9 +408,9 @@ async function dropTables() {
         time: "8:00 AM",
         file: "https://visitadirondacks.com/sites/default/files/styles/960x540/public/2020-02/woman-dog-high-five.jpg?itok=J_tQ1wTj",
         description: "Embark on an exhilarating hike through the breathtaking mountain trails of Yosemite!",
-        event_type: "Hike",
-        pet_type: "Dog",
-        user_id: 2,
+        eventType: "Hike",
+        petType: "Dog",
+        userId: 2,
       });
       
       await createEvent({
@@ -420,9 +420,9 @@ async function dropTables() {
         time: "9:00 AM",
         file: "https://images.ctfassets.net/sfnkq8lmu5d7/1toXJmmMIGF2DauOIBHaTP/89fda87bb1cb72959743530e026fc363/The_Wildest_Proper_Trail_Etiquette_for_Hiking_with_Your_Dog__Stocksy_txp863b6f50CbT300_Medium_618753.jpg?w=1000&h=750&q=70&fm=webp",
         description: "Discover the wonders of the forest with this guided hike amidst the serene beauty of the Smoky Mountains!",
-        event_type: "Hike",
-        pet_type: "Dog",
-        user_id: 2,
+        eventType: "Hike",
+        petType: "Dog",
+        userId: 2,
       });
       
       await createEvent({
@@ -432,9 +432,9 @@ async function dropTables() {
         time: "2:00 PM",
         file: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Female_animal_trainer_and_leopard%2C_c1906.jpg/1920px-Female_animal_trainer_and_leopard%2C_c1906.jpg",
         description: "Join us for a comprehensive training workshop focusing on building obedience skills in your canine companions!",
-        event_type: "Training Workshop",
-        pet_type: "Dog",
-        user_id: 2,
+        eventType: "Training Workshop",
+        petType: "Dog",
+        userId: 2,
       });      
             
       console.log("Finished creating events!");

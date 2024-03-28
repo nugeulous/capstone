@@ -106,7 +106,7 @@ function App() {
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
-        <Route path="/new-event" element={<NewEvent token={token} />} />
+        <Route path="/new-event" element={<NewEvent token={token} user={user} />} />
         <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />

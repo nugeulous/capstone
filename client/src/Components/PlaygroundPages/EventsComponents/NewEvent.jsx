@@ -7,27 +7,25 @@ import { Grid, Select, MenuItem } from "@mui/material/";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { fetchOwner } from "../../../API/api";
 import NoAccess from "./NoAccess";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
-const NewEvent = ({ token }) => {
-  const [owner, setOwner] = useState({});
+const NewEvent = ({ user }) => {
+  // const [owner, setOwner] = useState(null);
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-  const [event_type, setEventType] = useState("");
-  const [pet_type, setPetType] = useState("");
-  const [owner_Id, setOwnerId] = useState("")
+  const [eventType, setEventType] = useState("");
+  const [petType, setPetType] = useState("");
+  const [userId, setUserId] = useState("")
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e, ownerId) => {
+  const handleSubmit = async (e, userId) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -37,9 +35,9 @@ const NewEvent = ({ token }) => {
       formData.append("time", time);
       formData.append("file", file);
       formData.append("description", description);
-      formData.append("event_type", event_type);
-      formData.append("pet_type", pet_type);
-      formData.append("owner_id", ownerId); // new
+      formData.append("eventType", eventType);
+      formData.append("petType", petType);
+      formData.append("userId", userId); // new
 
       const response = await axios.post(`${API_URL}/events/new-event`, formData, {
         headers: {
@@ -47,7 +45,7 @@ const NewEvent = ({ token }) => {
         },
       });      
       console.log(response.data);
-      console.log(ownerId);
+      console.log(userId);
       setTitle("");
       setAddress("");
       setDate("");
@@ -56,7 +54,7 @@ const NewEvent = ({ token }) => {
       setDescription("");
       setEventType("");
       setPetType("");
-      setOwnerId("");
+      setUserId("");
       navigate("/playground");
     } catch (error) {
       setError(error.message);
@@ -70,28 +68,11 @@ const NewEvent = ({ token }) => {
     }
   };
 
-  useEffect(() => {
-    const getAccount = async () => {
-      try {
-        const fetchedOwner = await fetchOwner(token);
-        setOwner(fetchedOwner);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setIsLoading(false);
-      }
-    };
-    getAccount();
-  }, []);
-  if (isLoading) {
-    return <div>Loading...</div>; 
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   } 
   
-  if (!owner.id) {
+  if (!user) {
     // User is not logged in, render a message
     return <NoAccess />;
   }
@@ -118,7 +99,7 @@ const NewEvent = ({ token }) => {
         <Typography component="h1" variant="h5">
           Create New Event
         </Typography>
-        <Box component="form" noValidate onSubmit={(e) => handleSubmit(e, owner.id)} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={(e) => handleSubmit(e, user.id)} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

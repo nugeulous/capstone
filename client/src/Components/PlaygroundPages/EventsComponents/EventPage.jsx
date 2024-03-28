@@ -14,7 +14,8 @@ const EventPage = () => {
   const [user, setUser] = useState(null); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const photoPath = "http://localhost:8080/api/events/getPhoto?fileName=";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+  const photoPath = `${API_URL}/events/getPhoto?fileName=`
 
   const topLevel = {
     display: "flex",
