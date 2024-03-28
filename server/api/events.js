@@ -2,12 +2,15 @@ const express = require('express');
 const eventsRouter = express.Router();
 const multer = require('multer');
 const path = require('path'); 
+const fs = require('fs');
 
 const {
   createEvent,
   getAllEvents,
-  getEventById
+  getEventById,
 } = require('../db/index');
+
+const { getOwnerById } = require('../db/owners');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,9 +27,15 @@ const upload = multer({ storage: storage })
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
-    const { title, address, date, time, description, event_type, pet_type } = req.body;
+    const { title, address, date, time, description, event_type, pet_type, owner_id } = req.body; 
     const photoPath = req.file ? req.file.filename : null; 
-    const event = await createEvent({ title, address, date, time, file: photoPath, description, event_type, pet_type });
+    // const ownerId = req.owner ? req.owner.id : null;
+    const ownerId = parseInt(owner_id);
+    const ownerHasId = await getOwnerById(ownerId);
+    if (!ownerHasId) {
+      return res.status(400).send({ error: 'Owner does not exist' })
+    }
+    const event = await createEvent({ title, address, date, time, file: photoPath, description, event_type, pet_type, owner_id: ownerId });
 
     res.send({ event });
   } catch (error) {
@@ -36,12 +45,14 @@ eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) =>
 
 eventsRouter.get('/getPhoto', (req, res) => {
   const fileName = req.query.fileName;
-
   if (!fileName) {
     return res.status(400).send({ error: 'File name is required' });
   }
 
   const filePath = path.join(__dirname, `../public/uploads/${fileName}`);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send({ error: 'File not found' });
+  }
 
   res.sendFile(filePath);
 })
@@ -66,7 +77,7 @@ eventsRouter.get('/:eventId', async (req, res, next) => {
     }
     res.send(event);
   } catch (error) {
-    next(error); // Forward error to error handling middleware
+    next(error); 
   }
 });
 

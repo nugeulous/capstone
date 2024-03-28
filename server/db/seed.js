@@ -334,6 +334,7 @@ async function dropTables() {
         description: "Franks 12th pupday party",
         event_type: "Birthday",
         pet_type: "Hamster",
+        user_id: 1,
       });
       
       await createEvent({
@@ -345,6 +346,7 @@ async function dropTables() {
         description: "Celebrating Lucy's 5th Birthday with a fun-filled party!",
         event_type: "Birthday",
         pet_type: "Dog",
+        user_id: 1,
       });
       
       await createEvent({
@@ -356,6 +358,7 @@ async function dropTables() {
         description: "Enjoy a lovely picnic with your furry friends!",
         event_type: "Pet-freindly Picnic",
         pet_type: "Dog",
+        user_id: 1,
       });
       
       await createEvent({
@@ -367,6 +370,7 @@ async function dropTables() {
         description: "Join us for a delightful picnic with your pets!",
         event_type: "Pet-freindly Picnic",
         pet_type: "Cat",
+        user_id: 2,
       });
 
       await createEvent({
@@ -378,6 +382,7 @@ async function dropTables() {
         description: "Embark on an exhilarating hike through the breathtaking mountain trails of Yosemite!",
         event_type: "Hike",
         pet_type: "Dog",
+        user_id: 2,
       });
       
       await createEvent({
@@ -389,6 +394,7 @@ async function dropTables() {
         description: "Discover the wonders of the forest with this guided hike amidst the serene beauty of the Smoky Mountains!",
         event_type: "Hike",
         pet_type: "Dog",
+        user_id: 2,
       });
       
       await createEvent({
@@ -400,6 +406,7 @@ async function dropTables() {
         description: "Join us for a comprehensive training workshop focusing on building obedience skills in your canine companions!",
         event_type: "Training Workshop",
         pet_type: "Dog",
+        user_id: 2,
       });      
             
       console.log("Finished creating events!");

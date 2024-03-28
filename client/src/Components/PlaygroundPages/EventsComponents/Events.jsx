@@ -71,7 +71,7 @@ const Events = () => {
       <p>Hang out with Alltails users in local areas that
           provides a safe haven for your pets to engage in lively play sessions.</p>
       <div style={searchFields}>
-        <Button
+        <Button 
           onClick={() => {
             navigate(`/new-event`);
           }}
