@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { fetchOwner } from "../../../API/api";
+import NoAccess from "./NoAccess";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
@@ -23,25 +24,8 @@ const NewEvent = ({ token }) => {
   const [pet_type, setPetType] = useState("");
   const [owner_Id, setOwnerId] = useState("")
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getAccount = async () => {
-      try {
-        const fetchedOwner = await fetchOwner(token);
-        setOwner(fetchedOwner);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    getAccount();
-  }, []);
-
-  if (error) return <div>Error: {error}</div>;
-  if (!owner.id) {
-    // User is not logged in, render a message
-    return <p>Please log in or register for an account to create a new event.</p>;
-  }
 
   const handleSubmit = async (e, ownerId) => {
     e.preventDefault();
@@ -85,6 +69,32 @@ const NewEvent = ({ token }) => {
       setFile(file);
     }
   };
+
+  useEffect(() => {
+    const getAccount = async () => {
+      try {
+        const fetchedOwner = await fetchOwner(token);
+        setOwner(fetchedOwner);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+      }
+    };
+    getAccount();
+  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  } 
+  
+  if (!owner.id) {
+    // User is not logged in, render a message
+    return <NoAccess />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -138,8 +148,8 @@ const NewEvent = ({ token }) => {
                 required
                 fullWidth
                 id="date"
-                label="Event Date"
                 name="date"
+                type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />

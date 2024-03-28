@@ -48,4 +48,18 @@ async function createEvent({ title, address, date, time, file, description, even
     }
   }
 
-  module.exports = { createEvent, getAllEvents, getEventById }
+  async function getEventsByOwnerId(ownerId) {
+    try {
+      const { rows: events } = await client.query(`
+        SELECT *
+        FROM events
+        WHERE owner_id=$1
+      `, [ownerId]);
+  
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  module.exports = { createEvent, getAllEvents, getEventById, getEventsByOwnerId };

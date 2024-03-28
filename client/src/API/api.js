@@ -273,3 +273,20 @@ export const getPetsitterById = async (id) => {
     throw error;
   }
 };
+
+export const getUserById = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/owners/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) throw new Error("User not found");
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw error;
+  }
+};
