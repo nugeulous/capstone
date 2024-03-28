@@ -258,22 +258,6 @@ export const fetchAvailablePetsitters = async (token) => {
   }
 };
 
-export const getPetsitterById = async (id) => {
-  try {
-    const response = await fetch(`${API_URL}/petsitters/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const petsitter = await response.json();
-    return petsitter;
-  } catch (error) {
-    console.error("Error fetching petsitter by ID:", error);
-    throw error;
-  }
-};
-
 export const getUserById = async (userId) => {
   try {
     const response = await fetch(`${API_URL}/owners/${userId}`, {
