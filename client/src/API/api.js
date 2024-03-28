@@ -142,6 +142,26 @@ export const petsitterLogin = async (email, password) => {
   }
 };
 
+export const fetchAllSitters = async (token) => {
+  console.log('Token successfully made it to aPI call:', token)
+  try {
+    const response = await fetch(`${API_URL}/petsitters`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Please log in or create an account!");
+    const petsitters = await response.json();
+    console.log('petsitters response COMPLETE: ', petsitters);
+    return petsitters;
+  } catch (error) {
+    console.error("Error fetching petsitter account:", error);
+    throw error;
+  }
+};
+
 export const fetchPetsitter = async (token) => {
   try {
     const response = await fetch(`${API_URL}/petsitters/me`, {

@@ -18,6 +18,7 @@ const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favori
 const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
 
 function NavBar({ token, setToken, petsitter, setPetsitter, setOwner }) {
+  console.log('token:', token);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
