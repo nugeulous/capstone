@@ -59,9 +59,9 @@ async function getOwner(email) {
     }
   }
 
-async function getOwnerById(id) {
+  async function getOwnerById(id) {
     try {
-      const { rows: [ owner ] } = await client.query(`
+      const { rows: [owner] } = await client.query(`
         SELECT id, email, fname, lname, phone, address, active, role
         FROM owners
         WHERE id=$1
@@ -70,7 +70,7 @@ async function getOwnerById(id) {
       if (!owner) {
         throw {
           name: "OwnerNotFoundError",
-          message: "A owner with that id does not exist"
+          message: "An owner with that id does not exist"
         }
       }
     
@@ -78,7 +78,7 @@ async function getOwnerById(id) {
     } catch (error) {
       throw error;
     }
-  }
+  }  
 
 async function getOwnerByEmail(email) {
     try {

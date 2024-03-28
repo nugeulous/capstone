@@ -122,4 +122,18 @@ ownersRouter.get("/me", requireOwner, async (req, res, next) => {
   }
 });
 
+ownersRouter.get('/:ownerId', async (req, res, next) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const owner = await getOwnerById(ownerId);
+
+    if (!owner) {
+      return res.status(404).json({ error: 'Owner not found' });
+    }
+    res.json(owner);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = ownersRouter;

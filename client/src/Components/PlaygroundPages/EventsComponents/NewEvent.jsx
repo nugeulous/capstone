@@ -1,28 +1,49 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Grid, Select, MenuItem } from "@mui/material/";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { fetchOwner } from "../../../API/api";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
-const NewEvent = () => {
+const NewEvent = ({ token }) => {
+  const [owner, setOwner] = useState({});
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-  const [eventType, setEventType] = useState("");
-  const [petType, setPetType] = useState("");
+  const [event_type, setEventType] = useState("");
+  const [pet_type, setPetType] = useState("");
+  const [owner_Id, setOwnerId] = useState("")
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    const getAccount = async () => {
+      try {
+        const fetchedOwner = await fetchOwner(token);
+        setOwner(fetchedOwner);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    getAccount();
+  }, []);
+
+  if (error) return <div>Error: {error}</div>;
+  if (!owner.id) {
+    // User is not logged in, render a message
+    return <p>Please log in or register for an account to create a new event.</p>;
+  }
+
+  const handleSubmit = async (e, ownerId) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -32,8 +53,9 @@ const NewEvent = () => {
       formData.append("time", time);
       formData.append("file", file);
       formData.append("description", description);
-      formData.append("eventType", eventType);
-      formData.append("petType", petType);
+      formData.append("event_type", event_type);
+      formData.append("pet_type", pet_type);
+      formData.append("owner_id", ownerId); // new
 
       const response = await axios.post(`${API_URL}/events/new-event`, formData, {
         headers: {
@@ -41,6 +63,7 @@ const NewEvent = () => {
         },
       });      
       console.log(response.data);
+      console.log(ownerId);
       setTitle("");
       setAddress("");
       setDate("");
@@ -49,7 +72,7 @@ const NewEvent = () => {
       setDescription("");
       setEventType("");
       setPetType("");
-      setError("");
+      setOwnerId("");
       navigate("/playground");
     } catch (error) {
       setError(error.message);
@@ -85,7 +108,7 @@ const NewEvent = () => {
         <Typography component="h1" variant="h5">
           Create New Event
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={(e) => handleSubmit(e, owner.id)} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

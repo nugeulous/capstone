@@ -71,7 +71,7 @@ const EventPage = () => {
       </div>
       <div style={{ maxWidth: "80%", display: "block", margin: "auto" }}>
       <div style={{ backgroundColor: "lightgrey", maxHeight: "400px", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', borderRadius: "5px" }}>
-        <img style={{ width: "600", height: "400px", display: "block", margin: "auto", borderRadius: "10px" }} src={imagePath} alt={event.title} />
+        <img style={{ width: "600", height: "400px", display: "block", margin: "auto" }} src={imagePath} alt={event.title} />
         </div>
         <div style={topLevel}>
           <div>
