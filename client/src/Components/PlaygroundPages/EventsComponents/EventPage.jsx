@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getEventById } from "../../../API/eventsApi";
+import { getUserById } from "../../../API/api";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +11,7 @@ import RsvpIcon from "@mui/icons-material/Rsvp";
 const EventPage = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [user, setUser] = useState(null); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const photoPath = "http://localhost:3000/api/events/getPhoto?fileName=";
@@ -37,6 +39,8 @@ const EventPage = () => {
           date: formattedDate,
           time: formattedTime,
         });
+        const userResponse = await getUserById(response.owner_id);
+        setUser(userResponse);
       } catch (error) {
         setError(error.message);
       }
@@ -49,8 +53,8 @@ const EventPage = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!event) {
-    return <div>Event not found</div>;
+  if (!event || !user) {
+    return <div>Loading...</div>; // You might want to improve the loading state
   }
 
   const imagePath = event.file.startsWith("http")
@@ -94,6 +98,7 @@ const EventPage = () => {
         <p>Meet up at: {event.address}</p>
         <p>{event.event_type}</p>
         <p>{event.pet_type}</p>
+        <h5>Posted by: {user.fname}</h5> 
       </div>
     </>
   );

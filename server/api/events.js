@@ -8,6 +8,7 @@ const {
   createEvent,
   getAllEvents,
   getEventById,
+  getEventsByOwnerId,
 } = require('../db/index');
 
 const { getOwnerById } = require('../db/owners');
@@ -78,6 +79,17 @@ eventsRouter.get('/:eventId', async (req, res, next) => {
     res.send(event);
   } catch (error) {
     next(error); 
+  }
+});
+
+// Get events by Owner ID
+eventsRouter.get('/owner/:ownerId', async (req, res, next) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const events = await getEventsByOwnerId(ownerId);
+    res.send(events);
+  } catch (error) {
+    next(error);
   }
 });
 
