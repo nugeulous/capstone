@@ -42,6 +42,7 @@ export default function Account({ token }) {
       <h2>Pet(s)</h2>
       <p>Name: {pet.name} </p>
       <p>Age: {pet.age} </p>
+      <p>Animal Type: {pet.animalType}</p>
       <p>Breed: {pet.breed} </p>
       <p>Gender: {pet.gender} </p>
       <p>Weight: {pet.weight} </p>

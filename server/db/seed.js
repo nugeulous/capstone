@@ -54,7 +54,7 @@ async function dropTables() {
         CREATE TABLE pets (
           id SERIAL PRIMARY KEY,
           name varchar(255) NOT NULL,
-          type varchar(255) NOT NULL,
+          animalType varchar(255) NOT NULL,
           breed varchar(255) NOT NULL,
           age varchar(255) NOT NULL,
           weight varchar(255) NOT NULL,
@@ -159,7 +159,7 @@ async function dropTables() {
   
       await createPet({
         name: "Miss Thang",
-        type: "cat",
+        animalType: "cat",
         breed: "tabby", 
         age: "3", 
         weight: "400",
@@ -173,7 +173,7 @@ async function dropTables() {
 
       await createPet({
         name: "Wisely", 
-        type: "dog",
+        animalType: "dog",
         breed: "Chihuahua", 
         age: "3", 
         weight: "12",
@@ -187,7 +187,7 @@ async function dropTables() {
 
       await createPet({
         name: "Chester",
-        type: "dog",
+        animalType: "dog",
         breed: "Golden Retriever", 
         age: "7", 
         weight: "36",
