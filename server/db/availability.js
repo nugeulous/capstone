@@ -1,38 +1,18 @@
- // PETSITTER AVAILABILITY METHODS
+// FUNCTIONS
  const { client } = require("./client.js");
 
- async function createAvailability({ petsitter_id, monday_1, monday_2, monday_3, monday_4, monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24 }) {
+ async function createAvailability({ petsitter_id, date, start_time, end_time, is_available }) {
     try {
       const { rows: [availability] } = await client.query(`
-        INSERT INTO availability(petsitter_id, monday_1, monday_2, monday_3, monday_4, monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24) 
+        INSERT INTO availability(petsitter_id, date, start_time, end_time, is_available) 
         VALUES($1,
             $2,
             $3,
             $4,
-            $5,
-            $6,
-            $7,
-            $8,
-            $9,
-            $10,
-            $11,
-            $12,
-            $13,
-            $14,
-            $15,
-            $16,
-            $17,
-            $18,
-            $19,
-            $20,
-            $21,
-            $22,
-            $23,
-            $24,
-            $25) 
+            $5) 
         RETURNING *;
       `,
-        [petsitter_id, monday_1, monday_2, monday_3, monday_4, monday_5, monday_6, monday_7, monday_8, monday_9, monday_10, monday_11, monday_12, monday_13, monday_14, monday_15, monday_16, monday_17, monday_18, monday_19, monday_20, monday_21, monday_22, monday_23, monday_24]
+        [petsitter_id, date, start_time, end_time, is_available]
       );
       return availability;
     } catch (error) {
@@ -52,7 +32,23 @@
     }
   }
 
+  async function getAvailablePetsitters(){
+    try {
+      const { rows: sitter_availabilities } = await client.query(`
+        SELECT ps.fname, ps.lname, av.date, av.start_time, av.end_time, av.is_available
+        FROM petsitters AS ps
+        INNER JOIN availability AS av ON ps.id = av.petsitter_id
+      `)
+      return sitter_availabilities;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // above function will return: availability: {rows: [{sitter info1}, {sitterinfo2}]}
+
   module.exports = {
     getAllAvailability,
-    createAvailability
+    createAvailability,
+    getAvailablePetsitters
   }
