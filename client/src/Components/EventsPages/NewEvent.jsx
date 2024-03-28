@@ -21,6 +21,7 @@ const NewEvent = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [photos, setPhotos] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState("");
   const [description, setDescription] = useState("");
   const [event_type, setEventType] = useState("");
   const [pet_type, setPetType] = useState("");
@@ -64,8 +65,10 @@ const NewEvent = () => {
       return;
     }
     try {
-      const result = await uploadPhoto(photos);
-      console.log(result);
+      const { data: filename } = await uploadPhoto(photos);
+      setAddedPhotos((prev) => {
+        return [...prev, filename];
+      });
       setError(null); // Reset error state
       setPhotos(""); // Clear input field after successful upload
       alert("Photo uploaded successfully!");
@@ -74,7 +77,6 @@ const NewEvent = () => {
       console.error("Error uploading photo:", error);
     }
   }
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -144,7 +146,7 @@ const NewEvent = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={12} style={{display: "flex", gap: 5}}>
+              <Grid item xs={12} sm={12} style={{ display: "flex", gap: 5 }}>
                 <TextField
                   required
                   fullWidth
@@ -154,8 +156,8 @@ const NewEvent = () => {
                   value={photos}
                   onChange={(e) => setPhotos(e.target.value)}
                 />
-                <Button 
-                onClick={addPhotobyLink}
+                <Button
+                  onClick={addPhotobyLink}
                   style={{
                     width: 100,
                     height: 55,
@@ -171,7 +173,29 @@ const NewEvent = () => {
                   <AddIcon />
                 </Button>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} style={{ display: "flex", gap: 5 }}>
+                {addedPhotos.length > 0 &&
+                  addedPhotos.map((link, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        width: 100,
+                        height: 100,
+                        border: "1px solid lightgrey",
+                        borderRadius: 20,
+                      }}
+                    >
+                      <img
+                        src={"http://localhost:3000/api/uploads/photo1711582023358.jpg"}
+                        alt={`Photo ${index + 1}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  ))}
                 <div
                   style={{
                     width: 100,
@@ -183,7 +207,7 @@ const NewEvent = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Button >
+                  <Button>
                     <CloudUploadOutlinedIcon />
                   </Button>
                 </div>
