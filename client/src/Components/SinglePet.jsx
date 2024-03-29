@@ -1,6 +1,6 @@
 const SinglePet = ({ pet }) => {
 
-    const {name, age, gender, image, weight, breed, favoriteToy, favoriteTreat, personality } = pet;
+    const {name, animalType, age, gender, image, weight, breed, favoriteToy, favoriteTreat, personality } = pet;
 
   return (
    <div>
@@ -9,6 +9,7 @@ const SinglePet = ({ pet }) => {
     <p>Age: {age} </p>
     <p>Gender: {gender} </p>
     <p>Weight; {weight} </p>
+    <p>Animal Type: {animalType} </p>
     <p>Breed: {breed} </p>
     <p>Favorite Toy: {favoriteToy} </p>
     <p>Favorite Treat: {favoriteTreat} </p>

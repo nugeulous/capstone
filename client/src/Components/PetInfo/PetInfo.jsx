@@ -11,6 +11,7 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
   const [name, setName] = useState("");
   const [selectedGender, setSelectedGender] = useState(null);
   const [breed, setBreed] = useState("");
+  const [animalType, setAnimalType] = useState("")
   const [favoriteToy, setFavoriteToy] = useState("");
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
@@ -25,6 +26,7 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
     setName("");
     setAge(0);
     setSelectedGender(null);
+    setAnimalType("");
     setBreed("");
     setWeight("");
     setFavoriteToy("");
@@ -40,6 +42,7 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
         age,
         gender,
         breed,
+        animalType,
         weight,
         favoriteToy,
         favoriteTreat,
@@ -95,6 +98,17 @@ export default function PetInfo({ setToken, age, setAge, weight, setWeight, imag
             value={breed}
             onChange={(e) => setBreed(e.target.value)}
           />
+          <h2>Animal Type:</h2>
+          <Age />
+          <h2>Animal Type:</h2>
+          <TextField
+            required
+            id="outlined-basic"
+            label="Animal Type 🐕"
+            variant="outlined"
+            value={animalType}
+            onChange={(e) => setAnimalType(e.target.value)}
+          />         
           <h2>Weight:</h2>
           <Weight />
           <h2>Favorite Toy:</h2>

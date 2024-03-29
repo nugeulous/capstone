@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
+
 export default function Home() {
     const navigate = useNavigate();
   return (
@@ -8,7 +10,7 @@ export default function Home() {
       <Button
         variant="outlined"
         onClick={() => {
-          navigate(`/Walkers`);
+          navigate(`/BookService`);
         }}
       >
         Take a Walk
