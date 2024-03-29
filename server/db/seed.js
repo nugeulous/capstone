@@ -79,10 +79,11 @@ async function dropTables() {
           address varchar(255) NOT NULL,
           active boolean DEFAULT true,
           phone varchar(255) UNIQUE NOT NULL,
-          image varchar(255),
-          gender varchar(255),
-          snakes_petsitter boolean DEFAULT false,
-          role varchar(50)
+          image varchar(255) NOT NULL,
+          gender varchar(255) NOT NULL,
+          dogs boolean DEFAULT false,
+          cats boolean DEFAULT false,
+          role varchar(255)
         );
 
         CREATE TABLE availability (
@@ -219,6 +220,9 @@ async function dropTables() {
         phone: "916-432-7811",
         image: "imagery",
         gender: "non-binary",
+        dogs: true,
+        cats: true,
+        role: null
       });
 
       await createPetsitter({
@@ -230,6 +234,9 @@ async function dropTables() {
         phone: "222-333-7811",
         image: "pictcha",
         gender: "girlllll",
+        dogs: true,
+        cats: false,
+        role: null
       });
 
       await createPetsitter({
@@ -242,7 +249,8 @@ async function dropTables() {
         image: "pcturee",
         gender: "male",
         dogs: false,
-        cats: true
+        cats: true,
+        role: null
       });
 
       await createPetsitter({
@@ -255,7 +263,8 @@ async function dropTables() {
         image: "a pic",
         gender: "female",
         dogs: true,
-        cats: false
+        cats: false,
+        role: null
       });
 
       console.log("Finished creating petsitters!");
@@ -273,7 +282,7 @@ async function dropTables() {
         petsitter_id: "1",
         date: '10-10-24',
         start_time: '09:00:00',
-        end_time: '5:00:00',
+        end_time: '14:00:00',
         is_available: true
       });
 

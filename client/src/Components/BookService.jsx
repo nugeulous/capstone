@@ -1,12 +1,8 @@
-// BOOK A WALK
-  // GET all owners
-  // filter for owners who have XYZ availability
-  // return info of those owners
-
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchAccount, fetchAvailablePetsitters } from "../API/api";
 import Box from '@mui/material/Box';
-import { borders } from '@mui/system';
+import { Button } from "@mui/material";
 
 const commonStyles = {
   bgcolor: 'background.paper',
@@ -40,36 +36,35 @@ const commonStyles = {
 }
 
 // pass in token
-export default function Walkers({token}) {
+export default function BookService({token}) {
 
   const [owner, setOwner] = useState({});
   const [error, setError] = useState(null);
   const [startTimeInput, setStartTimeInput] = useState(null);
   const [endTimeInput, setEndTimeInput] = useState(null);
   const [petSitterFnameLname, setPetsitterFnameLname] = useState([]);
+  const navigate = useNavigate();
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
   useEffect(() => {
     const getAccount = async () => {
       try {
-        console.log('Token has successfully passed through', token)
         // useEffect will not continue until fetchAccount(token) returns a promise
         const fetchedAccount = await fetchAccount(token);
         // update state to store the fetched account
         setOwner(fetchedAccount);
-        console.log('successfully fetched account info: ', fetchedAccount);
       } catch (error) {
         setError(error.message);
       }
     };
-    getAccount();
+    // getAccount();
   }, []);
   
   if (error) return <div>Error: {error}</div>;
   
   // User is not logged in, render a message
-  if (!owner.id) {
+  if (!token) {
     return <p>Please log in or create an account.</p>;
   }
 
@@ -80,13 +75,13 @@ export default function Walkers({token}) {
     // GET petsitter info
     try {
       const result = await fetchAvailablePetsitters(token);
-      console.log("result from fetching sitters info:", result);
       setPetsitterFnameLname(result);
     } catch (error) {
+      console.log('ERROR FROM FETCH---->', error)
       setError("Can't fetch info");
     }
-  }
-
+    }
+    
   // filter for owners with specific availability
     return (
         <div className="home">
@@ -102,20 +97,41 @@ export default function Walkers({token}) {
             <input type="time" placeholder=" 12:00PM" step={3600} onChange={(e) => setEndTimeInput(e.target.value)}/>
           </label>
           <label>Pet:
-            <input type="text" placeholder=" Sergeant Barksalot" />
+            <select>
+            {/* <select value={myCar} onChange={handleChange}> */}
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Fish">Fish</option>
+              <option value="Bird">Bird</option>
+              <option value="Hamster">Hamster</option>
+              <option value="Reptile">Reptile</option>
+            </select>
+          </label>
+          <label>Pet Size:
+            <select>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+            </select>
+          </label>
+          <label>Location:
+            <input type="text" placeholder=" 5 - Digit Zip Code" />
           </label>
           <label>
             <input type="submit"/>
           </label>
         </form>
-        {/* <Box sx={{ border: 1 }}>Border here?</Box>
-        <Box sx={{ borderRadius: '50%' }}>HEY</Box>
-        <Box sx={{ borderColor: 'grey.500' }}><div>Hi again</div></Box> */}
         <div>{petSitterFnameLname.filter((petsitter) => {
-          return petsitter.start_time >= startTimeInput && petsitter.end_time >= endTimeInput;
+          return petsitter.start_time <= startTimeInput && petsitter.end_time >= endTimeInput;
         }).map((petsitter, index)=>{
-          return <li key={index}> {petsitter.fname + ' ' + petsitter.lname} <button id="myButton" type="button">Book</button> </li>
-
+          return <Box key={index}> {petsitter.fname + ' ' + petsitter.lname} <Button 
+            id="myButton" 
+            type="button"
+            variant="outlined"
+            onClick={() => {
+              navigate(`/ServiceConfirmed`);
+            }}
+          >Book</Button> </Box>
         })}</div>
         </div>
     );

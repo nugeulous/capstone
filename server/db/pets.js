@@ -1,6 +1,6 @@
 const { client } = require("./client.js");
 
-async function createPet({ name, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality, pet_owner_id }) {
+async function createPet({ name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality, pet_owner_id }) {
     try {
       const {
         rows: [pet],

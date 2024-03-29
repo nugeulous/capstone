@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, "..", "client/dist")));
 console.log(__dirname)
 app.use('/uploads', express.static(__dirname + '/api/uploads'))
 
+// base route
 const apiRouter = require("./api");
 app.use("/api", apiRouter);
 

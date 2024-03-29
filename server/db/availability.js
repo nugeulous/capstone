@@ -33,6 +33,7 @@
   }
 
   async function getAvailablePetsitters(){
+  // above function will return: availability: {rows: [{sitter info1}, {sitterinfo2}]}
     try {
       const { rows: sitter_availabilities } = await client.query(`
         SELECT ps.fname, ps.lname, av.date, av.start_time, av.end_time, av.is_available
@@ -44,8 +45,6 @@
       throw error;
     }
   }
-
-  // above function will return: availability: {rows: [{sitter info1}, {sitterinfo2}]}
 
   module.exports = {
     getAllAvailability,

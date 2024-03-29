@@ -80,7 +80,10 @@ apiRouter.use('/events', eventsRouter);
 const uploadsRouter = require('./uploads');
 apiRouter.use('/uploads', uploadsRouter);
 
+// ROUTER: return error message if error hits in conditional
 apiRouter.use((error, req, res, next) => {
+  // TODO: proper error handling to send back to client - not showing up on client side
+  console.log('ERROR--->', error)
   res.send(error);
 });
 

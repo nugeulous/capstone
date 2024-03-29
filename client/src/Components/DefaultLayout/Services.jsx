@@ -47,7 +47,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/Walkers`);
+            navigate(`/BookService`);
           }}
         >
           <img src={walking} alt="" />
