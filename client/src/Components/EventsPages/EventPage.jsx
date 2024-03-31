@@ -9,6 +9,7 @@ const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const photoPath = 'http://localhost:3000/api/events/getPhoto?fileName='
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -38,6 +39,8 @@ const EventPage = () => {
     return <div>Event not found</div>;
   }
 
+  const imagePath = event.file.startsWith('http') ? event.file : photoPath + event.file;
+
   return (
     <>
       <div>
@@ -51,7 +54,7 @@ const EventPage = () => {
         </Button>
       </div>
       <div>
-        <img src={event.file} alt={event.title} />
+        <img src={imagePath} alt={event.title} />
         <h2>{event.title}</h2>
         <p>{event.address}</p>
         <p>{event.date}</p>
@@ -59,6 +62,7 @@ const EventPage = () => {
         <p>{event.description}</p>
         <p>{event.event_type}</p>
         <p>{event.pet_type}</p>
+        {console.log(event.file)}
       </div>
     </>
   );

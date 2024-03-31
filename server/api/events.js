@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')
   }
 })
 
@@ -25,7 +25,7 @@ const upload = multer({ storage: storage })
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
     const { title, address, date, time, description, event_type, pet_type } = req.body;
-    const photoPath = req.file ? req.file.path : null; 
+    const photoPath = req.file ? req.file.filename : null; 
     const event = await createEvent({ title, address, date, time, file: photoPath, description, event_type, pet_type });
 
     res.send({ event });
@@ -33,6 +33,18 @@ eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) =>
     next(error);
   }
 });
+
+eventsRouter.get('/getPhoto', (req, res) => {
+  const fileName = req.query.fileName;
+
+  if (!fileName) {
+    return res.status(400).send({ error: 'File name is required' });
+  }
+
+  const filePath = path.join(__dirname, `../public/uploads/${fileName}`);
+
+  res.sendFile(filePath);
+})
 
 // Get all events
 eventsRouter.get('/', async (req, res, next) => {

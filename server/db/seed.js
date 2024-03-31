@@ -123,10 +123,10 @@ async function dropTables() {
           address TEXT NOT NULL,
           date DATE NOT NULL,
           time TIME NOT NULL,
-          file TEXT,
+          file VARCHAR(255),
           description TEXT NOT NULL,
           event_type VARCHAR(50) NOT NULL,
-          pet_type VARCHAR(50) NOT NULL,
+          pet_type VARCHAR(50),
           owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
         );
 
