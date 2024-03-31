@@ -11,21 +11,22 @@ const EventsCard = ({ event }) => {
     day: 'numeric',
   });
 
-  const formattedTime = new Date(`${event.date} ${event.time}`).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
+  const [hours, minutes] = event.time.split(':').map(Number);
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12;
+  const roundedMinutes = Math.round(minutes / 30) * 30;
+  const formattedTime = `${formattedHours}:${roundedMinutes.toString().padStart(2, '0')} ${ampm}`;
+
 
   return (
     <div className="event-card">
       <Link to={`/events/${event.id}`}>
-        <img className="event-image" src={imagePath} alt={event.title} />
         <div className="event-details">
           <h2>{event.title}</h2>
+          <img className="event-image" src={imagePath} alt={event.title} />
           <p>{event.address}</p>
-          <p>{formattedDate}</p>
-          <p>{formattedTime}</p>
+          <p>{formattedDate} {formattedTime}</p>
+          <p>{event.event_type}</p>
         </div>
       </Link>
     </div>

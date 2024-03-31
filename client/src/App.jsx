@@ -7,7 +7,7 @@ import Home from "./Components/Home";
 import Register from "./Components/Register";
 import Account from "./Components/Account";
 import AboutUs from "./Components/AboutUs";
-import Playground from "./Components/Playground";
+import Playground from "./Components/PlaygroundPages/Playground";
 import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
 import Walkers from "./Components/Walkers";
@@ -17,8 +17,8 @@ import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
 import PetInfo from "./Components/PetInfo/PetInfo";
-import NewEvent from "./Components/EventsPages/NewEvent"
-import EventPage from "./Components/EventsPages/EventPage"
+import NewEvent from "./Components/PlaygroundPages/EventsComponents/NewEvent"
+import EventPage from "./Components/PlaygroundPages/EventsComponents/EventPage"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";

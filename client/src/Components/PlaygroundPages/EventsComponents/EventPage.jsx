@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getEventById } from "../../API/eventsApi";
+import { getEventById } from "../../../API/eventsApi";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -62,7 +62,6 @@ const EventPage = () => {
         <p>{event.description}</p>
         <p>{event.event_type}</p>
         <p>{event.pet_type}</p>
-        {console.log(event.file)}
       </div>
     </>
   );

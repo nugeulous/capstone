@@ -109,6 +109,7 @@ const NewEvent = () => {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Grid>
+            
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -125,13 +126,13 @@ const NewEvent = () => {
                 required
                 fullWidth
                 id="time"
-                label="Event Time"
                 name="time"
+                type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={12} style={{ display: "flex", gap: 5 }}>
+            <Grid item xs={12} sm={12} >
               <input
                 type="file"
                 id="photo"
@@ -185,14 +186,13 @@ const NewEvent = () => {
                 onChange={(e) => setEventType(e.target.value)}
               >
                 <MenuItem value="">Select Event Type</MenuItem>
-                <MenuItem value="birthday">Birthday</MenuItem>
-                <MenuItem value="picnic">Pet-freindly Picnic</MenuItem>
-                <MenuItem value="playdate">Playdate</MenuItem>
-                <MenuItem value="parade">Pet Parade</MenuItem>
-                <MenuItem value="hike">Hike</MenuItem>
-                <MenuItem value="training">Training Workshop</MenuItem>
-                <MenuItem value="adoption">Pet Adoption</MenuItem>
-                <MenuItem value="yappyHour">Yappy Hours</MenuItem>
+                <MenuItem value="Birthday">Birthday</MenuItem>
+                <MenuItem value="Pet-freindly Picnic">Pet-freindly Picnic</MenuItem>
+                <MenuItem value="Pet Parade">Pet Parade</MenuItem>
+                <MenuItem value="Hike">Hike</MenuItem>
+                <MenuItem value="Training Workshop">Training Workshop</MenuItem>
+                <MenuItem value="Pet Adoption">Pet Adoption</MenuItem>
+                <MenuItem value="Yappy Hours">Yappy Hours</MenuItem>
               </Select>
             </Grid>
             <Grid item xs={12}>
