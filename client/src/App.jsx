@@ -18,6 +18,7 @@ import Messages from "./Components/Messages";
 import './App.css';
 import PetInfo from "./Components/PetInfo/PetInfo";
 import NewEvent from "./Components/EventsPages/NewEvent"
+import EventPage from "./Components/EventsPages/EventPage"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
@@ -68,6 +69,7 @@ function App() {
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/new-event" element={<NewEvent token={token} />} />
+        <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
         <Route path="/Walkers" element={<Walkers token={token} />} />

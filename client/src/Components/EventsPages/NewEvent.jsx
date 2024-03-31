@@ -1,76 +1,67 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { createEvent } from "../../API/eventsApi";
-import { uploadPhoto } from "../../API/photoUploadApi";
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { Grid, Select, MenuItem, InputLabel } from "@mui/material/";
+import { Grid, Select, MenuItem } from "@mui/material/";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+
+const API_URL = "http://localhost:3000/api";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [photos, setPhotos] = useState("");
+  const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const [event_type, setEventType] = useState("");
   const [pet_type, setPetType] = useState("");
-  // const [owner_id, setOwnerId] = useState("");
   const [error, setError] = useState(null);
-  const [validationError, setValidationError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await createEvent(
-        title,
-        address,
-        date,
-        time,
-        photos,
-        description,
-        event_type,
-        pet_type
-      );
-      console.log(result);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("address", address);
+      formData.append("date", date);
+      formData.append("time", time);
+      formData.append("file", file);
+      formData.append("description", description);
+      formData.append("event_type", event_type);
+      formData.append("pet_type", pet_type);
+
+      const response = await axios.post(`${API_URL}/events/new-event`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });      
+      console.log(response.data);
       setTitle("");
       setAddress("");
       setDate("");
       setTime("");
-      setPhotos("");
+      setFile(null);
       setDescription("");
       setEventType("");
       setPetType("");
       setError("");
-      setValidationError("");
       navigate("/playground");
-      //   setOwnerId("");
     } catch (error) {
       setError(error.message);
     }
   };
 
-  async function addPhoto(e) {
-    e.preventDefault();
-    const fileInput = e.target.files[0]; 
-    if (!fileInput) {
-        setError("Please select a photo");
-        return;
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
     }
-    try {
-        const formData = new FormData(); 
-        formData.append("photo", fileInput); 
-        await uploadPhoto(formData);
-        setError(null); 
-    } catch (error) {
-        setError("Failed to upload photo. Please try again later.");
-        console.error("Error uploading photo:", error);
-    }
-}
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,10 +73,17 @@ const NewEvent = () => {
           alignItems: "center",
         }}
       >
+        <div>
+          <Button
+            onClick={() => {
+              navigate(`/playground`);
+            }}
+          >
+            Back to Playground
+          </Button>
+        </div>
         <Typography component="h1" variant="h5">
           Create New Event
-          {validationError && <p>{validationError}</p>}
-          {error && <p style={{ color: "red" }}>{error}</p>}
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -138,31 +136,28 @@ const NewEvent = () => {
                 type="file"
                 id="photo"
                 name="photo"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setPhotos(reader.result);
-                      addPhoto(e);
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
+                onChange={handleImageChange}
               />
             </Grid>
-            {photos && (
-              <div style={{ display: "flex", justifyContent: "center", width: 100, height: 100 }}>
-                  <img
-                    src={photos}
-                    alt={`Uploaded photo`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "inherit",
-                      borderRadius: 20
-                    }}
-                  />
+            {file && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: 100,
+                  height: 100,
+                }}
+              >
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`Uploaded photo`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "inherit",
+                    borderRadius: 20,
+                  }}
+                />
               </div>
             )}
             <Grid item xs={12}>

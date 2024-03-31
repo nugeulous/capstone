@@ -1,7 +1,7 @@
 const express = require('express');
 const photosRouter = express.Router();
 
-console.log(__dirname)
+// console.log(__dirname)
 photosRouter.post("/upload-by-file", async (req, res) => {
   try {
       const file = req.files.photo;

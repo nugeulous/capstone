@@ -138,14 +138,14 @@ h1 {
 
 /* CARD STYLING */
 
-/* Styling for the container that holds the player cards. */
+/* Styling for the container that holds the event cards. */
 .events {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-/* Styling for individual player cards. */
+/* Styling for individual event cards. */
 .event-card {
   width: 360px; 
   height: 380px; 
@@ -158,18 +158,18 @@ h1 {
   border: #423146 3px solid;
 }
 
-/* Styling for when a user hovers over a player card. */
+/* Styling for when a user hovers over a event card. */
 .event-card:hover {
   transform: translateY(-5px);
 }
 
-/* Styling for the container that holds the player's image. */
+/* Styling for the container that holds the event's image. */
 .event-image-container {
   height: 300px; 
   padding: 10px; 
 }
 
-/* Styling for the player's image. */
+/* Styling for the event's image. */
 .event-image {
   width: 250px; 
   height: 250px; 
@@ -179,7 +179,7 @@ h1 {
   margin-left: 55px;
 }
 
-/* Styling for the player's details (name, breed, status). */
+/* Styling for the event's details (). */
 .event-details {
   flex-direction: column; 
   align-items: center;
