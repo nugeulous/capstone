@@ -10,7 +10,7 @@ import AboutUs from "./Components/AboutUs";
 import Playground from "./Components/Playground";
 import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
-import Walkers from "./Components/Walkers";
+import BookService from "./Components/BookService";
 import Sitters from "./Components/Sitters";
 import Services from "./Components/DefaultLayout/Services";
 import Favorites from "./Components/Favorites";
@@ -21,6 +21,10 @@ import NewEvent from "./Components/EventsPages/NewEvent"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
+import ServiceConfirmed from "./Components/ServiceConfirmed";
+import PaymentInfo from "./Components/PaymentInfo";
+import OrderConfirmed from "./Components/OrderConfirmed";
+
 function App() {
   const [token, setToken] = useState(
     window.localStorage.getItem("token") ?? null
@@ -70,12 +74,15 @@ function App() {
         <Route path="/new-event" element={<NewEvent token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
-        <Route path="/Walkers" element={<Walkers token={token} />} />
+        <Route path="/BookService" element={<BookService token={token} />} />
         <Route path="/Sitters" element={<Sitters token={token} />} />
         <Route path="/Groomers" element={<Groomers token={token} />} />
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
         <Route path="/Pet Info" element={<PetInfo token={token} />} />
+        <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
+        <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
+        <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
       </Routes>
     </div>
   );
