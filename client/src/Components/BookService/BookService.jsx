@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAccount, fetchAvailablePetsitters } from "../API/api";
+import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
 import Box from '@mui/material/Box';
 import { Button } from "@mui/material";
+import "./CSSBookService.css";
+import petsitter4 from "../../images/petsitter4.png"
 
 const commonStyles = {
   bgcolor: 'background.paper',
@@ -47,19 +49,21 @@ export default function BookService({token}) {
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
+  const getAccount = useCallback(async () => {
+    try {
+      // useEffect will not continue until fetchAccount(token) returns a promise
+      const fetchedAccount = await fetchAccount(token);
+      // update state to store the fetched account
+      setOwner(fetchedAccount);
+    } catch (error) {
+      setError(error.message);
+    }
+  }, [token, fetchAccount, setOwner, setError]);
+
+  // only re-renders when dependency changes (stored in array) - avoid infinite rerender or slow page
   useEffect(() => {
-    const getAccount = async () => {
-      try {
-        // useEffect will not continue until fetchAccount(token) returns a promise
-        const fetchedAccount = await fetchAccount(token);
-        // update state to store the fetched account
-        setOwner(fetchedAccount);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    // getAccount();
-  }, []);
+    getAccount();
+  }, [getAccount]);
   
   if (error) return <div>Error: {error}</div>;
   
@@ -121,18 +125,39 @@ export default function BookService({token}) {
             <input type="submit"/>
           </label>
         </form>
-        <div>{petSitterFnameLname.filter((petsitter) => {
+        <div className="sitter-card-container">{petSitterFnameLname.filter((petsitter) => {
           return petsitter.start_time <= startTimeInput && petsitter.end_time >= endTimeInput;
         }).map((petsitter, index)=>{
-          return <Box key={index}> {petsitter.fname + ' ' + petsitter.lname} <Button 
+          return <Button 
+            className="sitter-card-outline"
             id="myButton" 
             type="button"
             variant="outlined"
             onClick={() => {
               navigate(`/ServiceConfirmed`);
             }}
-          >Book</Button> </Box>
+            key={index}> 
+            <div className="sitter-card">
+              <img src={petsitter4} alt="" />
+            </div>
+            <div>
+              <p>{petsitter.fname + ' ' + petsitter.lname}</p>
+            </div>
+     </Button>
         })}</div>
         </div>
     );
 }
+
+// return <div className="sitter-card" 
+// key={index}> 
+// <img src={petsitter4} alt="" />
+// {petsitter.fname + ' ' + petsitter.lname} <Button 
+// id="myButton" 
+// type="button"
+// variant="outlined"
+// onClick={() => {
+// navigate(`/ServiceConfirmed`);
+// }}
+// >Book</Button> </div>
+// })}</div>

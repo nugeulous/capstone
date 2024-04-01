@@ -10,7 +10,7 @@ import AboutUs from "./Components/AboutUs";
 import Playground from "./Components/Playground";
 import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
-import BookService from "./Components/BookService";
+import BookService from "./Components/BookService/BookService";
 import Sitters from "./Components/Sitters";
 import Services from "./Components/DefaultLayout/Services";
 import Favorites from "./Components/Favorites";

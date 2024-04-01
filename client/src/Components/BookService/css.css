@@ -1,0 +1,42 @@
+/* BOOK SERVICE */
+
+.sitter-card-container {
+    margin: 50px auto;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+.sitter-card img {
+    width:100%;
+    border-radius: 10px;
+  }
+
+.sitter-card-outline {
+    height: auto;
+    width: auto;
+    flex-basis: auto;
+    position: relative;
+}
+
+/* .caption {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 15, 152, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: purple;
+  cursor: pointer;
+  transition: 0.4s;
+} */
+
+.caption {
+  justify-content: center;
+}
