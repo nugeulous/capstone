@@ -48,14 +48,16 @@ export const addPet = async (
   name,
   age,
   gender,
+  sterile,
   breed,
   weight,
   favoriteToy,
   favoriteTreat,
-  personality
+  personality,
+  pet_owner_id
 ) => {
   try {
-    const response = await fetch(`${API_URL}/owners/addPet `, {
+    const response = await fetch(`${API_URL}/pets/addPet `, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,11 +67,13 @@ export const addPet = async (
         name,
         age,
         gender,
+        sterile,
         breed,
         weight,
         favoriteToy,
         favoriteTreat,
         personality,
+        pet_owner_id
       }),
     });
     const result = await response.json();

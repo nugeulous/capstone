@@ -1,11 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const ImageUpload = () => {
-
-  const [image, setImage] = useState(null);
-
+const ImageUpload = ({ image, setImage }) => {
   return (
     <div>
+
       {image && (
         <div>
           <img
@@ -25,7 +23,8 @@ const ImageUpload = () => {
         type="file"
         name="myImage"
         onChange={(event) => {
-          setImage(event.target.files[0]);
+          console.log(event.target.files[0]);
+          setSelectedImage(event.target.files[0]);
         }}
       />
     </div>
