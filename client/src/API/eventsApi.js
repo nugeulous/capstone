@@ -1,15 +1,17 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
-export const createEvent = async (title, address, date, time, photos, description, event_type, pet_type, owner_id) => {
+export const createEvent = async (eventData) => {
   try {
+    const formData = new FormData();
+    for (const key in eventData) {
+      formData.append(key, eventData[key]);
+    }
     const response = await fetch(`${API_URL}/events/new-event`, {
       method: "POST",
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      body: JSON.stringify({
-        title, address, date, time, photos, description, event_type, pet_type, owner_id
-      }),
     });
     const result = await response.json();
     return result;
@@ -17,7 +19,7 @@ export const createEvent = async (title, address, date, time, photos, descriptio
     console.error("Error from create event:", error);
     throw error;
   }
-};
+}
 
 export const getAllEvents = async () => {
   try {
@@ -31,6 +33,22 @@ export const getAllEvents = async () => {
     return events;
   } catch (error) {
     console.error("Error fetching all events:", error);
+    throw error;
+  }
+};
+
+export const getEventById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/events/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const event = await response.json();
+    return event;
+  } catch (error) {
+    console.error("Error fetching event by ID:", error);
     throw error;
   }
 };

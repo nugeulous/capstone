@@ -7,7 +7,7 @@ import Home from "./Components/Home";
 import Register from "./Components/Register";
 import Account from "./Components/Account";
 import AboutUs from "./Components/AboutUs";
-import Playground from "./Components/Playground";
+import Playground from "./Components/PlaygroundPages/Playground";
 import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
 import BookService from "./Components/BookService/BookService";
@@ -17,7 +17,8 @@ import Favorites from "./Components/Favorites";
 import Messages from "./Components/Messages";
 import './App.css';
 import PetInfo from "./Components/PetInfo/PetInfo";
-import NewEvent from "./Components/EventsPages/NewEvent"
+import NewEvent from "./Components/PlaygroundPages/EventsComponents/NewEvent"
+import EventPage from "./Components/PlaygroundPages/EventsComponents/EventPage"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
@@ -72,6 +73,7 @@ function App() {
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/new-event" element={<NewEvent token={token} />} />
+        <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
         <Route path="/BookService" element={<BookService token={token} />} />

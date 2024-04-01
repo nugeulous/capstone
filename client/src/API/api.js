@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
@@ -48,15 +48,17 @@ export const addPet = async (
   name,
   age,
   gender,
+  sterile,
   breed,
   animalType,
   weight,
   favoriteToy,
   favoriteTreat,
-  personality
+  personality,
+  pet_owner_id
 ) => {
   try {
-    const response = await fetch(`${API_URL}/owners/addPet `, {
+    const response = await fetch(`${API_URL}/pets/addPet `, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,12 +68,14 @@ export const addPet = async (
         name,
         age,
         gender,
+        sterile,
         breed,
         animalType,
         weight,
         favoriteToy,
         favoriteTreat,
         personality,
+        pet_owner_id
       }),
     });
     const result = await response.json();
