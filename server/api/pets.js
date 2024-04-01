@@ -20,9 +20,9 @@ petsRouter.get('/', async (req, res, next) => {
 //Create Pet
 petsRouter.post('/addPet', async (req, res, next) => {
     try {
-      const { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality } = req.body;
+      const { name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id } = req.body;
 
-      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality });
+      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id });
   
       res.send({ pet });
     } catch ({ name, message }) {

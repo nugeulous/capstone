@@ -5,8 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 
-export default function Weight() {
-    const [weight, setWeight] = useState("");
+export default function Weight({ weight, setWeight }) {
 
     const handleChange = (event) => {
       setWeight(event.target.value);
@@ -23,10 +22,10 @@ export default function Weight() {
           label="weight"
           onChange={handleChange}
         >
-          <MenuItem value={"Small"}>S: 5-20 lb</MenuItem>
-          <MenuItem value={"Medium"}>M: 21-50 lb</MenuItem>
-          <MenuItem value={"Large"}>L: 51- 99 lb</MenuItem>
-          <MenuItem value={"X-Large"}>XL: 100+ lb</MenuItem>
+          <MenuItem value="Small">S: 5-20 lb</MenuItem>
+          <MenuItem value="Medium">M: 21-50 lb</MenuItem>
+          <MenuItem value="Large">L: 51- 99 lb</MenuItem>
+          <MenuItem value="X-Large">XL: 100+ lb</MenuItem>
         </Select>
       </FormControl>
     </Box>

@@ -16,8 +16,7 @@ const marks = [
   },
 ];
 
-export default function Age() {
-    const [age, setAge] = useState(MIN);
+export default function Age({ age, setAge }) {
     const handleChange2 = (_, newValue) => {
         setAge(newValue);
       };
