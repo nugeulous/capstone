@@ -1,6 +1,6 @@
 import Hero from "./DefaultLayout/Hero";
 import Services from "./DefaultLayout/Services";
-import PlaygroundDefault from "./EventsPages/PlaygroundDefault";
+import PlaygroundDefault from "./DefaultLayout/PlaygroundDefault";
 
 export default function AboutUs() {
   return (

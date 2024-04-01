@@ -77,8 +77,8 @@ const eventsRouter = require('./events');
 apiRouter.use('/events', eventsRouter);
 
 // ROUTER: /api/uploads
-const uploadsRouter = require('./uploads');
-apiRouter.use('/uploads', uploadsRouter);
+const photosRouter = require('./photos');
+apiRouter.use('/photos', photosRouter);
 
 // ROUTER: return error message if error hits in conditional
 apiRouter.use((error, req, res, next) => {
