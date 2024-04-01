@@ -10,7 +10,7 @@ async function createPet({ name, animalType, breed, age, weight, image, gender, 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
         RETURNING *;
       `,
-          [name, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id]
+          [name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id]
       );
   
       return pet;
