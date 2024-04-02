@@ -17,8 +17,7 @@ const pages = ["Home", "Services", "Playground", "About Us"];
 const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favorites", "Messages", "Logout"];
 const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
 
-function NavBar({ token, setToken, petsitter, setPetsitter, setOwner }) {
-  console.log('token:', token);
+function NavBar({ token, setToken, role }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);

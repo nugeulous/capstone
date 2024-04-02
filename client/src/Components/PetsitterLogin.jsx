@@ -32,7 +32,7 @@ function Copyright(props) {
   );
 }
 const defaultTheme = createTheme();
-const Login = ({ setToken }) => {
+const Login = ({ setToken, setRole, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -44,6 +44,8 @@ const Login = ({ setToken }) => {
     try {
       const result = await petsitterLogin(email, password);
       setToken(result.token);
+      setRole(result.role);
+      setUser(result.petsitter);
     } catch (error) {
       setError("incorrect email or password");
     }

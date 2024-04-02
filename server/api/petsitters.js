@@ -78,10 +78,11 @@ petsittersRouter.get('/', async (req, res, next) => {
           });
           return;
         }
-        const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role }, JWT_SECRET, {
+        delete petsitter.password;
+        const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role, petsitter }, JWT_SECRET, {
           expiresIn: "1w",
         });
-        res.send({ message: "you're logged in!", token });
+        res.send({ message: "you're logged in!", token, role: petsitter.role, id: petsitter.id });
       }
     } catch (error) {
       next(error);
