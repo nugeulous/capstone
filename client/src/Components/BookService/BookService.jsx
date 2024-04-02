@@ -1,39 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAccount, fetchAvailablePetsitters } from "../API/api";
-import Box from '@mui/material/Box';
+import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
-
-const commonStyles = {
-  bgcolor: 'background.paper',
-  borderColor: 'text.primary',
-  m: 1,
-  border: 1,
-  width: '5rem',
-  height: '5rem',
-};
-
- function BorderRadius() {
-  return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ ...commonStyles, borderRadius: '50%' }} />
-      <Box sx={{ ...commonStyles, borderRadius: 1 }} />
-      <Box sx={{ ...commonStyles, borderRadius: '16px' }} />
-    </Box>
-  );
-
-  function BorderColor() {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center' }} >
-        <Box sx={{ ...commonStyles, borderColor: 'primary.main' }} />
-        <Box sx={{ ...commonStyles, borderColor: 'secondary.main' }} />
-        <Box sx={{ ...commonStyles, borderColor: 'error.main' }} />
-        <Box sx={{ ...commonStyles, borderColor: 'grey.500' }} />
-        <Box sx={{ ...commonStyles, borderColor: 'text.primary' }} />
-      </Box>
-    );
-  }
-}
 
 // pass in token
 export default function BookService({token}) {
@@ -42,24 +10,28 @@ export default function BookService({token}) {
   const [error, setError] = useState(null);
   const [startTimeInput, setStartTimeInput] = useState(null);
   const [endTimeInput, setEndTimeInput] = useState(null);
-  const [petSitterFnameLname, setPetsitterFnameLname] = useState([]);
+  const [petSitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
+
+  // START HERE - CONSOLE LOG RESPONSE TO FIND IMAGE PATH
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
+  const getAccount = useCallback(async () => {
+    try {
+      // useEffect will not continue until fetchAccount(token) returns a promise
+      const fetchedAccount = await fetchAccount(token);
+      // update state to store the fetched account
+      setOwner(fetchedAccount);
+    } catch (error) {
+      setError(error.message);
+    }
+  }, [token, fetchAccount, setOwner, setError]);
+
+  // only re-renders when dependency changes (stored in array) - avoid infinite rerender or slow page
   useEffect(() => {
-    const getAccount = async () => {
-      try {
-        // useEffect will not continue until fetchAccount(token) returns a promise
-        const fetchedAccount = await fetchAccount(token);
-        // update state to store the fetched account
-        setOwner(fetchedAccount);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    // getAccount();
-  }, []);
+    getAccount();
+  }, [getAccount]);
   
   if (error) return <div>Error: {error}</div>;
   
@@ -75,7 +47,8 @@ export default function BookService({token}) {
     // GET petsitter info
     try {
       const result = await fetchAvailablePetsitters(token);
-      setPetsitterFnameLname(result);
+      setPetsitterDetails(result);
+      console.log('RESULT----->', result);
     } catch (error) {
       console.log('ERROR FROM FETCH---->', error)
       setError("Can't fetch info");
@@ -85,20 +58,19 @@ export default function BookService({token}) {
   // filter for owners with specific availability
     return (
         <div className="home">
-            <h1>Walkers</h1>
-        <form onSubmit={handleSubmit}>
+            <h1 className="book-walk-title">Book a Walk</h1>
+        <form className="sitters-filter" onSubmit={handleSubmit}>
           <label>Day:
-            <input type="date" placeholder=" MM/DD/YYYY" />
+            <input type="date" placeholder="10/10/2024" />
           </label>
           <label>Start Time:
-            <input type="time" placeholder=" 12:00PM" step={3600} onChange={(e) => setStartTimeInput(e.target.value)} />
+            <input type="time" placeholder="10:00AM" step={3600} onChange={(e) => setStartTimeInput(e.target.value)} />
           </label>
           <label>End Time:
-            <input type="time" placeholder=" 12:00PM" step={3600} onChange={(e) => setEndTimeInput(e.target.value)}/>
+            <input type="time" placeholder="11:00AM" step={3600} onChange={(e) => setEndTimeInput(e.target.value)}/>
           </label>
           <label>Pet:
             <select>
-            {/* <select value={myCar} onChange={handleChange}> */}
               <option value="Dog">Dog</option>
               <option value="Cat">Cat</option>
               <option value="Fish">Fish</option>
@@ -121,17 +93,49 @@ export default function BookService({token}) {
             <input type="submit"/>
           </label>
         </form>
-        <div>{petSitterFnameLname.filter((petsitter) => {
+        <div className="events">{petSitterDetails.filter((petsitter) => {
           return petsitter.start_time <= startTimeInput && petsitter.end_time >= endTimeInput;
         }).map((petsitter, index)=>{
-          return <Box key={index}> {petsitter.fname + ' ' + petsitter.lname} <Button 
+          return <div 
+            
+            className="sitter-card"
             id="myButton" 
             type="button"
             variant="outlined"
             onClick={() => {
               navigate(`/ServiceConfirmed`);
             }}
-          >Book</Button> </Box>
+            key={index}>
+
+            <div className="sitter-image-container">
+              <img className="sitter-image" src={petsitter.image_file} alt="" />
+            </div>
+
+            <div>
+              <p className="sitter-details">
+                {petsitter.fname + ' ' + petsitter.lname}
+              </p>
+            </div>
+
+            <div className="booknow-button">
+            <Button 
+              id="myButton"
+              type="button"
+              variant="outlined"
+              onClick={() => {
+                navigate(`/ServiceConfirmed`);
+              }}>Book Now</Button>
+
+            <Button 
+              id="myButton"
+              type="button"
+              variant="outlined"
+              onClick={() => {
+                navigate(`/ServiceConfirmed`);
+              }}>See Sitter Details</Button>
+            </div>
+
+          </div>
         })}</div>
         </div>
     );
