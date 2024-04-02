@@ -43,6 +43,24 @@ export const login = async (email, password) => {
   }
 };
 
+export const fetchOwner = async (token) => {
+  try {
+    const response = await fetch(`${API_URL}/owners/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Please log in or create an account!");
+    const owner = await response.json();
+    return owner;
+  } catch (error) {
+    console.error("Error fetching account:", error);
+    throw error;
+  }
+};
+
 export const addPet = async (
   image,
   name,
@@ -86,23 +104,22 @@ export const addPet = async (
   }
 };
 
-export const fetchOwner = async (token) => {
+export const getPetById = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/owners/me`, {
+    const response = await fetch(`${API_URL}/pets/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
-    if (!response.ok) throw new Error("Please log in or create an account!");
-    const owner = await response.json();
-    return owner;
+    const event = await response.json();
+    return event;
   } catch (error) {
-    console.error("Error fetching account:", error);
+    console.error("Error fetching event by ID:", error);
     throw error;
   }
 };
+
 
 export const petsitterRegister = async (fname, lname, email, address, phone, password) => {
   try {

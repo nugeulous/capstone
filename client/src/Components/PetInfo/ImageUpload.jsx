@@ -8,7 +8,7 @@ const ImageUpload = ({ image, setImage }) => {
         <div>
           <img
             alt="not found"
-            width={"250px"}
+            width={"500px"}
             src={URL.createObjectURL(image)}
           />
           <br />

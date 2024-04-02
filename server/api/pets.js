@@ -4,6 +4,7 @@ const petsRouter = express.Router();
 const { 
   createPet,
   getAllPets,
+  getPetById,
   updatePet
 } = require('../db/index');
 
@@ -30,11 +31,26 @@ petsRouter.post('/addPet', async (req, res, next) => {
     }
   });
 
+  // Get pet by ID
+petsRouter.get('/:eventId', async (req, res, next) => {
+  try {
+    const petId = req.params.petId;
+    const pet = await getPetById(petId);
+    if (!pet) {
+      return res.status(404).send({ error: "Event not found" });
+    }
+    res.send(pet);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
+
+
   //Update Pet
   petsRouter.put('/:id', async (req, res, next) => {
     try {
         const petId = req.params.id;
-        const { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality } = req.body;
+        const { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality} = req.body;
 
         const updatedPet = await updatePet(petId, { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality });
 
