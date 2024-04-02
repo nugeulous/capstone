@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
 import { useState, useEffect } from "react";
+// import SinglePet from "./PetInfo/SinglePet";
 
 export default function Account({ user }) {
   const [pet, setPet] = useState({});
@@ -27,16 +28,7 @@ export default function Account({ user }) {
       <p>Phone Number: {user.phone} </p>
       <p>Address: {user.address} </p>
       <h2>Pet(s)</h2>
-      <p>Name: {pet.name} </p>
-      <p>Age: {pet.age} </p>
-      <p>Animal Type: {pet.animalType}</p>
-      <p>Breed: {pet.breed} </p>
-      <p>Gender: {pet.gender} </p>
-      <p>Weight: {pet.weight} </p>
-      <p>Favorite Treat: {pet.favoriteTreat} </p>
-      <p>Favorite Toy: {pet.favoriteToy} </p>
-      <p>Personality: {pet.personality} </p>
-
+      {/* <SinglePet /> */}
       <Button
         variant="text"
         onClick={() => {

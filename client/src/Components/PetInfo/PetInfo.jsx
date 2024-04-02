@@ -65,7 +65,7 @@ export default function PetInfo() {
         favoriteTreat,
         personality,
       );
-      setPet(result.pet);
+      setPet(result);
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -117,9 +117,7 @@ export default function PetInfo() {
           onChange={(e) => setBreed(e.target.value)}
         />
         <h2>Animal Type:</h2>
-          <Age />
-          <h2>Animal Type:</h2>
-          <TextField
+        <TextField
             required
             id="outlined-basic"
             label="Animal Type 🐕"
