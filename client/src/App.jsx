@@ -31,17 +31,21 @@ function App() {
     window.localStorage.getItem("token") ?? null
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+  const [role, setRole] = useState();
+
   useEffect(() => {
     if (token) {
       window.localStorage.setItem("token", token);
     } else {
       window.localStorage.removeItem("token");
     }
-  }, [token]);
+
+  }, [token, user, role]);
 
   return (
     <div>
-      <NavBar setToken={setToken} token={token}/>
+      <NavBar setToken={setToken} token={token} role={role}/>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route
@@ -52,6 +56,9 @@ function App() {
               token={token}
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
+              setRole={setRole}
+              setUser={setUser}
+              user={user}
             />
           }
         />
@@ -64,12 +71,15 @@ function App() {
               token={token}
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
+              setRole={setRole}
+              setUser={setUser}
+              user={user}
             />
           }
         />
         <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
-        <Route path="/account" element={<Account token={token} setToken={setToken} />} />
-        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} />} />
+        <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser}/>} />
+        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/new-event" element={<NewEvent token={token} />} />
