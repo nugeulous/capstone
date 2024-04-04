@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 require("dotenv").config();
 const {client} = require("./db/client.js");
-const { PORT = 3000 } = process.env;
+const { PORT = 8080 } = process.env;
 
 console.log(__dirname);
 console.log(`${__dirname}/public/uploads`);

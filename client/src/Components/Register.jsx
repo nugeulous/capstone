@@ -62,6 +62,7 @@ const Register = ({ setToken }) => {
     }
     try {
       const result = await register(fname,lname,email,address,phone,password, address,);
+      console.log('RESULT--->', result.token)
       setToken(result.token, result.user);
     } catch (error) {
       setError(error.message);

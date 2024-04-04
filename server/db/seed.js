@@ -93,7 +93,6 @@ async function dropTables() {
           date DATE,
           start_time TIME,
           end_time TIME,
-          is_available BOOLEAN DEFAULT false,
             CONSTRAINT fk_petsitters
             FOREIGN KEY(petsitter_id)
             REFERENCES petsitters(id)
@@ -271,6 +270,20 @@ async function dropTables() {
         role: null
       });
 
+      await createPetsitter({
+        email: "helen24@aol.com",
+        password: "dfsitTop2",
+        fname: "Helen",
+        lname: "Glass",
+        address: "San Francisco, CA",
+        phone: "233-443-7831",
+        image_file: "https://i.guim.co.uk/img/media/e4ae055cd7e0b946e216e2a43a97fcf085c364e6/463_41_2032_1219/master/2032.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6a19aa0e164cc51f2a2770b8bff5776d",
+        gender: "female",
+        dogs: false,
+        cats: true,
+        role: null
+      });
+
       console.log("Finished creating petsitters!");
     } catch (error) {
       console.error("Error creating petsitters!");
@@ -287,7 +300,6 @@ async function dropTables() {
         date: '10-10-24',
         start_time: '09:00:00',
         end_time: '14:00:00',
-        is_available: true
       });
 
       await createAvailability({
@@ -295,7 +307,6 @@ async function dropTables() {
         date: '09-17-24',
         start_time: '8:00:00',
         end_time: '12:00:00',
-        is_available: true
       });
 
       await createAvailability({
@@ -303,15 +314,20 @@ async function dropTables() {
         date: '01-08-24',
         start_time: '12:00:00',
         end_time: '16:00:00',
-        is_available: true
       });
 
       await createAvailability({
         petsitter_id: "4",
-        date: '10-10-24',
+        date: '11-12-24',
         start_time: '14:00:00',
-        end_time: '24:00:00',
-        is_available: true
+        end_time: '23:00:00',
+      });
+
+      await createAvailability({
+        petsitter_id: "5",
+        date: '11-12-24',
+        start_time: '14:00:00',
+        end_time: '23:00:00',
       });
 
       console.log("Finished creating availability!");

@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
@@ -214,6 +214,7 @@ export const fetchAvailablePetsitters = async (token) => {
         "Content-Type": "application/json"
       },
     });
+    console.log('CONVERTED TO JSON--->', response);
     if (!response.ok) throw new Error("Please log in or create an account!");
     const petsitters = await response.json();
     return petsitters;
