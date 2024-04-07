@@ -39,7 +39,10 @@ ownersRouter.post("/register", async (req, res, next) => {
       image,
       gender,
     });
-    res.send({ owner });
+    const token = jwt.sign({ id: owner.id, email, role: owner.role, owner }, JWT_SECRET, {
+      expiresIn: "8h",
+    });
+    res.send({ owner, token });
   } catch ({ name, message }) {
     next({ name, message });
   }
@@ -74,7 +77,7 @@ ownersRouter.post("/login", async (req, res, next) => {
       }
       delete owner.password;
       const token = jwt.sign({ id: owner.id, email, role: owner.role, owner }, JWT_SECRET, {
-        expiresIn: "1w",
+        expiresIn: "8h",
       });
       res.send({ message: "you're logged in!", token, role: owner.role, id: owner.id, owner });
     }
