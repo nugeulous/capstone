@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
@@ -198,6 +198,24 @@ export const fetchPetsitter = async (token) => {
       },
     });
     if (!response.ok) throw new Error("Please log in or create an account!");
+    const petsitter = await response.json();
+    return petsitter;
+  } catch (error) {
+    console.error("Error fetching account:", error);
+    throw error;
+  }
+};
+
+export const fetchPetsitterById = async (id) => {
+  console.log('api hit');
+  try {
+    const response = await fetch(`${API_URL}/petsitters/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    if (!response.ok) throw new Error("Petsitter does not exist");
     const petsitter = await response.json();
     return petsitter;
   } catch (error) {

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 
@@ -11,9 +11,8 @@ export default function BookService({token}) {
   const [startTimeInput, setStartTimeInput] = useState(null);
   const [endTimeInput, setEndTimeInput] = useState(null);
   const [petSitterDetails, setPetsitterDetails] = useState([]);
+  const [clickedSitter, setClickedSitter] = useState(null);
   const navigate = useNavigate();
-
-  // START HERE - CONSOLE LOG RESPONSE TO FIND IMAGE PATH
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
@@ -97,16 +96,11 @@ export default function BookService({token}) {
           return petsitter.start_time <= startTimeInput && petsitter.end_time >= endTimeInput;
         }).map((petsitter, index)=>{
           return <div 
-            
             className="sitter-card"
             id="myButton" 
             type="button"
             variant="outlined"
-            onClick={() => {
-              navigate(`/ServiceConfirmed`);
-            }}
             key={index}>
-
             <div className="sitter-image-container">
               <img className="sitter-image" src={petsitter.image_file} alt="" />
             </div>
@@ -118,20 +112,17 @@ export default function BookService({token}) {
             </div>
 
             <div className="booknow-button">
+              <Button 
+                id="myButton"
+                type="button"
+                variant="outlined"
+                >Book Now</Button>
             <Button 
               id="myButton"
               type="button"
               variant="outlined"
               onClick={() => {
-                navigate(`/ServiceConfirmed`);
-              }}>Book Now</Button>
-
-            <Button 
-              id="myButton"
-              type="button"
-              variant="outlined"
-              onClick={() => {
-                navigate(`/ServiceConfirmed`);
+                navigate(`/petsitters/${petsitter.id}`);
               }}>See Sitter Details</Button>
             </div>
 
