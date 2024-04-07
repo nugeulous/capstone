@@ -64,9 +64,9 @@ async function dropTables() {
           favoriteToy varchar(255),
           favoriteTreat varchar(255),
           personality varchar(255) NOT NULL,
-          pet_owner_id INTEGER REFERENCES owners(id),
+          ownerId INTEGER REFERENCES owners(id),
           CONSTRAINT fk_owners
-            FOREIGN KEY(pet_owner_id)
+            FOREIGN KEY(ownerId)
             REFERENCES owners(id)
             ON DELETE CASCADE
         );
@@ -171,7 +171,7 @@ async function dropTables() {
         favoriteToy: "Bone",
         favoriteTreat: "bacon",
         personality: "Freindly and a little shy",
-        pet_owner_id: "1"
+        ownerId: "1"
       });
 
       await createPet({
@@ -186,7 +186,7 @@ async function dropTables() {
         favoriteToy: "dead mouse",
         favoriteTreat: "Peanut Butter",
         personality: "Loco",
-        pet_owner_id: "1"
+        ownerId: "1"
       });
 
       await createPet({
@@ -201,7 +201,7 @@ async function dropTables() {
         favoriteToy: "Tennis Ball",
         favoriteTreat: "Anything",
         personality: "Lovable and Loyal",
-        pet_owner_id:"2"
+        ownerId:"2"
       });
   
       console.log("Finished creating pets!");

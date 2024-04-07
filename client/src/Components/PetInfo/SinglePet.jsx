@@ -1,38 +1,41 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"
-import { getPetById } from "../../API/api";
-const SinglePet = () => {
-  const [pet, setPet] = useState()
+import { useState, useEffect } from "react";
+import { getPetsByOwnerId } from "../../API/api";
+const SinglePet = ({ user }) => {
+  const [pets, setPets] = useState([]);
+  const [error, setError] = useState(null);
+
+  const ownerId = user.id;
 
   useEffect(() => {
-    const fetchPet = async () => {
+    const fetchPets = async () => {
       try {
-        const response = await getPetById(id);
-        setPet(response);
+        const petsData = await getPetsByOwnerId(ownerId);
+        setPets(petsData);
       } catch (error) {
         setError(error.message);
       }
     };
-    fetchPet();
-  }, [id]);
+    fetchPets();
+  }, [ownerId]);
 
   return (
-   <div>
-     <Link to={`/pets/${pet.id}`}>
-      <div>
-    <p>{pet.image}</p>
-    <p>Name: {pet.name}</p>
-    <p>Age: {pet.age} </p>
-    <p>Gender: {pet.gender} </p>
-    <p>Weight; {pet.weight} </p>
-    <p>Animal Type: {pet.animalType} </p>
-    <p>Breed: {pet.breed} </p>
-    <p>Favorite Toy: {pet.favoriteToy} </p>
-    <p>Favorite Treat: {pet.favoriteTreat} </p>
-    <p>Personality: {pet.personality} </p>
+    <div>
+      {pets.map((pet) => (
+        <div key={pet.id}>
+          <p>{pet.image}</p>
+          <p>Name: {pet.name}</p>
+          <p>Age: {pet.age} </p>
+          <p>Gender: {pet.gender} </p>
+          <p>Weight; {pet.weight} </p>
+          <p>Animal Type: {pet.animaltype} </p>
+          <p>Breed: {pet.breed} </p>
+          <p>Favorite Toy: {pet.favoritetoy} </p>
+          <p>Favorite Treat: {pet.favoritetreat} </p>
+          <p>Personality: {pet.personality} </p>
+        </div> 
+       ))} 
+      {error && <p>Error: {error}</p>}
     </div>
-    </Link>
-   </div>
   );
-}
+};
 export default SinglePet;

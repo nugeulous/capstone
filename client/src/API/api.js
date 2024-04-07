@@ -61,7 +61,7 @@ export const fetchOwner = async (token) => {
   }
 };
 
-export const addPet = async (
+export const addPet = async ({
   image,
   name,
   age,
@@ -73,7 +73,7 @@ export const addPet = async (
   favoriteToy,
   favoriteTreat,
   personality,
-  pet_owner_id
+  ownerId}
 ) => {
   try {
     const response = await fetch(`${API_URL}/pets/addPet `, {
@@ -93,7 +93,7 @@ export const addPet = async (
         favoriteToy,
         favoriteTreat,
         personality,
-        pet_owner_id
+        ownerId
       }),
     });
     const result = await response.json();
@@ -112,10 +112,27 @@ export const getPetById = async (id) => {
         "Content-Type": "application/json",
       },
     });
-    const event = await response.json();
-    return event;
+    const pet = await response.json();
+    return pet;
   } catch (error) {
     console.error("Error fetching event by ID:", error);
+    throw error;
+  }
+};
+
+export const getPetsByOwnerId = async (ownerId) => {
+  try {
+    const response = await fetch(`${API_URL}/pets/owner/${ownerId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+    });
+    const pets = await response.json();
+    return pets;
+  } catch (error) {
+    console.error("Error fetching pets by owner ID:", error);
     throw error;
   }
 };
