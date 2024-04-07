@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 
 export default function Account({ user, token, setUser }) {
@@ -14,7 +14,7 @@ console.log(user, "this is the user");
     return <p>Please log in or create an account.</p>;
   }
   if (user.role !== "owner") {
-    return <p>Oops, This is not the right page for a Petsitter</p>;
+    return <p>Oops, this is not the right page for a Petsitter</p>;
    }
   return (
     <Sheet color="neutral" variant="soft">
