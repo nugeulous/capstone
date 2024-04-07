@@ -66,13 +66,9 @@ function App() {
 
   }, [token, role]);
 
-  console.log("%%% Token from app,jsx: ", token);
-  console.log("%%% Role from app,jsx: ", role);
-  console.log("%%% User from app,jsx: ", user);
-
   return (
     <div>
-      <NavBar setToken={setToken} token={token} setRole={setRole} setUser={setUser}/>
+      <NavBar setToken={setToken} token={token} setRole={setRole} role={role} setUser={setUser}/>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route
@@ -89,7 +85,7 @@ function App() {
             />
           }
         />
-        <Route path="/register" element={<Register setToken={setToken} />} />
+        <Route path="/register" element={<Register setToken={setToken} setUser={setUser} setRole={setRole} />} />
         <Route
           path="/Petsitter Login"
           element={

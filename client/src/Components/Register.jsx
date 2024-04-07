@@ -31,7 +31,7 @@ function Copyright(props) {
 }
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const Register = ({ setToken }) => {
+const Register = ({ setToken, setUser, setRole }) => {
   const [fname, setFirstName] = useState("");
   const [lname, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,8 +62,10 @@ const Register = ({ setToken }) => {
     }
     try {
       const result = await register(fname,lname,email,address,phone,password, address,);
-      console.log('RESULT--->', result.token)
-      setToken(result.token, result.user);
+      setToken(result.token);
+      setRole(result.owner.role);
+      setUser(result.owner);
+      navigate("/account");
     } catch (error) {
       setError(error.message);
     }
