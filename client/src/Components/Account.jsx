@@ -14,7 +14,7 @@ console.log(user, "this is the user");
     return <p>Please log in or create an account.</p>;
   }
   if (user.role !== "owner") {
-    return <p>Oops, This is not the right page for a Petsitter</p>;
+    return <p>Oops, this is not the right page for a Petsitter</p>;
    }
   return (
     <Sheet color="neutral" variant="soft">

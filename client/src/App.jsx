@@ -26,6 +26,7 @@ import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
+import { fetchOwner, fetchPetsitter } from "./API/api";
 
 function App() {
   const [token, setToken] = useState(
@@ -65,40 +66,13 @@ function App() {
 
   }, [token, role]);
 
-// testing always logged in as albert
-// import { login } from "./API/api";
-
-// function App() {
-//   const [token, setToken] = useState(
-//     window.localStorage.getItem("token") ?? null
-//   );
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-//   const [user, setUser] = useState();
-//   const [role, setRole] = useState();
-
-
-//   // // testing always logged in as albert
-//   // const loginAlbert = async () => {
-//   //   const result = await login('albert@gmail.com', 'bertie99');
-//   //   setRole(result.role);
-//   //   setToken(result.token);
-//   //   setUser(result.owner);
-//   // };
-//   // loginAlbert();
-//   // // end testing
-
-//   useEffect(() => {
-//     if (token) {
-//       window.localStorage.setItem("token", token);
-//     } else {
-//       window.localStorage.removeItem("token");
-//     }
-
-//   }, [token, user, role]);
+  console.log("%%% Token from app,jsx: ", token);
+  console.log("%%% Role from app,jsx: ", role);
+  console.log("%%% User from app,jsx: ", user);
 
   return (
     <div>
-      <NavBar setToken={setToken} token={token} role={role} />
+      <NavBar setToken={setToken} token={token} setRole={setRole} setUser={setUser}/>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route
