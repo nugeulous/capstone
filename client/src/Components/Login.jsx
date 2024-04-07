@@ -46,6 +46,7 @@ const Login = ({ setToken, setRole, setUser }) => {
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
+      navigate("/account");
     } catch (error) {
       setError("incorrect email or password");
     }

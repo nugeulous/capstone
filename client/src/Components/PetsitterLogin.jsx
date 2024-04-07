@@ -46,6 +46,7 @@ const Login = ({ setToken, setRole, setUser }) => {
       setToken(result.token);
       setRole(result.role);
       setUser(result.petsitter);
+      navigate("/petsitter account");
     } catch (error) {
       setError("incorrect email or password");
     }

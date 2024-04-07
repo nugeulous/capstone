@@ -7,7 +7,6 @@ import SinglePet from "./PetInfo/SinglePet";
 export default function Account({ user, token, setUser }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-console.log(user, "this is the user");
   if (error) return <div>Error: {error}</div>;
   if (!user) {
     // User is not logged in, render a message

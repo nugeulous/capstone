@@ -31,7 +31,7 @@ function Copyright(props) {
 }
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const PetsitterRegister = ({ setToken }) => {
+const PetsitterRegister = ({ setToken, setRole, setUser }) => {
   const [fname, setFirstName] = useState("");
   const [lname, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,7 +62,10 @@ const PetsitterRegister = ({ setToken }) => {
     }
     try {
       const result = await petsitterRegister(fname,lname,email,address,phone,password, address);
-      setToken(result.token, result.user);
+      setToken(result.token);
+      setRole(result.petsitter.role);
+      setUser(result.petsitter);
+      navigate("/petsitter account");
     } catch (error) {
       setError(error.message);
     }
