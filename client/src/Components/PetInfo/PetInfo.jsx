@@ -4,7 +4,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Sheet from "@mui/joy/Sheet";
 import ImageUpload from "./ImageUpload";
@@ -13,7 +12,7 @@ import Weight from "./Weight";
 import { addPet } from "../../API/api";
 import "./PetInfo.css"
 
-export default function PetInfo() {
+export default function PetInfo({ user, token }) {
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
@@ -35,8 +34,7 @@ export default function PetInfo() {
   const handleChange = (event) => {
     setSterile(event.target.value);
   };
-
-
+ 
   async function handleSubmit(event) {
     event.preventDefault();
     setImage(null);
@@ -52,7 +50,7 @@ export default function PetInfo() {
     setPersonality("");
    
     try {
-      const result = await addPet(
+      const result = await addPet({
         image,
         name,
         age,
@@ -64,14 +62,23 @@ export default function PetInfo() {
         favoriteToy,
         favoriteTreat,
         personality,
+        ownerId: user.id }
       );
       setPet(result.pet);
+      console.log(result.pet);
     } catch (error) {
       setError(error.message);
       console.log(error);
     }
   }
+
+  if (!user) {
+    return <p>must be logged in to access this page</p>;
+  } else if (user.role !== "owner") {
+    return <p>Must be signed in as an owner to access this page</p>
+  };
   return (
+    <>
     <Sheet className="PetDisplay"
       component="form"
       noValidate
@@ -117,9 +124,7 @@ export default function PetInfo() {
           onChange={(e) => setBreed(e.target.value)}
         />
         <h2>Animal Type:</h2>
-          <Age />
-          <h2>Animal Type:</h2>
-          <TextField
+        <TextField
             required
             id="outlined-basic"
             label="Animal Type 🐕"
@@ -176,5 +181,6 @@ export default function PetInfo() {
         </div>
       </div>
     </Sheet>
+    </>
   );
 }

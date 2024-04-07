@@ -33,7 +33,6 @@ function Copyright(props) {
 }
 const defaultTheme = createTheme();
 const Login = ({ setToken, setRole, setUser }) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);

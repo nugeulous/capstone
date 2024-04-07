@@ -117,7 +117,7 @@ function App() {
         <Route path="/Groomers" element={<Groomers token={token} />} />
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
-        <Route path="/Pet Info" element={<PetInfo token={token} />} />
+        <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
         <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
