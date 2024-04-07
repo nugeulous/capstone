@@ -88,7 +88,12 @@ async function getOwnerByEmail(email) {
             WHERE email=$1
         `, [email]);
 
-        if (!rows || !rows.length) return null; 
+        if (!rows || !rows.length) {
+          throw {
+              name: "OwnerNotFoundError",
+              message: "An owner with that email does not exist"
+          };
+      } 
 
         const [owner] = rows;
         delete owner.password;
@@ -96,28 +101,6 @@ async function getOwnerByEmail(email) {
         return owner;
     } catch (error) {
       console.error(error);
-        throw error;
-    }
-}
-
-
-async function getOwnerByEmail(email) {
-    try {
-        const { rows: [owner] } = await client.query(`
-            SELECT id, email, fname, lname, address, active
-            FROM owners
-            WHERE email=$1
-        `, [email]);
-
-        if (!owner) {
-            throw {
-                name: "OwnerNotFoundError",
-                message: "An owner with that email does not exist"
-            };
-        }
-
-        return owner;
-    } catch (error) {
         throw error;
     }
 }

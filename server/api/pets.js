@@ -4,7 +4,9 @@ const petsRouter = express.Router();
 const { 
   createPet,
   getAllPets,
-  updatePet
+  getPetById,
+  updatePet,
+  getPetsByOwnerId
 } = require('../db/index');
 
 // Get all Pets
@@ -20,9 +22,9 @@ petsRouter.get('/', async (req, res, next) => {
 //Create Pet
 petsRouter.post('/addPet', async (req, res, next) => {
     try {
-      const { name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id } = req.body;
+      const { name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId } = req.body;
 
-      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id });
+      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId });
   
       res.send({ pet });
     } catch ({ name, message }) {
@@ -30,11 +32,36 @@ petsRouter.post('/addPet', async (req, res, next) => {
     }
   });
 
+  // Get pet by ID
+petsRouter.get('/:eventId', async (req, res, next) => {
+  try {
+    const petId = req.params.petId;
+    const pet = await getPetById(petId);
+    if (!pet) {
+      return res.status(404).send({ error: "Event not found" });
+    }
+    res.send(pet);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
+
+petsRouter.get('/owner/:ownerId', async (req, res, next) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const pets = await getPetsByOwnerId(ownerId);
+    res.send(pets);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
+
+
   //Update Pet
   petsRouter.put('/:id', async (req, res, next) => {
     try {
         const petId = req.params.id;
-        const { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality } = req.body;
+        const { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality} = req.body;
 
         const updatedPet = await updatePet(petId, { name, animalType, breed, age, weight, image, gender, favoriteToy, favoriteTreat, personality });
 

@@ -8,7 +8,7 @@ const ImageUpload = ({ image, setImage }) => {
         <div>
           <img
             alt="not found"
-            width={"250px"}
+            width={"500px"}
             src={URL.createObjectURL(image)}
           />
           <br />
@@ -24,7 +24,7 @@ const ImageUpload = ({ image, setImage }) => {
         name="myImage"
         onChange={(event) => {
           console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
+          setImage(event.target.files[0]);
         }}
       />
     </div>

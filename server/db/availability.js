@@ -1,18 +1,17 @@
 // FUNCTIONS
  const { client } = require("./client.js");
 
- async function createAvailability({ petsitter_id, date, start_time, end_time, is_available }) {
+ async function createAvailability({ petsitter_id, date, start_time, end_time }) {
     try {
       const { rows: [availability] } = await client.query(`
-        INSERT INTO availability(petsitter_id, date, start_time, end_time, is_available) 
+        INSERT INTO availability(petsitter_id, date, start_time, end_time) 
         VALUES($1,
             $2,
             $3,
-            $4,
-            $5) 
+            $4) 
         RETURNING *;
       `,
-        [petsitter_id, date, start_time, end_time, is_available]
+        [petsitter_id, date, start_time, end_time]
       );
       return availability;
     } catch (error) {
@@ -40,6 +39,7 @@
         FROM petsitters AS ps
         INNER JOIN availability AS av ON ps.id = av.petsitter_id
       `)
+      console.log('sitter avail: ', sitter_availabilities)
       return sitter_availabilities;
     } catch (error) {
       throw error;

@@ -1,16 +1,16 @@
 const { client } = require("./client.js");
 
-async function createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id }) {
+async function createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId }) {
     try {
       const {
         rows: [pet],
       } = await client.query(
           `
-        INSERT INTO pets(name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id) 
+        INSERT INTO pets(name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
         RETURNING *;
       `,
-          [name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id]
+          [name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId]
       );
   
       return pet;
@@ -74,9 +74,25 @@ async function getPetById(id) {
       throw error;
     }
   }
+
+  async function getPetsByOwnerId(ownerId) {
+    try {
+      const { rows: pets } = await client.query(`
+        SELECT *
+        FROM pets
+        WHERE ownerId = $1;
+      `, [ownerId]);
+  
+      return pets;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
   module.exports = {
     updatePet,
     getAllPets,
     getPetById,
-    createPet
+    createPet,
+    getPetsByOwnerId
   }
