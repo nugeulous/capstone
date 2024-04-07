@@ -17,7 +17,7 @@ const pages = ["Home", "Services", "Playground", "About Us"];
 const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favorites", "Messages", "Logout"];
 const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
 
-function NavBar({ token, setToken, role }) {
+function NavBar({ token, setToken, setRole, setUser }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -116,6 +116,8 @@ function NavBar({ token, setToken, role }) {
                     handleCloseUserMenu();
                     if (setting === "Logout") {
                       setToken("");
+                      setRole("");
+                      setUser();
                       // const [petsitter, setPetsitter] = useState(null);
                       // setOwner(null);
                       // setPetsitter(null);

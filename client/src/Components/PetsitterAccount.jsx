@@ -12,7 +12,7 @@ export default function PetsitterAccount({ user }) {
     return <p>Please log in or create an account.</p>;
   }
   if (user.role !== "petsitter") {
-    return <p>Oops, This is not the right page for a Pet Owner</p>;
+    return <p>Oops, this is not the right page for a Pet Owner</p>;
    }
   return (
     <Sheet color="neutral" variant="soft">
