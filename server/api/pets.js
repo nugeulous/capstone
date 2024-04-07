@@ -5,7 +5,8 @@ const {
   createPet,
   getAllPets,
   getPetById,
-  updatePet
+  updatePet,
+  getPetsByOwnerId
 } = require('../db/index');
 
 // Get all Pets
@@ -21,9 +22,9 @@ petsRouter.get('/', async (req, res, next) => {
 //Create Pet
 petsRouter.post('/addPet', async (req, res, next) => {
     try {
-      const { name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id } = req.body;
+      const { name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId } = req.body;
 
-      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, pet_owner_id });
+      const pet = await createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId });
   
       res.send({ pet });
     } catch ({ name, message }) {
@@ -40,6 +41,16 @@ petsRouter.get('/:eventId', async (req, res, next) => {
       return res.status(404).send({ error: "Event not found" });
     }
     res.send(pet);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
+
+petsRouter.get('/owner/:ownerId', async (req, res, next) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const pets = await getPetsByOwnerId(ownerId);
+    res.send(pets);
   } catch (error) {
     next(error); // Forward error to error handling middleware
   }
