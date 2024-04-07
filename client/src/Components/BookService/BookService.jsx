@@ -6,14 +6,13 @@ import { Button } from "@mui/material";
 // pass in token
 export default function BookService({token}) {
 
-  const [owner, setOwner] = useState({});
+  const [owner, setOwner] = useState(null);
   const [error, setError] = useState(null);
   const [startTimeInput, setStartTimeInput] = useState(null);
   const [endTimeInput, setEndTimeInput] = useState(null);
+  const [animalType, setAnimalType] = useState(null);
   const [petSitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
-
-  // START HERE - CONSOLE LOG RESPONSE TO FIND IMAGE PATH
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
@@ -47,8 +46,53 @@ export default function BookService({token}) {
     // GET petsitter info
     try {
       const result = await fetchAvailablePetsitters(token);
+      console.log('result BEFORE time change', result)
+
+      // result.map((petsitter)=> {
+      //   const endTime = petsitter.end_time;
+      //   // Split the military time into hours and minutes
+      //   const [hour, minute] = endTime.split(':');
+
+      //   // Convert hours to number
+      //   let regularHour = parseInt(hour, 10);
+      //   console.log('reg hour end time:  ', regularHour)
+      //   // Determine AM/PM suffix
+      //   let period = regularHour >= 12 ? 'PM' : 'AM';
+      //   period = regularHour - 12 === 0? 'AM' : 'PM';        // Convert to regular time
+      //   if (regularHour === 0) {
+      //       regularHour = 12; // 00:00 in military time is 12:00 AM
+      //       period = 'AM';
+      //   } else if (regularHour > 12) {
+      //       regularHour -= 12; // Convert hours greater than 12 to regular time
+      //   }
+
+      //   // Return regular time as HH:MM AM/PM string
+      //   petsitter.end_time = `${regularHour.toString().padStart(2, '0')}:${minute} ${period}`;
+
+      //   const startTime = petsitter.start_time;
+      //   // Split the military time into hours and minutes
+      //   const [hour2, minute2] = startTime.split(':');
+
+      //   // Convert hours to number
+      //   let regularHour2 = parseInt(hour2, 10);
+
+      //   // Determine AM/PM suffix
+      //   let period2 = regularHour2 >= 12 ? 'PM' : 'AM';
+      //   console.log(period2, 'period2')
+      //   // Convert to regular time
+      //   if (regularHour2 === 0) {
+      //       regularHour2 = 12; // 00:00 in military time is 12:00 AM
+      //   } else if (regularHour2 > 12) {
+      //       regularHour2 -= 12; // Convert hours greater than 12 to regular time
+      //   }
+
+      //   // Return regular time as HH:MM AM/PM string
+      //   petsitter.start_time = `${regularHour2.toString().padStart(2, '0')}:${minute2} ${period2}`;
+      //   return petsitter;
+      // })
+      // console.log('RESULT AFTER--->', result);
       setPetsitterDetails(result);
-      console.log('RESULT----->', result);
+      console.log('PETSITTER DETAILS--->', petSitterDetails)
     } catch (error) {
       console.log('ERROR FROM FETCH---->', error)
       setError("Can't fetch info");
@@ -70,7 +114,7 @@ export default function BookService({token}) {
             <input type="time" placeholder="11:00AM" step={3600} onChange={(e) => setEndTimeInput(e.target.value)}/>
           </label>
           <label>Pet:
-            <select>
+            <select onChange={(e) => setAnimalType(e.target.value)}>
               <option value="Dog">Dog</option>
               <option value="Cat">Cat</option>
               <option value="Fish">Fish</option>
@@ -94,7 +138,19 @@ export default function BookService({token}) {
           </label>
         </form>
         <div className="events">{petSitterDetails.filter((petsitter) => {
-          return petsitter.start_time <= startTimeInput && petsitter.end_time >= endTimeInput;
+          
+          // console.log('sitter start: ', petsitter.start_time)
+          // console.log('input: ', startTimeInput)
+          // console.log('true', parseInt(petsitter.start_time) <= parseInt(startTimeInput))
+          
+          // console.log('sitter end: ', petsitter.end_time)
+          // console.log('input: ', endTimeInput)
+          // console.log('true', parseInt(petsitter.end_time) >= parseInt(endTimeInput))
+
+          // console.log('petsitter dogs: ', petsitter.dogs)
+
+          return parseInt(petsitter.start_time) <= parseInt(startTimeInput) && parseInt(petsitter.end_time) >= parseInt(endTimeInput);
+
         }).map((petsitter, index)=>{
           return <div 
             

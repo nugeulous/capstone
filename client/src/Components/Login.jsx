@@ -43,7 +43,6 @@ const Login = ({ setToken, setRole, setUser }) => {
     setPassword("");
     try {
       const result = await login(email, password);
-      console.log(result.owner, "this is login result.owner");
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
