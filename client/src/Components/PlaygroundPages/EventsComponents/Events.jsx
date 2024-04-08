@@ -63,7 +63,7 @@ const Events = () => {
       (!startDate || new Date(event.date) >= new Date(startDate)) &&
       (!endDate || new Date(event.date) <= new Date(endDate)) &&
       (!eventType ||
-        event.event_type.toLowerCase().includes(eventType.toLowerCase()))
+        event.eventType.toLowerCase().includes(eventType.toLowerCase()))
   );
 
   return (

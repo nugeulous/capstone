@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -17,8 +17,8 @@ const NewEvent = () => {
   const [time, setTime] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-  const [event_type, setEventType] = useState("");
-  const [pet_type, setPetType] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [petType, setPetType] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -32,8 +32,8 @@ const NewEvent = () => {
       formData.append("time", time);
       formData.append("file", file);
       formData.append("description", description);
-      formData.append("event_type", event_type);
-      formData.append("pet_type", pet_type);
+      formData.append("eventType", eventType);
+      formData.append("petType", petType);
 
       const response = await axios.post(`${API_URL}/events/new-event`, formData, {
         headers: {
@@ -178,11 +178,11 @@ const NewEvent = () => {
               <Select
                 required
                 fullWidth
-                name="event_type"
+                name="eventType"
                 label="Event Type"
-                id="event_type"
+                id="eventType"
                 defaultValue="Birthday"
-                value={event_type}
+                value={eventType}
                 onChange={(e) => setEventType(e.target.value)}
               >
                 <MenuItem value="">Select Event Type</MenuItem>
@@ -199,10 +199,10 @@ const NewEvent = () => {
               <TextField
                 required
                 fullWidth
-                name="pet_type"
+                name="petType"
                 label="pets type"
-                id="pet_type"
-                value={pet_type}
+                id="petType"
+                value={petType}
                 onChange={(e) => setPetType(e.target.value)}
               />
             </Grid>

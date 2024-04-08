@@ -18,7 +18,7 @@ export default function ViewSitterDetails({token}) {
         const fetchPetsitter = async () => {
           try {
             const response = await getPetsitterById(id);
-            console.log('fetch petsitter', response)
+            console.log('fetch petsitter', response.aboutMe)
             setPetsitter(response)
     
           } catch (error) {
@@ -55,15 +55,21 @@ export default function ViewSitterDetails({token}) {
                   <div></div> */}
                   <br></br>
                   <div>Location</div>
-                  <div>{petsitter.address}</div>
+                    <div>{petsitter.address}</div>
+                  <br></br>
+                  <br />
+                  <div>"{petsitter.tagline}"</div>
                 </div>
             </div>
 
             </div>
             {/* end left box */}
 
-            <div className="about-me">About Me</div>
-            
+            <div className="about-me">About Me
+            <br />
+            <br />
+              <div>{petsitter.aboutme} </div>
+            </div>
             <div className="reviews">Reviews
             </div>
 

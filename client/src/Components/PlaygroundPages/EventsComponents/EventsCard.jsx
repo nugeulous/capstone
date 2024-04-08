@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventsCard = ({ event }) => {
-  const photoPath = 'http://localhost:3000/api/events/getPhoto?fileName='
+  const photoPath = 'http://localhost:8080/api/events/getPhoto?fileName='
   const imagePath = event.file.startsWith('http') ? event.file : photoPath + event.file;
 
   const formattedDate = new Date(event.date).toLocaleDateString(undefined, {
@@ -26,7 +26,7 @@ const EventsCard = ({ event }) => {
           <img className="event-image" src={imagePath} alt={event.title} />
           <p>{event.address}</p>
           <p>{formattedDate} {formattedTime}</p>
-          <p>{event.event_type}</p>
+          <p>{event.eventType}</p>
         </div>
       </Link>
     </div>
