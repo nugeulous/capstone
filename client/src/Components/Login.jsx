@@ -33,7 +33,6 @@ function Copyright(props) {
 }
 const defaultTheme = createTheme();
 const Login = ({ setToken, setRole, setUser }) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -47,6 +46,7 @@ const Login = ({ setToken, setRole, setUser }) => {
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
+      navigate("/account");
     } catch (error) {
       setError("incorrect email or password");
     }

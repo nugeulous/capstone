@@ -25,6 +25,7 @@ import PetsitterAccount from "./Components/PetsitterAccount";
 import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
+import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 
 function App() {
@@ -32,22 +33,44 @@ function App() {
     window.localStorage.getItem("token") ?? null
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState();
-  const [role, setRole] = useState();
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState(
+    window.localStorage.getItem("role") ?? null
+  );
 
   useEffect(() => {
+    if (role) {
+      window.localStorage.setItem("role", role);
+    } else {
+      window.localStorage.removeItem("role");
+    }
+
+    const handleUser = async () => {
+      let user;
+      if (role === 'owner'){
+        user = await fetchOwner(token);
+      } else if (role === 'petsitter'){
+        user = await fetchPetsitter(token);        
+      }
+      setUser(user);
+    }
+
     if (token) {
       window.localStorage.setItem("token", token);
+      if (!user) {
+        handleUser();
+      }
     } else {
       window.localStorage.removeItem("token");
     }
 
-  }, [token, user, role]);
+  }, [token, role]);
 
   return (
     <div>
-      <NavBar setToken={setToken} token={token} role={role}/>
+      <NavBar setToken={setToken} token={token} setRole={setRole} role={role} setUser={setUser}/>
       <Routes>
+        <Route path="/" element={<AboutUs />} />
         <Route path="/Home" element={<Home />} />
         <Route
           path="/login"
@@ -63,7 +86,7 @@ function App() {
             />
           }
         />
-        <Route path="/register" element={<Register setToken={setToken} />} />
+        <Route path="/register" element={<Register setToken={setToken} setUser={setUser} setRole={setRole} />} />
         <Route
           path="/Petsitter Login"
           element={
@@ -78,7 +101,7 @@ function App() {
             />
           }
         />
-        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
+        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} setUser={setUser} setRole={setRole} />} />
         <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser}/>} />
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
@@ -93,7 +116,7 @@ function App() {
         <Route path="/Groomers" element={<Groomers token={token} />} />
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
-        <Route path="/Pet Info" element={<PetInfo token={token} />} />
+        <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
         <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />

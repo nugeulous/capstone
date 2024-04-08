@@ -44,7 +44,10 @@ petsittersRouter.get('/', async (req, res, next) => {
         dogs,
         cats,
       });
-      res.send({ petsitter });
+      const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role, petsitter }, JWT_SECRET, {
+        expiresIn: "8h",
+      });
+      res.send({ petsitter, token });
     } catch ({ name, message }) {
       next({ name, message });
     }
@@ -79,7 +82,7 @@ petsittersRouter.get('/', async (req, res, next) => {
         }
         delete petsitter.password;
         const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role, petsitter }, JWT_SECRET, {
-          expiresIn: "1w",
+          expiresIn: "8h",
         });
         res.send({ message: "you're logged in!", token, role: petsitter.role, id: petsitter.id });
       }

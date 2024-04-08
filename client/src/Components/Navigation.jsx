@@ -11,13 +11,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-// import { setPetsitter } from ""
 
 const pages = ["Home", "Services", "Playground", "About Us"];
-const settings = ["Switch to Caretaker", "Account", "Petsitter Account", "Favorites", "Messages", "Logout"];
-const authPages = ["Register", "Login", "Petsitter Login", "Petsitter Register"];
+const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
+const ownerSettings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
+const notSignedInSettings = ["Login", "Register", "Petsitter Login", "Petsitter Register"]
+const authPages = [];
 
-function NavBar({ token, setToken, role }) {
+function NavBar({ token, setToken, setRole, setUser, role }) {
+  const settings = (role === "petsitter") ? petsitterSettings : (role === "owner") ? ownerSettings : notSignedInSettings;
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -87,9 +89,10 @@ function NavBar({ token, setToken, role }) {
                 </Button>
               ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, color: "white", display: "block" }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}>
+                My Account
                 <Avatar />
               </IconButton>
             </Tooltip>
@@ -116,9 +119,8 @@ function NavBar({ token, setToken, role }) {
                     handleCloseUserMenu();
                     if (setting === "Logout") {
                       setToken("");
-                      // const [petsitter, setPetsitter] = useState(null);
-                      // setOwner(null);
-                      // setPetsitter(null);
+                      setRole("");
+                      setUser();
                       navigate("/login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
