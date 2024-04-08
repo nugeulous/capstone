@@ -27,7 +27,7 @@ import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
-import OrderHistory from "./Components/OrderHistory";
+// import OrderHistory from "./Components/OrderHistory";
 
 function App() {
   const [token, setToken] = useState(

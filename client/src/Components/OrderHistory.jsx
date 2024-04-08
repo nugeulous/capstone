@@ -46,5 +46,8 @@ useEffect(() => {
 }
 
 
+// card verification, order history display only, demo button, dist beginning process. 
+// 5 big jobs: css, ui, launching, video creation, clean up / demo up and add comments, prettier? 
+
 // {order.service !== "sitter" && <li>Order #{order.id}. {order.service_type} for {order.pet_type} with {order.petsitter_fname} on {order.start_date} from {order.start_time} - {order.end_time}</li>}
 // {order.service === "sitter" && <li>Order #{order.id}. {order.service_type} for {order.pet_type} with {order.petsitter_fname} from {order.start_date} - {order.end_date}</li>}}
