@@ -69,6 +69,7 @@ function App() {
     <div>
       <NavBar setToken={setToken} token={token} setRole={setRole} role={role} setUser={setUser}/>
       <Routes>
+        <Route path="/" element={<AboutUs />} />
         <Route path="/Home" element={<Home />} />
         <Route
           path="/login"
