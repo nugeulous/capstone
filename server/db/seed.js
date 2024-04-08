@@ -148,7 +148,7 @@ async function dropTables() {
   
       await createOwner({
         email: "albert@gmail.com",
-        password: "bertie99",
+        password: "$2b$10$IoqOgdqBbkKCm9ZIJpChjuHTcWKUtdp88yJZYCgjLFkDAbHiWnzZO", // bertie99
         fname: "Albathy",
         lname: "Bertrude",
         address: "Sidney, Australia",

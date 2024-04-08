@@ -25,27 +25,80 @@ import PetsitterAccount from "./Components/PetsitterAccount";
 import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
+import OrderHistory from "./Components/OrderHistory";
 
 function App() {
   const [token, setToken] = useState(
     window.localStorage.getItem("token") ?? null
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState();
-  const [role, setRole] = useState();
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState(
+    window.localStorage.getItem("role") ?? null
+  );
 
   useEffect(() => {
+    if (role) {
+      window.localStorage.setItem("role", role);
+    } else {
+      window.localStorage.removeItem("role");
+    }
+
+    const handleUser = async () => {
+      let user;
+      if (role === 'owner'){
+        user = await fetchOwner(token);
+      } else if (role === 'petsitter'){
+        user = await fetchPetsitter(token);        
+      }
+      setUser(user);
+    }
+
     if (token) {
       window.localStorage.setItem("token", token);
+      if (!user) {
+        handleUser();
+      }
     } else {
       window.localStorage.removeItem("token");
     }
 
-  }, [token, user, role]);
+  }, [token, role]);
+
+// testing always logged in as albert
+// import { login } from "./API/api";
+
+// function App() {
+//   const [token, setToken] = useState(
+//     window.localStorage.getItem("token") ?? null
+//   );
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [user, setUser] = useState();
+//   const [role, setRole] = useState();
+
+
+//   // // testing always logged in as albert
+//   // const loginAlbert = async () => {
+//   //   const result = await login('albert@gmail.com', 'bertie99');
+//   //   setRole(result.role);
+//   //   setToken(result.token);
+//   //   setUser(result.owner);
+//   // };
+//   // loginAlbert();
+//   // // end testing
+
+//   useEffect(() => {
+//     if (token) {
+//       window.localStorage.setItem("token", token);
+//     } else {
+//       window.localStorage.removeItem("token");
+//     }
+
+//   }, [token, user, role]);
 
   return (
     <div>
-      <NavBar setToken={setToken} token={token} role={role}/>
+      <NavBar setToken={setToken} token={token} role={role} />
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route
@@ -78,8 +131,8 @@ function App() {
           }
         />
         <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
-        <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser}/>} />
-        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
+        <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser} />} />
+        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user} />} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/new-event" element={<NewEvent token={token} />} />
@@ -95,6 +148,7 @@ function App() {
         <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
+        <Route path="/OrderHistory" element={<OrderHistory token={token} setToken={setToken} user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

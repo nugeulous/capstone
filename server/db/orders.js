@@ -45,6 +45,43 @@ async function createOrder({
     }
   }
 
+//   GET All Orders
+
+async function getAllOrders() {
+    try {
+      const { rows: orders } = await client.query(`
+        SELECT *
+        FROM orders;
+      `);
+  
+      return orders;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+//   GET All Orders by Owner id / email
+
+async function getOrdersByOwnerId(id) {
+    try {
+      const { rows:  order  } = await client.query(`
+        SELECT *
+        FROM orders
+        WHERE order_owner_id=$1
+      `, [id]);
+  
+      if (!order) {
+        throw {
+          name: "OrderNotFoundError",
+          message: "An order with that owner id does not exist"
+        }
+      }
+    
+      return order;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
-module.exports = { createOrder }
+module.exports = { createOrder, getAllOrders,  getOrdersByOwnerId }

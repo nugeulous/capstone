@@ -51,6 +51,24 @@ const Login = ({ setToken, setRole, setUser }) => {
       setError("incorrect email or password");
     }
   }
+
+  // a demo login for video creation / showing off to employers / easier testing purposes. 
+  // It may be a good ide to make this availiable in the navbar in case one gets logged out unexpectedly in the middle of a flow. 
+  // the "p" is here because the computer didnt like that "event was already being used in the other function"
+  async function demoLogin(p) {
+    p.preventDefault();
+    try {
+      const result = await login("albert@gmail.com", "bertie99");
+      setRole(result.role);
+      setToken(result.token);
+      setUser(result.owner);
+      console.log(result)
+    } catch (error) {
+      setError("Demo Login Error");
+      console.log(error)
+    }
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -79,7 +97,7 @@ const Login = ({ setToken, setRole, setUser }) => {
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
+            value={email} 
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
@@ -105,6 +123,14 @@ const Login = ({ setToken, setRole, setUser }) => {
             sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
           >
             Sign In
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
+            onClick={demoLogin}
+          >
+            Demo Login
           </Button>
           <Grid container>
             <Grid item xs></Grid>
