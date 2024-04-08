@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
@@ -254,6 +254,22 @@ export const fetchAvailablePetsitters = async (token) => {
     return petsitters;
   } catch (error) {
     console.error("Error fetching petsitter account:", error);
+    throw error;
+  }
+};
+
+export const getPetsitterById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/petsitters/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const petsitter = await response.json();
+    return petsitter;
+  } catch (error) {
+    console.error("Error fetching petsitter by ID:", error);
     throw error;
   }
 };

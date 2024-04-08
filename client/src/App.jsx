@@ -26,6 +26,7 @@ import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import { fetchOwner, fetchPetsitter } from "./API/api";
+import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 
 function App() {
   const [token, setToken] = useState(
@@ -109,6 +110,7 @@ function App() {
         <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
+        <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
         <Route path="/BookService" element={<BookService token={token} />} />
         <Route path="/Sitters" element={<Sitters token={token} />} />
         <Route path="/Groomers" element={<Groomers token={token} />} />

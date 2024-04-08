@@ -24,9 +24,9 @@ const upload = multer({ storage: storage })
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
-    const { title, address, date, time, description, event_type, pet_type } = req.body;
+    const { title, address, date, time, description, eventType, petType } = req.body;
     const photoPath = req.file ? req.file.filename : null; 
-    const event = await createEvent({ title, address, date, time, file: photoPath, description, event_type, pet_type });
+    const event = await createEvent({ title, address, date, time, file: photoPath, description, eventType, petType });
 
     res.send({ event });
   } catch (error) {
