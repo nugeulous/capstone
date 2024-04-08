@@ -223,3 +223,19 @@ export const fetchAvailablePetsitters = async (token) => {
     throw error;
   }
 };
+
+export const getPetsitterById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/petsitters/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const petsitter = await response.json();
+    return petsitter;
+  } catch (error) {
+    console.error("Error fetching petsitter by ID:", error);
+    throw error;
+  }
+};

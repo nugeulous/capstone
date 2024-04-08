@@ -112,4 +112,18 @@ petsittersRouter.get('/', async (req, res, next) => {
     }
   });
 
+  // Get petsitter by ID
+petsittersRouter.get('/:petsitterId', async (req, res, next) => {
+  try {
+    const petsitterId = req.params.petsitterId;
+    const petsitter = await getPetsitterById(petsitterId);
+    if (!petsitter) {
+      return res.status(404).send({ error: "Petsitter not found" });
+    }
+    res.send(petsitter);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
+
   module.exports = petsittersRouter;
