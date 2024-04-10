@@ -14,6 +14,14 @@ app.use(express.static(path.join(__dirname, "..", "client/dist")));
 
 app.use('/events', express.static(path.join(__dirname, 'public/uploads')));
 
+// allows us to host both back and front end simealtaneously once a dist folder.
+// I suspect this will be important for deploying, but at the very least, it is more convenient for dev.  
+// currently not working yet but also not breaking anything.
+// watch 2310-Review-Fitness Tracker 1:04:24 for guidance
+// https://youtu.be/NXILI_ttLR8?si=gx4cG1gbtikcppfN
+
+app.use('/events', express.static(path.join(__dirname, 'dist')));
+
 // base route
 const apiRouter = require("./api");
 app.use("/api", apiRouter);

@@ -39,6 +39,14 @@ export default function Home() {
       >
         Find a siiter
       </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate(`/OrderHistory`);
+        }}
+      >
+        Order History Tester
+      </Button>
     </div>
   );
 }

@@ -8,7 +8,8 @@ const {
     createPet,
     createPetsitter,
     createAvailability,
-    createEvent
+    createEvent,
+    createOrder
   } = require('./index');
 
 
@@ -18,11 +19,13 @@ async function dropTables() {
   
       // have to make sure to drop in correct order
       await client.query(`
+      DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS pets; 
       DROP TABLE IF EXISTS events;
       DROP TABLE IF EXISTS availability;
       DROP TABLE IF EXISTS petsitters;
       DROP TABLE IF EXISTS owners;
+
       `);
   
       console.log("Finished dropping tables!");
@@ -114,6 +117,24 @@ async function dropTables() {
           ownerId INTEGER REFERENCES owners(id) ON DELETE CASCADE
         );
 
+        CREATE TABLE orders (
+          id SERIAL PRIMARY KEY,
+          service_type varchar(255),
+          start_date varchar(255),
+          end_date varchar(255),
+          start_time varchar(255),
+          end_time varchar(255), 
+          pet_type varchar(255),
+          petsitter_fname varchar(255),
+          price varchar(255), 
+          paid varchar(255) DEFAULT 'true',
+          order_owner_id INTEGER REFERENCES owners(id),
+          CONSTRAINT fk_owners
+            FOREIGN KEY(order_owner_id)
+            REFERENCES owners(id)
+            ON DELETE CASCADE
+           );
+
       `);
   
       console.log("Finished building tables!");
@@ -129,7 +150,7 @@ async function dropTables() {
   
       await createOwner({
         email: "albert@gmail.com",
-        password: "bertie99",
+        password: "$2b$10$IoqOgdqBbkKCm9ZIJpChjuHTcWKUtdp88yJZYCgjLFkDAbHiWnzZO", // bertie99
         fname: "Albathy",
         lname: "Bertrude",
         address: "Sidney, Australia",
@@ -428,8 +449,7 @@ async function dropTables() {
         description: "Join us for a comprehensive training workshop focusing on building obedience skills in your canine companions!",
         eventType: "Training Workshop",
         petType: "Dog",
-      });      
-            
+      });   
       console.log("Finished creating events!");
     } catch (error) {
       console.error("Error creating events");
@@ -437,8 +457,98 @@ async function dropTables() {
     }
   }
 
+  async function createInitialOrders(){
+    try {
+      console.log("Starting to create orders...");
+
+      await createOrder({
+        service_type:"walk",
+        start_date:"10/10/2024",
+        end_date:"",
+        start_time:"10:00AM",
+        end_time:"12:00PM", 
+        pet_type:"Dog",
+        petsitter_fname:"Samuel",
+        price:"$4200", 
+        paid:"wait... what dude?",
+        order_owner_id:"1" 
+      });
+
+      await createOrder({
+        service_type:"groom",
+        start_date:"10/11/2024",
+        end_date:"",
+        start_time:"10:00AM",
+        end_time:"12:00PM", 
+        pet_type:"Wooly Mammoth",
+        petsitter_fname:"Major Lazer",
+        price:"9001", 
+        paid:"its... ITS OVER 9000",
+        order_owner_id:"1" 
+      });
+
+      await createOrder({
+        service_type:"sitter",
+        start_date:"10/11/2024",
+        end_date:"10/14/2024",
+        start_time:"",
+        end_time:"", 
+        pet_type:"Cat",
+        petsitter_fname:"Bea",
+        price:"6900", 
+        paid:"Nice",
+        order_owner_id:"1" 
+      });
+
+      await createOrder({
+        service_type:"walk",
+        start_date:"10/11/2024",
+        end_date:"",
+        start_time:"10:00AM",
+        end_time:"12:00PM", 
+        pet_type:"Basilisk",
+        petsitter_fname:"Moufoy",
+        price:"-less", 
+        paid:"...with blood",
+        order_owner_id:"2" 
+      });
+
+      await createOrder({
+        service_type:"train",
+        start_date:"10/12/2024",
+        end_date:"",
+        start_time:"10:00AM",
+        end_time:"12:00PM", 
+        pet_type:"troll",
+        petsitter_fname:"Timothee",
+        price:"3 riddles", 
+        paid:"the troll toll",
+        order_owner_id:"2" 
+      });
+
+      await createOrder({
+        service_type:"sitter",
+        start_date:"10/11/2024",
+        end_date:"10/14/2024",
+        start_time:"",
+        end_time:"", 
+        pet_type:"Mantis Shrimp",
+        petsitter_fname:"PETCO guy",
+        price:"Bullet Proof Aquarium", 
+        paid:"PENDING",
+        order_owner_id:"2" 
+      });
+
+      console.log("Finished creating orders!");
+    } catch (error) {
+      console.error("Error creating orders");
+      throw error;
+    }
+  }
+
   async function rebuildDB() {
     try {
+      console.log("Starting rebuildDb...")
       await client.connect(options);
       await dropTables();
       await createTables();
@@ -447,6 +557,9 @@ async function dropTables() {
       await createInitialPetsitters();
       await createInitialAvailability();
       await createInitalEvent();
+      await createInitialOrders();
+      console.log("Finished rebuildDb! SEEDING COMPLETE.")
+
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
