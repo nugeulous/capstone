@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 
 export default function Account({ user, token, setUser }) {

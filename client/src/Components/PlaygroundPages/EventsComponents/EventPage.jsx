@@ -92,8 +92,8 @@ const EventPage = () => {
         <p> {event.date} | {event.time}</p>
         <h2>Location</h2>
         <p>Meet up at: {event.address}</p>
-        <p>{event.event_type}</p>
-        <p>{event.pet_type}</p>
+        <p>{event.eventType}</p>
+        <p>{event.petType}</p>
       </div>
     </>
   );

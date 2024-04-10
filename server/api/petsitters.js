@@ -28,7 +28,7 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.post("/register", async (req, res, next) => {
     try {
-      const { email, password, fname, lname, address, phone, image, gender, dogs, cats } =
+      const { email, password, fname, lname, address, phone, image, gender, dogs, cats, aboutMe, tagLine } =
         req.body;
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   
@@ -43,6 +43,8 @@ petsittersRouter.get('/', async (req, res, next) => {
         gender,
         dogs,
         cats,
+        aboutMe,
+        tagLine,
       });
       const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role, petsitter }, JWT_SECRET, {
         expiresIn: "8h",
@@ -114,5 +116,19 @@ petsittersRouter.get('/', async (req, res, next) => {
       next({ name, message });
     }
   });
+
+  // Get petsitter by ID
+petsittersRouter.get('/:petsitterId', async (req, res, next) => {
+  try {
+    const petsitterId = req.params.petsitterId;
+    const petsitter = await getPetsitterById(petsitterId);
+    if (!petsitter) {
+      return res.status(404).send({ error: "Petsitter not found" });
+    }
+    res.send(petsitter);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
 
   module.exports = petsittersRouter;

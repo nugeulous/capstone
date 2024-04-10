@@ -87,6 +87,8 @@ async function dropTables() {
           gender varchar(255),
           dogs boolean DEFAULT false,
           cats boolean DEFAULT false,
+          aboutMe varchar(2000) NULL,
+          tagLine varchar(2000) NULL,
           role varchar(255)
         );
 
@@ -110,9 +112,9 @@ async function dropTables() {
           time TIME NOT NULL,
           file VARCHAR(255),
           description TEXT NOT NULL,
-          event_type VARCHAR(50) NOT NULL,
-          pet_type VARCHAR(50),
-          owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+          eventType VARCHAR(50) NOT NULL,
+          petType VARCHAR(50),
+          ownerId INTEGER REFERENCES owners(id) ON DELETE CASCADE
         );
 
         CREATE TABLE orders (
@@ -246,6 +248,8 @@ async function dropTables() {
         gender: "non-binary",
         dogs: true,
         cats: true,
+        aboutMe: "American actor, producer, and director. In a career spanning over four decades, Washington has received numerous accolades, including a Tony Award, two Academy Awards, three Golden Globe Awards and two Silver Bears.[1] He was honored with the Cecil B. DeMille Lifetime Achievement Award in 2016, the AFI Life Achievement Award in 2019, and in 2020 The New York Times named him the greatest actor of the 21st century.[2] In 2022, Washington received the Presidential Medal of Freedom.",
+        tagLine: "Dogs are life",
         role: null
       });
 
@@ -260,20 +264,24 @@ async function dropTables() {
         gender: "girlllll",
         dogs: true,
         cats: false,
+        aboutMe: "American singer-songwriter. A subject of widespread public interest, she has influenced the music industry and popular culture through her artistry, songwriting and entrepreneurship. She is an advocate of artists' rights and women's empowerment.",
+        tagLine: "proud cat lady",
         role: null
       });
 
       await createPetsitter({
         email: "yoyoyooo@gmail.com",
         password: "b9dssfds30298!9",
-        fname: "John",
-        lname: "Jmes",
+        fname: "César",
+        lname: "Favela",
         address: "backend, USA",
         phone: "932-432-7811",
         image_file: "https://qph.cf2.quoracdn.net/main-qimg-9ec5c866cfe6d1efa0108ceade35585c",
         gender: "male",
         dogs: false,
         cats: true,
+        aboutMe: "César Felipe Millán Favela is a Mexican-American dog psychologist. He is widely known for his Emmy-nominated television series Dog Whisperer with Cesar Millan, which was produced from 2004 to 2012 and is broadcast in more than 80 countries worldwide.",
+        tagLine: "Two words: Dog. Whisperer.",
         role: null
       });
 
@@ -288,13 +296,15 @@ async function dropTables() {
         gender: "female",
         dogs: true,
         cats: true,
+        aboutMe: "Victoria Stilwell (born 20 July 1969) is an English author, dog trainer and television presenter. Stilwell has appeared as a pet behavior expert and served as a producer on several international TV series including Dogs Might Fly (Sky TV), Dogs With Extraordinary Jobs (Smithsonian Channel), and Greatest American Dog (CBS), and is best known as the star and creator of the dog training TV show It's Me or the Dog.",
+        tagLine: "It's me or the dog",
         role: null
       });
 
       await createPetsitter({
         email: "helen24@aol.com",
         password: "dfsitTop2",
-        fname: "Helen",
+        fname: "Dasha",
         lname: "Glass",
         address: "San Francisco, CA",
         phone: "233-443-7831",
@@ -302,6 +312,8 @@ async function dropTables() {
         gender: "female",
         dogs: false,
         cats: true,
+        aboutMe:"I'm Dasha, the leader of The Savitsky Cats. We are the family of super trained cats and humans. Originally, we all are from the Ukraine, and now we are in United States!",
+        tagLine:"Happy to be here",
         role: null
       });
 
@@ -369,8 +381,8 @@ async function dropTables() {
         time: "9:00 AM",
         file: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w300/2023/10/free-images.jpg",
         description: "Franks 12th pupday party",
-        event_type: "Birthday",
-        pet_type: "Hamster",
+        eventType: "Birthday",
+        petType: "Hamster",
       });
       
       await createEvent({
@@ -380,8 +392,8 @@ async function dropTables() {
         time: "11:00 AM",
         file: "https://images.ctfassets.net/sfnkq8lmu5d7/1SOkYVbLFsuLdn8RXjdOn9/c2c86370552871a392d3ab48a070c321/The_Wildest_Who_Is_The_Dog___s_Birthday_Party_For?w=1000&h=750&q=70&fm=webp",
         description: "Celebrating Lucy's 5th Birthday with a fun-filled party!",
-        event_type: "Birthday",
-        pet_type: "Dog",
+        eventType: "Birthday",
+        petType: "Dog",
       });
       
       await createEvent({
@@ -391,8 +403,8 @@ async function dropTables() {
         time: "12:00 PM",
         file: "https://www.petpost.com.au/cdn/shop/articles/planning-a-picnic-with-your-dog-288815.jpg?v=1699415283",
         description: "Enjoy a lovely picnic with your furry friends!",
-        event_type: "Pet-freindly Picnic",
-        pet_type: "Dog",
+        eventType: "Pet-freindly Picnic",
+        petType: "Dog",
       });
       
       await createEvent({
@@ -402,8 +414,8 @@ async function dropTables() {
         time: "10:00 AM",
         file: "https://images.squarespace-cdn.com/content/v1/6439b3af348357708c9a0ec8/1690565832977-5DNFWITCQV0CSLJ9K5YT/image-asset.jpeg?format=1500w",
         description: "Join us for a delightful picnic with your pets!",
-        event_type: "Pet-freindly Picnic",
-        pet_type: "Cat",
+        eventType: "Pet-freindly Picnic",
+        petType: "Cat",
       });
 
       await createEvent({
@@ -413,8 +425,8 @@ async function dropTables() {
         time: "8:00 AM",
         file: "https://visitadirondacks.com/sites/default/files/styles/960x540/public/2020-02/woman-dog-high-five.jpg?itok=J_tQ1wTj",
         description: "Embark on an exhilarating hike through the breathtaking mountain trails of Yosemite!",
-        event_type: "Hike",
-        pet_type: "Dog",
+        eventType: "Hike",
+        petType: "Dog",
       });
       
       await createEvent({
@@ -424,8 +436,8 @@ async function dropTables() {
         time: "9:00 AM",
         file: "https://images.ctfassets.net/sfnkq8lmu5d7/1toXJmmMIGF2DauOIBHaTP/89fda87bb1cb72959743530e026fc363/The_Wildest_Proper_Trail_Etiquette_for_Hiking_with_Your_Dog__Stocksy_txp863b6f50CbT300_Medium_618753.jpg?w=1000&h=750&q=70&fm=webp",
         description: "Discover the wonders of the forest with this guided hike amidst the serene beauty of the Smoky Mountains!",
-        event_type: "Hike",
-        pet_type: "Dog",
+        eventType: "Hike",
+        petType: "Dog",
       });
       
       await createEvent({
@@ -435,10 +447,9 @@ async function dropTables() {
         time: "2:00 PM",
         file: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Female_animal_trainer_and_leopard%2C_c1906.jpg/1920px-Female_animal_trainer_and_leopard%2C_c1906.jpg",
         description: "Join us for a comprehensive training workshop focusing on building obedience skills in your canine companions!",
-        event_type: "Training Workshop",
-        pet_type: "Dog",
-      });  
-            
+        eventType: "Training Workshop",
+        petType: "Dog",
+      });   
       console.log("Finished creating events!");
     } catch (error) {
       console.error("Error creating events");

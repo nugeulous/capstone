@@ -39,7 +39,6 @@ export default function Home() {
       >
         Find a siiter
       </Button>
-
       <Button
         variant="outlined"
         onClick={() => {
@@ -48,7 +47,6 @@ export default function Home() {
       >
         Order History Tester
       </Button>
-     
     </div>
   );
 }

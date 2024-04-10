@@ -27,7 +27,7 @@ import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
-// import OrderHistory from "./Components/OrderHistory";
+import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 
 function App() {
   const [token, setToken] = useState(
@@ -102,15 +102,16 @@ function App() {
             />
           }
         />
-        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} />} />
-        <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser} />} />
-        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user} />} />
+        <Route path="/Petsitter Register" element={<PetsitterRegister setToken={setToken} setUser={setUser} setRole={setRole} />} />
+        <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser}/>} />
+        <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} />} />
         <Route path="/new-event" element={<NewEvent token={token} />} />
         <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
+        <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
         <Route path="/BookService" element={<BookService token={token} />} />
         <Route path="/Sitters" element={<Sitters token={token} />} />
         <Route path="/Groomers" element={<Groomers token={token} />} />

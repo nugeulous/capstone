@@ -273,6 +273,21 @@ export const fetchOrdersByOwnerId = async (id) => {
     return orders;
   } catch (error) {
     console.error("Error fetching orders by owner id:", error);
+        throw error;
+  }
+};
+export const getPetsitterById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/petsitters/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const petsitter = await response.json();
+    return petsitter;
+  } catch (error) {
+    console.error("Error fetching petsitter by ID:", error);
     throw error;
   }
 };
