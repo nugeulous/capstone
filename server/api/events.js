@@ -28,7 +28,7 @@ const upload = multer({ storage: storage })
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
-    const { title, address, date, time, description, evewntType, petType, userId } = req.body; 
+    const { title, address, date, time, description, eventType, petType, userId } = req.body; 
     const photoPath = req.file ? req.file.filename : null; 
 
     const idUser = parseInt(userId);
@@ -36,7 +36,7 @@ eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) =>
     if (!userHasId) {
       return res.status(400).send({ error: 'User does not exist' })
     }
-    const event = await createEvent({ title, address, date, time, file: photoPath, description, evewntType, petType, userId: idUser });
+    const event = await createEvent({ title, address, date, time, file: photoPath, description, eventType, petType, userId: idUser });
 
     res.send({ event });
   } catch (error) {
