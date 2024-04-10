@@ -2,14 +2,16 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
+import ReviewBookingDetails from "./ReviewBookingDetails"
 
 // pass in token
 export default function BookService({token}) {
 
   const [owner, setOwner] = useState(null);
   const [error, setError] = useState(null);
-  const [startTimeInput, setStartTimeInput] = useState(null);
-  const [endTimeInput, setEndTimeInput] = useState(null);
+  const [startTimeInput, setStartTimeInput] = useState("10:00");
+  const [endTimeInput, setEndTimeInput] = useState("11:00");
+  const [dateInput, setDateInput] = useState("2024-10-10");
   const [animalType, setAnimalType] = useState(null);
   const [petSitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
@@ -46,8 +48,6 @@ export default function BookService({token}) {
     // GET petsitter info
     try {
       const result = await fetchAvailablePetsitters(token);
-      console.log('result BEFORE time change', result)
-
       setPetsitterDetails(result);
       console.log('PETSITTER DETAILS--->', petSitterDetails)
     } catch (error) {
@@ -62,13 +62,13 @@ export default function BookService({token}) {
             <h1 className="book-walk-title">Please Enter Your Booking Details Below!</h1>
         <form className="sitters-filter" onSubmit={handleSubmit}>
           <label>Day:
-            <input type="date" placeholder="10/10/2024" />
+            <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)}/>
           </label>
           <label>Start Time:
-            <input type="time" placeholder="10:00AM" step={3600} onChange={(e) => setStartTimeInput(e.target.value)} />
+            <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
           </label>
           <label>End Time:
-            <input type="time" placeholder="11:00AM" step={3600} onChange={(e) => setEndTimeInput(e.target.value)}/>
+            <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)}/>
           </label>
           <label>Pet:
             <select onChange={(e) => setAnimalType(e.target.value)}>
@@ -124,7 +124,8 @@ export default function BookService({token}) {
               type="button"
               variant="outlined"
               onClick={() => {
-                navigate(`/ServiceConfirmed`);
+                navigate(`/ReviewBookingDetails`
+                , { state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput}});
               }}>Book Now</Button>
 
             <Button 
@@ -135,7 +136,6 @@ export default function BookService({token}) {
                 navigate(`/petsitters/${petsitter.id}`);
               }}>See Sitter Details</Button>
             </div>
-
           </div>
         })}</div>
         </div>

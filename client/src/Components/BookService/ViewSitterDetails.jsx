@@ -47,7 +47,7 @@ export default function ViewSitterDetails({token}) {
               type="button"
               variant="outlined"
               onClick={() => {
-                navigate(`/ServiceConfirmed`);
+                navigate(`/ReviewBookingDetails`);
               }}>Book Now</Button>
 
                 <div className="sub-header">
