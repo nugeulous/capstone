@@ -22,7 +22,7 @@ import EventPage from "./Components/PlaygroundPages/EventsComponents/EventPage"
 import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
-import ServiceConfirmed from "./Components/ServiceConfirmed";
+import ReviewBookingDetails from "./Components/BookService/ReviewBookingDetails";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import { fetchOwner, fetchPetsitter } from "./API/api";
@@ -117,7 +117,7 @@ function App() {
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
         <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
-        <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
+        <Route path="/ReviewBookingDetails" element={<ReviewBookingDetails token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
       </Routes>

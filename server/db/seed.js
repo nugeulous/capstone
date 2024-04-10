@@ -86,6 +86,7 @@ async function dropTables() {
           cats boolean DEFAULT false,
           aboutMe varchar(2000) NULL,
           tagLine varchar(2000) NULL,
+          hourlyCost INTEGER NULL,
           role varchar(255)
         );
 
@@ -229,6 +230,7 @@ async function dropTables() {
         cats: true,
         aboutMe: "American actor, producer, and director. In a career spanning over four decades, Washington has received numerous accolades, including a Tony Award, two Academy Awards, three Golden Globe Awards and two Silver Bears.[1] He was honored with the Cecil B. DeMille Lifetime Achievement Award in 2016, the AFI Life Achievement Award in 2019, and in 2020 The New York Times named him the greatest actor of the 21st century.[2] In 2022, Washington received the Presidential Medal of Freedom.",
         tagLine: "Dogs are life",
+        hourlyCost: 15,
         role: null
       });
 
@@ -245,6 +247,7 @@ async function dropTables() {
         cats: false,
         aboutMe: "American singer-songwriter. A subject of widespread public interest, she has influenced the music industry and popular culture through her artistry, songwriting and entrepreneurship. She is an advocate of artists' rights and women's empowerment.",
         tagLine: "proud cat lady",
+        hourlyCost: 22,
         role: null
       });
 
@@ -261,6 +264,7 @@ async function dropTables() {
         cats: true,
         aboutMe: "César Felipe Millán Favela is a Mexican-American dog psychologist. He is widely known for his Emmy-nominated television series Dog Whisperer with Cesar Millan, which was produced from 2004 to 2012 and is broadcast in more than 80 countries worldwide.",
         tagLine: "Two words: Dog. Whisperer.",
+        hourlyCost: 25,
         role: null
       });
 
@@ -277,6 +281,7 @@ async function dropTables() {
         cats: true,
         aboutMe: "Victoria Stilwell (born 20 July 1969) is an English author, dog trainer and television presenter. Stilwell has appeared as a pet behavior expert and served as a producer on several international TV series including Dogs Might Fly (Sky TV), Dogs With Extraordinary Jobs (Smithsonian Channel), and Greatest American Dog (CBS), and is best known as the star and creator of the dog training TV show It's Me or the Dog.",
         tagLine: "It's me or the dog",
+        hourlyCost: 20,
         role: null
       });
 
@@ -293,6 +298,7 @@ async function dropTables() {
         cats: true,
         aboutMe:"I'm Dasha, the leader of The Savitsky Cats. We are the family of super trained cats and humans. Originally, we all are from the Ukraine, and now we are in United States!",
         tagLine:"Happy to be here",
+        hourlyCost: 30,
         role: null
       });
 
