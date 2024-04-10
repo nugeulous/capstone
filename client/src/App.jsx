@@ -25,6 +25,7 @@ import PetsitterAccount from "./Components/PetsitterAccount";
 import ServiceConfirmed from "./Components/ServiceConfirmed";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
+import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 
@@ -120,6 +121,7 @@ function App() {
         <Route path="/ServiceConfirmed" element={<ServiceConfirmed token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
+        <Route path="/OrderHistory" element={<OrderHistory token={token} setToken={setToken} user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

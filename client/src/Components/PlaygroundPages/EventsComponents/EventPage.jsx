@@ -17,6 +17,7 @@ const EventPage = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
   const photoPath = `${API_URL}/events/getPhoto?fileName=`
 
+
   const topLevel = {
     display: "flex",
     justifyContent: "space-between",
