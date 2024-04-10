@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getEventById } from "../../../API/eventsApi";
+import { getUserById } from "../../../API/api";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -10,9 +11,12 @@ import RsvpIcon from "@mui/icons-material/Rsvp";
 const EventPage = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [user, setUser] = useState(null); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const photoPath = "http://localhost:3000/api/events/getPhoto?fileName=";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+  const photoPath = `${API_URL}/events/getPhoto?fileName=`
+
 
   const topLevel = {
     display: "flex",
@@ -37,6 +41,8 @@ const EventPage = () => {
           date: formattedDate,
           time: formattedTime,
         });
+        const userResponse = await getUserById(response.owner_id);
+        setUser(userResponse);
       } catch (error) {
         setError(error.message);
       }
@@ -49,8 +55,8 @@ const EventPage = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!event) {
-    return <div>Event not found</div>;
+  if (!event || !user) {
+    return <div>Loading...</div>; // You might want to improve the loading state
   }
 
   const imagePath = event.file.startsWith("http")
@@ -71,7 +77,7 @@ const EventPage = () => {
       </div>
       <div style={{ maxWidth: "80%", display: "block", margin: "auto" }}>
       <div style={{ backgroundColor: "lightgrey", maxHeight: "400px", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', borderRadius: "5px" }}>
-        <img style={{ width: "600", height: "400px", display: "block", margin: "auto", borderRadius: "10px" }} src={imagePath} alt={event.title} />
+        <img style={{ width: "600", height: "400px", display: "block", margin: "auto" }} src={imagePath} alt={event.title} />
         </div>
         <div style={topLevel}>
           <div>
@@ -92,8 +98,9 @@ const EventPage = () => {
         <p> {event.date} | {event.time}</p>
         <h2>Location</h2>
         <p>Meet up at: {event.address}</p>
-        <p>{event.eventType}</p>
-        <p>{event.petType}</p>
+        <p>{event.event_type}</p>
+        <p>{event.pet_type}</p>
+        <h5>Posted by: {user.fname}</h5> 
       </div>
     </>
   );

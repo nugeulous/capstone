@@ -3,8 +3,6 @@ import Events from "./EventsComponents/Events";
 import Blog from "./BlogComponents/Blog";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import SearchIcon from '@mui/icons-material/Search';
-import { Grid, TextField } from "@mui/material";
 
 import "../../App.css";
 

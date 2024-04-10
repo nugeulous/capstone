@@ -1,13 +1,13 @@
 const { client } = require("./client.js");
 
-async function createEvent({ title, address, date, time, file, description, eventType, petType }) {
+async function createEvent({ title, address, date, time, file, description, eventType, petType, userId }) {
     try {
       const { rows: [events] } = await client.query(`
-        INSERT INTO events(title, address, date, time, file, description, eventType, petType) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+        INSERT INTO events(title, address, date, time, file, description, eventType, petType, userId) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
         RETURNING *;
       `,
-        [title, address, date, time, file, description, eventType, petType]
+        [title, address, date, time, file, description, eventType, petType, userId]
       );
       return events;
     } catch (error) {
@@ -48,4 +48,18 @@ async function createEvent({ title, address, date, time, file, description, even
     }
   }
 
-  module.exports = { createEvent, getAllEvents, getEventById }
+  async function getEventsByUserId(userId) { // needs updating to user (User || petsitter)
+    try {
+      const { rows: events } = await client.query(`
+        SELECT *
+        FROM events
+        WHERE userId=$1
+      `, [userId]); // needs updating
+  
+      return events;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  module.exports = { createEvent, getAllEvents, getEventById, getEventsByUserId };
