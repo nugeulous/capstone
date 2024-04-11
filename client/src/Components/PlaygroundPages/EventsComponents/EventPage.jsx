@@ -12,7 +12,7 @@ const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const photoPath = "http://localhost:3000/api/events/getPhoto?fileName=";
+  const photoPath = "/api/events/getPhoto?fileName=";
 
   const topLevel = {
     display: "flex",
