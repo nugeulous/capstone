@@ -8,7 +8,7 @@ export default function Account({ user, token, setUser }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   if (error) return <div>Error: {error}</div>;
-  if (!user) {
+  if (!user && !token) {
     // User is not logged in, render a message
     return <p>Please log in or create an account.</p>;
   }
