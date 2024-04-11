@@ -31,12 +31,13 @@
     "redux": "^5.0.1"
   },
   "scripts": {
+    "start": "npm run build && node server/index.js", 
     "test": "echo \"Error: no test specified\" && exit 1",
     "server:start": "nodemon server/index.js",
     "seed:dev": "nodemon server/db/seed.js",
     "seed": "node server/db/seed.js",
     "client:start": "vite client",
-    "build": "vite build",
+    "build": "vite build client",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
