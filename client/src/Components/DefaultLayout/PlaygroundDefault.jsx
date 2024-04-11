@@ -1,6 +1,6 @@
 import React from "react";
 import "../DefaultLayout/defaultLayout.css";
-import puppypile from "../../images/puppypile.jpeg";
+import puppypile from "../../images/puppypile.jpg";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
