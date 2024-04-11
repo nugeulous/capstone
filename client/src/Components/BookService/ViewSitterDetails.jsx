@@ -57,8 +57,10 @@ export default function ViewSitterDetails({token}) {
                   <div>Location</div>
                     <div>{petsitter.address}</div>
                   <br></br>
-                  <br />
                   <div>"{petsitter.tagline}"</div>
+                  <br />
+                  <div>Hourly Rate:</div>
+                  <div>${petsitter.hourlycost}</div>
                 </div>
             </div>
 

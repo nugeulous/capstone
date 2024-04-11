@@ -1,6 +1,6 @@
 const { client } = require("./client.js");
 
-async function createPetsitter({ email, password, fname, lname, address, phone, image_file, gender, dogs, cats, aboutMe, tagLine, role}) {
+async function createPetsitter({ email, password, fname, lname, address, phone, image_file, gender, dogs, cats, aboutMe, tagLine, hourlyCost, role}) {
     try {
       const {
         rows: [petsitter],

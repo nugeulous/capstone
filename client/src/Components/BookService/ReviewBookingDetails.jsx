@@ -40,7 +40,7 @@ export default function ReviewBookingDetails({details, endTime, startTime, date}
             <br></br>
             <br></br>
             <br></br>
-            <b>Est. Total:</b>
+            <b>Est. Total: ${sitterDetails.hourlycost}</b>
             <br></br>
             <br></br>
             <br></br>
