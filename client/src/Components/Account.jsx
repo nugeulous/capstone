@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
 import { useState } from "react";
 import SinglePet from "./PetInfo/SinglePet";
+import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
 
 export default function Account({ user, token, setUser }) {
   const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ export default function Account({ user, token, setUser }) {
   if (error) return <div>Error: {error}</div>;
   if (!user) {
     // User is not logged in, render a message
-    return <p>Please log in or create an account.</p>;
+    return <NoAccess/>
   }
   if (user.role !== "owner") {
     return <p>Oops, this is not the right page for a Petsitter</p>;

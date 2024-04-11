@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "Services", "Playground", "About Us"];
+const pages = [ "Playground", "About Us","Services"];
 const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
 const ownerSettings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
 const notSignedInSettings = ["Login", "Register", "Petsitter Login", "Petsitter Register"]
@@ -50,6 +50,9 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
             noWrap
             component="a"
             onChange={(e) => setLastName(e.target.value)}
+            onClick={() => {
+              navigate(`/home`);
+            }}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

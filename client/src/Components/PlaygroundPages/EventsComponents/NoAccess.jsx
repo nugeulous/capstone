@@ -29,6 +29,17 @@ const NoAccess = () => {
       >
         {"Don't have an account? Sign Up"}
       </p>
+      <Grid item>
+                <Link
+                  href="#"
+                  onClick={() => {
+                    navigate(`/Login`);
+                  }}
+                  variant="body2"
+                >
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
     </div>
   );
 };
