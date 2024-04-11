@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
 import { getPetsByOwnerId } from "../API/api";
+import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
+
 export default function Account({ user, token }) {
   const [error, setError] = useState(null);
   const [pets, setPets] = useState([]);
