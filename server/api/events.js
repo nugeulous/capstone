@@ -1,8 +1,8 @@
 const express = require('express');
 const eventsRouter = express.Router();
-const multer = require('multer');
 const path = require('path'); 
 const fs = require('fs');
+const upload = require('./multerApi');
 
 const {
   createEvent,
@@ -12,18 +12,6 @@ const {
 } = require('../db/index');
 
 const { getOwnerById } = require('../db/owners');
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../public/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')
-  }
-})
-
-const upload = multer({ storage: storage })
 
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
