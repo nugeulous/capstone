@@ -62,7 +62,7 @@ const Login = ({ setToken, setRole, setUser }) => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "#135b6d" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -102,7 +102,7 @@ const Login = ({ setToken, setRole, setUser }) => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
+            sx={{ mt: 3, mb: 2, bgcolor: "#135b6d" }}
           >
             Sign In
           </Button>
