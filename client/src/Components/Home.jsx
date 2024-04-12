@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OrderHistory from "./OrderHistory";
 
-export default function Home() {
+export default function Home({user}) {
     const navigate = useNavigate();
   return (
     <div className="home">
@@ -48,7 +48,7 @@ export default function Home() {
       >
         Order History Tester
       </Button>
-      <OrderHistory/>
+      <OrderHistory user={user}/>
     </div>
   );
 }

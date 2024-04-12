@@ -59,7 +59,7 @@ export default function BookService({token}) {
   // filter for owners with specific availability
     return (
         <div className="home">
-            <h1 className="book-walk-title">Book a Walk</h1>
+            <h1 className="book-walk-title">Please Enter Your Booking Details Below!</h1>
         <form className="sitters-filter" onSubmit={handleSubmit}>
           <label>Day:
             <input type="date" placeholder="10/10/2024" />
