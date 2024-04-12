@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
-import ReviewBookingDetails from "./ReviewBookingDetails"
 
 // pass in token
 export default function BookService({token}) {
@@ -133,8 +132,8 @@ export default function BookService({token}) {
               type="button"
               variant="outlined"
               onClick={() => {
-                navigate(`/petsitters/${petsitter.id}`);
-              }}>See Sitter Details</Button>
+                navigate(`/petsitters/${petsitter.id}`
+                , { state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput}})}}>See Sitter Details</Button>
             </div>
           </div>
         })}</div>

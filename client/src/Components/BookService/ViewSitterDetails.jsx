@@ -4,15 +4,20 @@ import { useCallback } from "react";
 import { fetchPetsitter, getPetsitterById } from "../../API/api";
 import { Button } from "@mui/material";
 import { fetchAccount } from "../../API/api";
+import { useLocation } from "react-router-dom";
 import "./css.css"
 
-export default function ViewSitterDetails({token}) {
+export default function ViewSitterDetails({details, startTime, endTime, date, token}) {
     // capture petsitter id from parameter
     const navigate = useNavigate();
     const { id } = useParams()
     const [error, setError] = useState(null);
-    const [owner, setOwner] = useState(null);
-    const [ petsitter, setPetsitter] = useState([])
+    const location = useLocation();
+    const petsitterDetails = location.state.details;
+    const startTimeInput = location.state.startTime;
+    const endTimeInput = location.state.endTime;
+    const dateInput = location.state.date;
+    const [petsitter, setPetsitter] = useState([])
 
     useEffect(() => {
         const fetchPetsitter = async () => {
@@ -30,10 +35,10 @@ export default function ViewSitterDetails({token}) {
     );
 
     return (
-          <div className="petsitter-details-container">
+          <div className="container">
 
             {/* left box start */}
-            <div className="left-photo-box">
+            <div className="vertical-box">
             
             <div>
                 <img className="sitter-img" src={petsitter.image_file} alt="" />
@@ -47,7 +52,10 @@ export default function ViewSitterDetails({token}) {
               type="button"
               variant="outlined"
               onClick={() => {
-                navigate(`/ReviewBookingDetails`);
+                navigate(`/ReviewBookingDetails`
+                ,{ state: {
+                  details: petsitterDetails, startTime: startTimeInput, endTime: endTimeInput, date: dateInput
+                }});
               }}>Book Now</Button>
 
                 <div className="sub-header">
@@ -67,12 +75,12 @@ export default function ViewSitterDetails({token}) {
             </div>
             {/* end left box */}
 
-            <div className="about-me">About Me
+            <div className="horizontal-box">About Me
             <br />
             <br />
               <div>{petsitter.aboutme} </div>
             </div>
-            <div className="reviews">Reviews
+            <div className="horizontal-box">Reviews
             </div>
 
           </div>
