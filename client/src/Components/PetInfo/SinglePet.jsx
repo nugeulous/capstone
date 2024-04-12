@@ -10,9 +10,7 @@ const SinglePet = ({ user }) => {
     const fetchPets = async () => {
       try {
         const petsData = await getPetsByOwnerId(ownerId);
-        if (!petsData) {
           setPets(petsData);
-        }
       } catch (error) {
         setError(error.message);
       }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Events from "./EventsComponents/Events";
 import Blog from "./BlogComponents/Blog";
 import Button from "@mui/material/Button";
@@ -8,15 +8,25 @@ import { Grid, TextField } from "@mui/material";
 
 import "../../App.css";
 
-export default function Playground() {
+export default function Playground({ user }) {
   const [showEvents, setShowEvents] = useState(true);
+
+  useEffect(() => {
+    const showEventsState = localStorage.getItem("showEvents");
+    if (showEventsState !== null) {
+      setShowEvents(showEventsState === "true");
+    }
+  }, []);
 
   const handleToggleEvents = () => {
     setShowEvents(true);
+    localStorage.setItem("showEvents", "true");
   };
 
   const handleToggleBlog = () => {
     setShowEvents(false);
+    localStorage.setItem("showEvents", "false");
+
   };
 
   return (
@@ -48,7 +58,7 @@ export default function Playground() {
         </Stack>
       </div>
 
-      {showEvents ? <Events /> : <Blog />}
+      {showEvents ? <Events /> : <Blog user={user} />}
     </div>
   );
 }

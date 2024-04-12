@@ -66,7 +66,7 @@ const Login = ({ setToken, setRole, setUser }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Petsitter Sign In
           {error && <p>{error}</p>}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

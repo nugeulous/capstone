@@ -62,7 +62,7 @@ const NewEvent = () => {
       setFile(file);
     }
   };
-
+ 
   return (
     <Container component="main" maxWidth="xs">
       <Box

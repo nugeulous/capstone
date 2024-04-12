@@ -12,7 +12,7 @@ import Weight from "./Weight";
 import { addPet } from "../../API/api";
 import "./PetInfo.css"
 
-export default function PetInfo({ user, token }) {
+export default function PetInfo({ user }) {
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
@@ -26,6 +26,7 @@ export default function PetInfo({ user, token }) {
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
   const [error, setError] = useState(null);
+  
 
   const handleGenderChange = (event) => {
     setGender(event.target.value);
@@ -66,6 +67,7 @@ export default function PetInfo({ user, token }) {
       );
       setPet(result.pet);
       console.log(result.pet);
+      navigate
     } catch (error) {
       setError(error.message);
       console.log(error);

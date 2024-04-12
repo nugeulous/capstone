@@ -8,7 +8,8 @@ const {
     createPet,
     createPetsitter,
     createAvailability,
-    createEvent
+    createEvent,
+    createPost
   } = require('./index');
 
 
@@ -17,12 +18,14 @@ async function dropTables() {
       console.log("Starting to drop tables...");
   
       // have to make sure to drop in correct order
-      await client.query(`
+      await client.query(`      
+      DROP TABLE IF EXISTS posts CASCADE;
       DROP TABLE IF EXISTS pets; 
       DROP TABLE IF EXISTS events;
       DROP TABLE IF EXISTS availability;
       DROP TABLE IF EXISTS petsitters;
       DROP TABLE IF EXISTS owners;
+
       `);
   
       console.log("Finished dropping tables!");
@@ -110,6 +113,23 @@ async function dropTables() {
           event_type VARCHAR(50) NOT NULL,
           pet_type VARCHAR(50),
           owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+        );
+
+        CREATE TABLE posts (
+          id SERIAL PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          content TEXT NOT NULL,
+          active BOOLEAN DEFAULT true,
+          ownerid INTEGER,
+          petsitterid INTEGER,
+          CONSTRAINT fk_owners
+            FOREIGN KEY(ownerid)
+            REFERENCES owners(id)
+            ON DELETE CASCADE,
+          CONSTRAINT fk_petsitters
+            FOREIGN KEY(petsitterid)
+            REFERENCES petsitters(id)
+            ON DELETE CASCADE
         );
 
       `);
@@ -425,6 +445,60 @@ async function dropTables() {
     }
   }
 
+  async function createInitialPosts() {
+    try {
+        console.log("Starting to create initial posts...");
+
+        // Fetch the names of owners and petsitters from the database
+        const owner1 = await client.query("SELECT fname, lname FROM owners WHERE id = 1");
+        const owner2 = await client.query("SELECT fname, lname FROM owners WHERE id = 2");
+        const petsitter1 = await client.query("SELECT fname, lname FROM petsitters WHERE id = 1");
+        const petsitter2 = await client.query("SELECT fname, lname FROM petsitters WHERE id = 2");
+
+        // Create initial posts with associated names
+        await createPost({
+            title: "Welcome to the Pet Lovers Community!",
+            content: "We're thrilled to welcome you to our community of pet lovers. Feel free to introduce yourself and share stories about your beloved pets.",
+            ownerid: 1, // Assuming ownerId 1 corresponds to the first owner created in the database
+            ownerName: `${owner1.rows[0].fname} ${owner1.rows[0].lname}`
+        });
+
+        await createPost({
+            title: "Tips for a Healthy Cat Diet",
+            content: "Here are some tips to ensure your feline friend is getting the nutrients they need for a healthy diet. Remember, a well-fed cat is a happy cat!",
+            ownerid: 1, // Assuming ownerId 1 corresponds to the first owner created in the database
+            ownerName: `${owner1.rows[0].fname} ${owner1.rows[0].lname}`
+        });
+
+        await createPost({
+            title: "Finding the Right Dog Walker",
+            content: "Looking for a reliable dog walker? Share your experiences and recommendations here!",
+            ownerid: 2, // Assuming ownerId 2 corresponds to the second owner created in the database
+            ownerName: `${owner2.rows[0].fname} ${owner2.rows[0].lname}`
+        });
+
+        await createPost({
+            title: "Exciting News: New Dog Walking Slots Available!",
+            content: "I'm excited to announce that I have openings for dog walking sessions starting next week. Contact me to schedule your furry friend's walk!",
+            petsitterid: 1, // Assuming petsitterId 1 corresponds to the first petsitter created in the database
+            petsitterName: `${petsitter1.rows[0].fname} ${petsitter1.rows[0].lname}`
+        });
+
+        await createPost({
+            title: "Cat Sitting Services Available",
+            content: "Need someone to care for your feline companion while you're away? Look no further! I offer reliable and loving cat sitting services.",
+            petsitterid: 2, // Assuming petsitterId 2 corresponds to the second petsitter created in the database
+            petsitterName: `${petsitter2.rows[0].fname} ${petsitter2.rows[0].lname}`
+        });
+
+        console.log("Finished creating initial posts!");
+    } catch (error) {
+        console.error("Error creating initial posts!");
+        throw error;
+    }
+}
+
+
   async function rebuildDB() {
     try {
       await client.connect(options);
@@ -435,6 +509,7 @@ async function dropTables() {
       await createInitialPetsitters();
       await createInitialAvailability();
       await createInitalEvent();
+      await createInitialPosts();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;

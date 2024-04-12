@@ -202,25 +202,6 @@ export const fetchAllSitters = async (token) => {
   }
 };
 
-export const fetchAccount = async (token) => {
-  try {
-    const response = await fetch(`${API_URL}/owners/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!response.ok) throw new Error("Please log in or create an account!");
-    const owner = await response.json();
-    console.log(owner);
-    return owner;
-  } catch (error) {
-    console.error("Error fetching account:", error);
-    throw error;
-  }
-};
-
 
 export const fetchPetsitter = async (token) => {
   try {
@@ -254,6 +235,61 @@ export const fetchAvailablePetsitters = async (token) => {
     return petsitters;
   } catch (error) {
     console.error("Error fetching petsitter account:", error);
+    throw error;
+  }
+};
+
+export const createPost = async ({ title, content, ownerid, petsitterid }) => {
+  try {
+    const response = await fetch(`${API_URL}/posts/createPost`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+        ownerid,
+        petsitterid,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("error creating post");
+    throw error;
+  }
+};
+
+export const getAllPosts = async () => {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.error("error fetching posts");
+    throw error;
+  }
+};
+
+export const deletePost = async (postId) => {
+  try {
+    const response = await fetch(`${API_URL}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to delete post");
+    }
+  } catch (error) {
+    console.error("error deleting post");
     throw error;
   }
 };
