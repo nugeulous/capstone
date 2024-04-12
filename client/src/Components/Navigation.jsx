@@ -65,9 +65,19 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
               textDecoration: "none",
             }}
           >
-               <PetsIcon sx={{ fontSize: 40 }}/>
-            AllTails
-            <PetsIcon sx={{ fontSize: 40 }}/>
+            <IconButton onClick={() => {
+                  navigate(`/`);
+                }} sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }} >
+                AllTails
+              </IconButton>
           </Typography>
       
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
