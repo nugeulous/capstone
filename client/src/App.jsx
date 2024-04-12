@@ -28,6 +28,8 @@ import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
+import CssBaseline from "@mui/material/CssBaseline";
+
 
 function App() {
   const [token, setToken] = useState(
@@ -69,6 +71,7 @@ function App() {
 
   return (
     <div>
+      <CssBaseline />
       <NavBar setToken={setToken} token={token} setRole={setRole} role={role} setUser={setUser}/>
       <Routes>
         <Route path="/" element={<AboutUs />} />
