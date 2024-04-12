@@ -72,7 +72,7 @@ const PetsitterRegister = ({ setToken, setRole, setUser }) => {
   }
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container c#135b6d" maxWidth="xs">
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
