@@ -39,7 +39,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
     <AppBar
       position="static"
       sx={{
-        background: "linear-gradient(#E61EAD, #3E0A41);",
+        background: "linear-gradient(#09203f, #537895);",
       }}
     >
       <Container maxWidth="xl">

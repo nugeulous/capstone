@@ -1,7 +1,7 @@
 .hero {
   width: 100%;
   min-height: 70vh;
-  background: linear-gradient(rgba(8, 0, 58, 0.7), rgba(8, 0, 58, 0.7)),
+  background: linear-gradient(rgba(88, 131, 146, 0.7), rgba(107, 144, 157, 0.7)),
     url(../../images/allpets.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -22,9 +22,11 @@
 }
 
 .hero-text p {
-  max-width: 700px;
+  font-size: large;
+  max-width: 700plx;
   margin: 10px auto 20px;
   line-height: 1.4;
+  font-weight: bold;
 }
 
 
