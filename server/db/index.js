@@ -4,5 +4,6 @@ module.exports = {
   ...require("./petsitters.js"),
   ...require("./availability.js"),
   ...require("./events.js"),
-  ...require("./orders.js")
+  ...require("./orders.js"),
+  ...require("./posts.js")
 }

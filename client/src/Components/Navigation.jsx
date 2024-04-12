@@ -39,7 +39,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
     <AppBar
       position="static"
       sx={{
-        background: "linear-gradient(#E61EAD, #3E0A41);",
+        background: "linear-gradient(#09203f, #1f98b5);",
       }}
     >
       <Container maxWidth="xl">
@@ -126,6 +126,8 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                       setRole("");
                       setUser();
                       navigate("/login");
+                    } else if (setting === "Switch to Caretaker"){
+                      navigate("/Petsitter Login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
                     }
