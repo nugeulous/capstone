@@ -52,7 +52,7 @@ const Services = () => {
             navigate(`/BookService`);
           }}
         >
-          <img src={dogTraining} alt="" />
+          <img src={petsitter} alt="" />
           <div className="caption">
             <SchoolIcon sx={{ fontSize: 40 }} />
             <p>Training</p>
