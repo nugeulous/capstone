@@ -1,9 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useCallback } from "react";
 import { fetchPetsitter, getPetsitterById } from "../../API/api";
 import { Button } from "@mui/material";
-import { fetchAccount } from "../../API/api";
 import "./css.css"
 
 export default function ViewSitterDetails({token}) {
