@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAccount, fetchAvailablePetsitters } from "../../API/api";
+import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 import ReviewBookingDetails from "./ReviewBookingDetails"
 
@@ -21,13 +21,13 @@ export default function BookService({token}) {
   const getAccount = useCallback(async () => {
     try {
       // useEffect will not continue until fetchAccount(token) returns a promise
-      const fetchedAccount = await fetchAccount(token);
+      const fetchedAccount = await fetchOwner(token);
       // update state to store the fetched account
       setOwner(fetchedAccount);
     } catch (error) {
       setError(error.message);
     }
-  }, [token, fetchAccount, setOwner, setError]);
+  }, [token, fetchOwner, setOwner, setError]);
 
   // only re-renders when dependency changes (stored in array) - avoid infinite rerender or slow page
   useEffect(() => {

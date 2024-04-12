@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/Navigation";
 import Login from "./Components/Login";
-import Home from "./Components/Home";
+import Home from "./Components/HomePage/Home";
 import Register from "./Components/Register";
 import Account from "./Components/Account";
 import AboutUs from "./Components/AboutUs";
@@ -106,8 +106,8 @@ function App() {
         <Route path="/account" element={<Account token={token} setToken={setToken} user={user} setUser={setUser}/>} />
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
-        <Route path="/Playground" element={<Playground token={token} />} />
-        <Route path="/new-event" element={<NewEvent token={token} user={user} />} />
+        <Route path="/Playground" element={<Playground token={token} user={user} />} />
+        <Route path="/new-event" element={<NewEvent token={token}  user={user} />} />
         <Route path="/events/:id" element={<EventPage token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />

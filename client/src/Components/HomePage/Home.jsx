@@ -1,20 +1,21 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import OrderHistory from "./OrderHistory";
+import { Box } from "@mui/material";
+import SlideShow from "./SlideShow";
 
-export default function Home({user}) {
+export default function Home() {
     const navigate = useNavigate();
   return (
     <div className="home">
-      <h1>Logo</h1>
-      <p>A conditional that shows "Please Login" or Welcome, "user.fname"! </p>
+      <h1>Home</h1>
+      <SlideShow />
       <Button
         variant="outlined"
         onClick={() => {
           navigate(`/BookService`);
         }}
       >
-        Walking
+        Take a Walk
       </Button>
       <Button
         variant="outlined"
@@ -22,7 +23,7 @@ export default function Home({user}) {
           navigate(`/Groomers`);
         }}
       >
-        Grooming
+        Groom your baby
       </Button>
       <Button
         variant="outlined"
@@ -30,7 +31,7 @@ export default function Home({user}) {
           navigate(`/Trainers`);
         }}
       >
-        Training
+        Teach your pet new tricks
       </Button>
       <Button
         variant="outlined"
@@ -38,7 +39,7 @@ export default function Home({user}) {
           navigate(`/Sitters`);
         }}
       >
-        Overnight Sitter
+        Find a siiter
       </Button>
       <Button
         variant="outlined"
@@ -48,7 +49,6 @@ export default function Home({user}) {
       >
         Order History Tester
       </Button>
-      <OrderHistory user={user}/>
     </div>
   );
 }

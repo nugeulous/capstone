@@ -129,6 +129,8 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                       setRole("");
                       setUser();
                       navigate("/login");
+                    } else if (setting === "Switch to Caretaker"){
+                      navigate("/Petsitter Login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
                     }
