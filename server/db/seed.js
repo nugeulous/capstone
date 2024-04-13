@@ -117,7 +117,16 @@ async function dropTables() {
           description TEXT NOT NULL,
           eventType VARCHAR(50) NOT NULL,
           petType VARCHAR(50),
-          userId INTEGER REFERENCES owners(id) ON DELETE CASCADE
+          ownerid INTEGER,
+          petsitterid INTEGER,
+          CONSTRAINT fk_owners
+            FOREIGN KEY(ownerid)
+            REFERENCES owners(id)
+            ON DELETE CASCADE,
+          CONSTRAINT fk_petsitters
+            FOREIGN KEY(petsitterid)
+            REFERENCES petsitters(id)
+            ON DELETE CASCADE
         );
 
         CREATE TABLE orders (
@@ -408,7 +417,7 @@ async function dropTables() {
         description: "Franks 12th pupday party",
         eventType: "Birthday",
         petType: "Hamster",
-        userId: "1",
+        ownerid: "1",
       });
       
       await createEvent({
@@ -420,7 +429,7 @@ async function dropTables() {
         description: "Celebrating Lucy's 5th Birthday with a fun-filled party!",
         eventType: "Birthday",
         petType: "Dog",
-        userId: "1",
+        ownerid: "1",
       });
       
       await createEvent({
@@ -432,7 +441,7 @@ async function dropTables() {
         description: "Enjoy a lovely picnic with your furry friends!",
         eventType: "Pet-freindly Picnic",
         petType: "Dog",
-        userId: "1",
+        ownerid: "1",
       });
       
       await createEvent({
@@ -444,7 +453,7 @@ async function dropTables() {
         description: "Join us for a delightful picnic with your pets!",
         eventType: "Pet-freindly Picnic",
         petType: "Cat",
-        userId: "2",
+        ownerid: "2",
       });
 
       await createEvent({
@@ -456,7 +465,7 @@ async function dropTables() {
         description: "Embark on an exhilarating hike through the breathtaking mountain trails of Yosemite!",
         eventType: "Hike",
         petType: "Dog",
-        userId: "2",
+        ownerid: "2",
       });
       
       await createEvent({
@@ -468,7 +477,7 @@ async function dropTables() {
         description: "Discover the wonders of the forest with this guided hike amidst the serene beauty of the Smoky Mountains!",
         eventType: "Hike",
         petType: "Dog",
-        userId: "2",
+        ownerid: "2",
       });
       
       await createEvent({
@@ -480,7 +489,7 @@ async function dropTables() {
         description: "Join us for a comprehensive training workshop focusing on building obedience skills in your canine companions!",
         eventType: "Training Workshop",
         petType: "Dog",
-        userId: "2",
+        ownerid: "2",
       });      
             
 

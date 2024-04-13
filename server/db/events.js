@@ -1,13 +1,13 @@
 const { client } = require("./client.js");
 
-async function createEvent({ title, address, date, time, file, description, eventType, petType, userId }) {
+async function createEvent({ title, address, date, time, file, description, eventType, petType, ownerid }) {
     try {
       const { rows: [events] } = await client.query(`
-        INSERT INTO events(title, address, date, time, file, description, eventType, petType, userId) 
+        INSERT INTO events(title, address, date, time, file, description, eventType, petType, ownerid) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
         RETURNING *;
       `,
-        [title, address, date, time, file, description, eventType, petType, userId]
+        [title, address, date, time, file, description, eventType, petType, ownerid]
       );
       return events;
     } catch (error) {
@@ -48,13 +48,13 @@ async function createEvent({ title, address, date, time, file, description, even
     }
   }
 
-  async function getEventsByUserId(userId) { // needs updating to user (User || petsitter)
+  async function getEventsByOwnerId(ownerid) { // needs updating to user (User || petsitter)
     try {
       const { rows: events } = await client.query(`
         SELECT *
         FROM events
-        WHERE userId=$1
-      `, [userId]); // needs updating
+        WHERE ownerid=$1
+      `, [ownerid]); // needs updating
   
       return events;
     } catch (error) {
@@ -62,4 +62,4 @@ async function createEvent({ title, address, date, time, file, description, even
     }
   }
   
-  module.exports = { createEvent, getAllEvents, getEventById, getEventsByUserId };
+  module.exports = { createEvent, getAllEvents, getEventById, getEventsByOwnerId };
