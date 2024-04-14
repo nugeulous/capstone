@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 import ReviewBookingDetails from "./ReviewBookingDetails"
+import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 
 // pass in token
 export default function BookService({token}) {
@@ -38,7 +39,7 @@ export default function BookService({token}) {
   
   // User is not logged in, render a message
   if (!token) {
-    return <p>Please log in or create an account.</p>;
+    return <NoAccess/>
   }
 
   // get all owner info when pressing submit

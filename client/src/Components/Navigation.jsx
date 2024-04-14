@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import PetsIcon from '@mui/icons-material/Pets';
 
 const pages = [ "Playground", "About Us","Services"];
 const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
@@ -56,15 +57,19 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
+              // fontFamily: "monospace",
+              fontSize: 30,
+              fontWeight: 900,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
+               <PetsIcon sx={{ fontSize: 40 }}/>
             AllTails
+            <PetsIcon sx={{ fontSize: 40 }}/>
           </Typography>
+      
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button

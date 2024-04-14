@@ -15,7 +15,7 @@ export default function Home() {
           navigate(`/BookService`);
         }}
       >
-        Take a Walk
+        Walking
       </Button>
       <Button
         variant="outlined"
@@ -23,7 +23,7 @@ export default function Home() {
           navigate(`/Groomers`);
         }}
       >
-        Groom your baby
+        Grooming
       </Button>
       <Button
         variant="outlined"
@@ -31,7 +31,7 @@ export default function Home() {
           navigate(`/Trainers`);
         }}
       >
-        Teach your pet new tricks
+        Training
       </Button>
       <Button
         variant="outlined"
@@ -39,7 +39,7 @@ export default function Home() {
           navigate(`/Sitters`);
         }}
       >
-        Find a siiter
+        Sitter
       </Button>
       <Button
         variant="outlined"
@@ -47,7 +47,7 @@ export default function Home() {
           navigate(`/OrderHistory`);
         }}
       >
-        Order History Tester
+        Order History
       </Button>
     </div>
   );

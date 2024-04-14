@@ -4,7 +4,7 @@ import "./defaultLayout.css";
 import grooming from "../../images/grooming.jpg";
 import petsitter from "../../images/petsitter.png";
 import walking from "../../images/walking.jpg";
-import dogTraining from "../../images/dogTraining.jpeg"
+import dogTraining from "../../images/dogtraining.jpeg"
 import SpaIcon from "@mui/icons-material/Spa";
 import PetsIcon from "@mui/icons-material/Pets";
 import SchoolIcon from '@mui/icons-material/School';
@@ -37,7 +37,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/Groomers`);
+            navigate(`/BookService`);
           }}
         >
           <img src={grooming} alt="" />
@@ -61,7 +61,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/Sitters`);
+            navigate(`/BookService`);
           }}
         >
           <img src={petsitter} alt="" />

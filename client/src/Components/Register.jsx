@@ -70,6 +70,8 @@ const Register = ({ setToken, setUser, setRole }) => {
       setError(error.message);
     }
   }
+
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -190,7 +192,7 @@ const Register = ({ setToken, setUser, setRole }) => {
                   }}
                   variant="body2"
                 >
-                  Already have an account? Sign in
+                  Already have an account / looking for Demo Login? Sign in.
                 </Link>
               </Grid>
             </Grid>

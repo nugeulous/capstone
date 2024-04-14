@@ -11,6 +11,7 @@ import Age from "./Age";
 import Weight from "./Weight";
 import { addPet } from "../../API/api";
 import "./PetInfo.css"
+import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 
 export default function PetInfo({ user }) {
   const [pet, setPet] = useState("");
@@ -75,7 +76,7 @@ export default function PetInfo({ user }) {
   }
 
   if (!user) {
-    return <p>must be logged in to access this page</p>;
+    return <NoAccess/>
   } else if (user.role !== "owner") {
     return <p>Must be signed in as an owner to access this page</p>
   };
