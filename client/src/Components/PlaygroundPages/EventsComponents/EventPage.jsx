@@ -6,15 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import RsvpIcon from "@mui/icons-material/Rsvp";
-import LikedEvents from "../../HomePage/LikedEvents";
+import { addUserLikedEvent } from "../../../API/eventsApi";
 
-const EventPage = () => {
+const EventPage = ({user}) => {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
-    const [user, setUser] = useState(null);
+    const [user1, setUser1] = useState(null);
+    // const [activeUser, setActiveUser] = useState("")
     const [error, setError] = useState(null);
     const [likedEvents, setLikedEvents] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
     const photoPath = `${API_URL}/events/getPhoto?fileName=`;
@@ -42,8 +45,8 @@ const EventPage = () => {
                     date: formattedDate,
                     time: formattedTime,
                 });
-                const userResponse = await getUserById(response.userId);
-                setUser(userResponse);
+                const userResponse = await getUserById(response.userid);
+                setUser1(userResponse);
             } catch (error) {
                 setError(error.message);
             }
@@ -52,10 +55,16 @@ const EventPage = () => {
         fetchEvent();
     }, [id]);
 
-    const handleAddToFavorites = () => {
-        // Check if the event is already in liked events
-        if (!likedEvents.some((e) => e.id === event.id)) {
-            setLikedEvents([...likedEvents, event]); // Add event to liked events array
+    const handleAddToFavorites = async () => {
+        try {
+            const response = await addUserLikedEvent(user.id, event.id);
+            console.log(user.id)
+            console.log(event.id)
+            console.log(likedEvents)
+            setLikedEvents(response);
+            setIsFavorite(true);
+        } catch (error) {
+            console.error('Error adding event to favorites:', error);
         }
     };
 
@@ -63,7 +72,7 @@ const EventPage = () => {
         return <div>Error: {error}</div>;
     }
 
-    if (!event || !user) {
+    if (!event || !user1) {
         return <div>Loading...</div>;
     }
 
@@ -93,7 +102,7 @@ const EventPage = () => {
                     </div>
                     <div>
                         <IconButton color="secondary" aria-label="favorite" onClick={handleAddToFavorites}>
-                            <FavoriteBorderIcon />
+                        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                         </IconButton>
                         <IconButton color="secondary" aria-label="rsvp">
                             <RsvpIcon />
@@ -108,8 +117,7 @@ const EventPage = () => {
                 <p>Meet up at: {event.address}</p>
                 <p>{event.eventtype}</p>
                 <p>{event.pettype}</p>
-                <h5>Posted by: {user.fname} {user.lname}</h5>
-                <LikedEvents likedEvents={likedEvents} />
+                <h5>Posted by: {user1.fname} {user1.lname}</h5>
             </div>
         </>
     );
