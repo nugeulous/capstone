@@ -1,16 +1,16 @@
 const { client } = require("./client.js");
 
-async function createPet({ name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId }) {
+async function createPet({ name, animalType, breed, age, weight, file, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId }) {
     try {
       const {
         rows: [pet],
       } = await client.query(
           `
-        INSERT INTO pets(name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId) 
+        INSERT INTO pets(name, animalType, breed, age, weight, file, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
         RETURNING *;
       `,
-          [name, animalType, breed, age, weight, image, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId]
+          [name, animalType, breed, age, weight, file, gender, sterile, favoriteToy, favoriteTreat, personality, ownerId]
       );
   
       return pet;

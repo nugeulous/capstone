@@ -35,7 +35,7 @@
   // above function will return: availability: {rows: [{sitter info1}, {sitterinfo2}]}
     try {
       const { rows: sitter_availabilities } = await client.query(`
-        SELECT ps.id, ps.fname, ps.lname, ps.image_file, av.date, av.start_time, av.end_time, ps.dogs, ps.cats, ps.aboutMe, ps.tagLine, ps.hourlyCost
+        SELECT ps.id, ps.fname, ps.lname, ps.file, av.date, av.start_time, av.end_time, ps.dogs, ps.cats, ps.aboutMe, ps.tagLine, ps.hourlyCost
         FROM petsitters AS ps
         INNER JOIN availability AS av ON ps.id = av.petsitter_id
       `)
