@@ -7,12 +7,14 @@ import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RsvpIcon from "@mui/icons-material/Rsvp";
+import LikedEvents from "../../HomePage/LikedEvents";
 
 const EventPage = () => {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const [likedEvents, setLikedEvents] = useState([]);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
     const photoPath = `${API_URL}/events/getPhoto?fileName=`;
@@ -40,7 +42,7 @@ const EventPage = () => {
                     date: formattedDate,
                     time: formattedTime,
                 });
-                const userResponse = await getUserById(response.ownerid);
+                const userResponse = await getUserById(response.userId);
                 setUser(userResponse);
             } catch (error) {
                 setError(error.message);
@@ -49,6 +51,13 @@ const EventPage = () => {
 
         fetchEvent();
     }, [id]);
+
+    const handleAddToFavorites = () => {
+        // Check if the event is already in liked events
+        if (!likedEvents.some((e) => e.id === event.id)) {
+            setLikedEvents([...likedEvents, event]); // Add event to liked events array
+        }
+    };
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -83,7 +92,7 @@ const EventPage = () => {
                         <h4>{event.date}</h4>
                     </div>
                     <div>
-                        <IconButton color="secondary" aria-label="favorite">
+                        <IconButton color="secondary" aria-label="favorite" onClick={handleAddToFavorites}>
                             <FavoriteBorderIcon />
                         </IconButton>
                         <IconButton color="secondary" aria-label="rsvp">
@@ -100,6 +109,7 @@ const EventPage = () => {
                 <p>{event.eventtype}</p>
                 <p>{event.pettype}</p>
                 <h5>Posted by: {user.fname} {user.lname}</h5>
+                <LikedEvents likedEvents={likedEvents} />
             </div>
         </>
     );

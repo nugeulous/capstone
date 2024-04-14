@@ -2,10 +2,13 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import SlideShow from "./SlideShow";
-import Services from "../DefaultLayout/Services"
+import LikedEvents from "./LikedEvents";
+import { useState } from "react";
 
 export default function Home() {
     const navigate = useNavigate();
+    const [likedEvents, setLikedEvents] = useState([]);
+
   return (
     <>
 
@@ -65,8 +68,7 @@ export default function Home() {
       >
         Order History
       </Button>
-
-    </>
-
+      <LikedEvents likedEvents={likedEvents} />
+    </div>
   );
 }
