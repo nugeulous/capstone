@@ -17,6 +17,9 @@ export default function Home() {
         <SlideShow />
       </div>
       <Services />
+      <div
+      style={{display: "flex", justifyContent: "center", gap: 10}}
+      >
       <Button
         variant="outlined"
         onClick={() => {
@@ -25,17 +28,17 @@ export default function Home() {
       >
         Order History
       </Button>
-      <div>
-        See all liked events
-        <button
-          style={{ cursor: "pointer" }}
+
+        <Button
+          variant="outlined"
           onClick={() => {
             navigate(`/liked-events`);
           }}
         >
-          here
-        </button>
+          Liked Events
+        </Button>
       </div>
+  
     </>
   );
 }
