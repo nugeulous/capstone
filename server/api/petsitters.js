@@ -28,7 +28,7 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.post("/register", async (req, res, next) => {
     try {
-      const { email, password, fname, lname, address, phone, image, gender, dogs, cats, aboutMe, tagLine, hourlyCost } =
+      const { email, password, fname, lname, address, phone, file, gender, dogs, cats, aboutMe, tagLine, hourlyCost } =
         req.body;
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   
@@ -39,7 +39,7 @@ petsittersRouter.get('/', async (req, res, next) => {
         lname,
         address,
         phone,
-        image,
+        file,
         gender,
         dogs,
         cats,

@@ -62,7 +62,7 @@ export const fetchOwner = async (token) => {
 };
 
 export const addPet = async ({
-  image,
+  file,
   name,
   age,
   gender,
@@ -82,7 +82,7 @@ export const addPet = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        image,
+        file,
         name,
         age,
         gender,

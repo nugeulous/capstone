@@ -6,11 +6,19 @@ const SinglePet = ({ user }) => {
 
   const ownerId = user.id;
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+
+  const photoPath = `${API_URL}/pets/getPhoto?fileName=`;
+
+  const imagePath = pets.file.startsWith("http")
+    ? pets.file
+    : photoPath + pets.file;
+
   useEffect(() => {
     const fetchPets = async () => {
       try {
         const petsData = await getPetsByOwnerId(ownerId);
-          setPets(petsData);
+        setPets(petsData);
       } catch (error) {
         setError(error.message);
       }
@@ -22,7 +30,7 @@ const SinglePet = ({ user }) => {
     <div>
       {pets.map((pet) => (
         <div key={pet.id}>
-          <p>{pet.image}</p>
+          <img className="pet-image" src={imagePath} alt={pet.name} />
           <p>Name: {pet.name}</p>
           <p>Age: {pet.age} </p>
           <p>Gender: {pet.gender} </p>
@@ -32,8 +40,8 @@ const SinglePet = ({ user }) => {
           <p>Favorite Toy: {pet.favoritetoy} </p>
           <p>Favorite Treat: {pet.favoritetreat} </p>
           <p>Personality: {pet.personality} </p>
-        </div> 
-       ))} 
+        </div>
+      ))}
       {error && <p>Error: {error}</p>}
     </div>
   );

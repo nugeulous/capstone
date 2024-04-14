@@ -12,7 +12,6 @@ import NoAccess from "./NoAccess";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
 const NewEvent = ({ user }) => {
-  // const [owner, setOwner] = useState(null);
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");

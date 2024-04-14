@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Sheet from "@mui/joy/Sheet";
-import ImageUpload from "./ImageUpload";
+import FileUpload from "./FileUpload";
 import Age from "./Age";
 import Weight from "./Weight";
 import { addPet } from "../../API/api";
@@ -15,7 +15,7 @@ import "./PetInfo.css"
 export default function PetInfo({ user }) {
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
-  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [gender, setGender] = useState("Male");
   const [age, setAge] = useState(0);
   const [breed, setBreed] = useState("");
@@ -38,7 +38,7 @@ export default function PetInfo({ user }) {
  
   async function handleSubmit(event) {
     event.preventDefault();
-    setImage(null);
+    setFile(null);
     setName("");
     setAge(0);
     setGender(null);
@@ -52,7 +52,7 @@ export default function PetInfo({ user }) {
    
     try {
       const result = await addPet({
-        image,
+        file,
         name,
         age,
         gender,
@@ -91,7 +91,7 @@ export default function PetInfo({ user }) {
       <div className="home">
         <h1>Tell us About your Pet</h1>
         <h2>Show us a Picture:</h2>
-        <ImageUpload image={image} setImage={setImage} />
+        <FileUpload file={file} setFile={setFile} />
         <h2>Name:</h2>
         <TextField
           required
