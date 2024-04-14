@@ -19,4 +19,5 @@ const SinglePet = ({ pet }) => {
     </div>
   );
 };
+
 export default SinglePet;

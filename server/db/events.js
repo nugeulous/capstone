@@ -1,13 +1,13 @@
 const { client } = require("./client.js");
 
-async function createEvent({ title, address, date, time, file, description, eventType, petType, ownerid }) {
+async function createEvent({ title, address, date, time, file, description, eventType, petType, userId }) {
     try {
       const { rows: [events] } = await client.query(`
-        INSERT INTO events(title, address, date, time, file, description, eventType, petType, ownerid) 
+        INSERT INTO events(title, address, date, time, file, description, eventType, petType, userId) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
         RETURNING *;
       `,
-        [title, address, date, time, file, description, eventType, petType, ownerid]
+        [title, address, date, time, file, description, eventType, petType, userId]
       );
       return events;
     } catch (error) {
