@@ -76,8 +76,11 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                   color: "inherit",
                   textDecoration: "none",
                 }} >
-                AllTails
+                   <PetsIcon sx={{ fontSize: 40 }}/>
+            AllTails
+            <PetsIcon sx={{ fontSize: 40 }}/>
               </IconButton>
+            
           </Typography>
       
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

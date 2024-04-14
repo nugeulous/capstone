@@ -12,6 +12,8 @@ import "./PetInfo.css"
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
+
 export default function PetInfo({ user }) {
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
