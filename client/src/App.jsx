@@ -29,6 +29,7 @@ import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 import CssBaseline from "@mui/material/CssBaseline";
+import SelectAnimalType from "./Components/PetInfo/SelectAnimalType";
 
 
 function App() {
@@ -67,7 +68,7 @@ function App() {
       window.localStorage.removeItem("token");
     }
 
-  }, [token, role]);
+  }, [token, role, user]);
 
   return (
     <div>
@@ -121,6 +122,8 @@ function App() {
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
         <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
+        <Route path="/pet info/:petType" element={<PetInfo token={token} user={user} />} />
+        <Route path="/Select Animal Type" element={<SelectAnimalType token={token} user={user} />} />
         <Route path="/ReviewBookingDetails" element={<ReviewBookingDetails token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />

@@ -11,8 +11,13 @@ import Age from "./Age";
 import Weight from "./Weight";
 import { addPet } from "../../API/api";
 import "./PetInfo.css"
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function PetInfo({ user }) {
+
+  const navigate = useNavigate();
+  const { petType } = useParams();
+
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
@@ -67,7 +72,7 @@ export default function PetInfo({ user }) {
       );
       setPet(result.pet);
       console.log(result.pet);
-      navigate
+      navigate(`/account`);
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -90,6 +95,15 @@ export default function PetInfo({ user }) {
     >
       <div className="home">
         <h1>Tell us About your Pet</h1>
+        <h2>Animal Type:</h2>
+        <TextField
+            required
+            id="outlined-basic"
+            label="Animal Type 🐕"
+            variant="outlined"
+            value={petType}
+            onChange={(e) => setAnimalType(e.target.value)}
+          />        
         <h2>Show us a Picture:</h2>
         <ImageUpload image={image} setImage={setImage} />
         <h2>Name:</h2>
@@ -124,16 +138,7 @@ export default function PetInfo({ user }) {
           variant="outlined"
           value={breed}
           onChange={(e) => setBreed(e.target.value)}
-        />
-        <h2>Animal Type:</h2>
-        <TextField
-            required
-            id="outlined-basic"
-            label="Animal Type 🐕"
-            variant="outlined"
-            value={animalType}
-            onChange={(e) => setAnimalType(e.target.value)}
-          />         
+        /> 
         <h2>Weight:</h2>
         <Weight weight={weight} setWeight={setWeight} />
         <h2>Neutered/Spayed:</h2>
