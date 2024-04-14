@@ -2,20 +2,33 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import SlideShow from "./SlideShow";
+import Services from "../DefaultLayout/Services"
 
 export default function Home() {
     const navigate = useNavigate();
   return (
-    <div className="home">
+    <>
+
       <h1>Home</h1>
+      <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+
+        }}>
       <SlideShow />
-      <Button
+        </div>
+      <Services/>
+      
+
+      
+      {/* <Button
         variant="outlined"
         onClick={() => {
           navigate(`/BookService`);
         }}
       >
-        Take a Walk
+      Walkers
       </Button>
       <Button
         variant="outlined"
@@ -23,7 +36,7 @@ export default function Home() {
           navigate(`/Groomers`);
         }}
       >
-        Groom your baby
+      Groomers
       </Button>
       <Button
         variant="outlined"
@@ -31,7 +44,7 @@ export default function Home() {
           navigate(`/Trainers`);
         }}
       >
-        Teach your pet new tricks
+      Training
       </Button>
       <Button
         variant="outlined"
@@ -39,16 +52,21 @@ export default function Home() {
           navigate(`/Sitters`);
         }}
       >
-        Find a siiter
-      </Button>
+        Pet Sitters
+      </Button> */}
+
+{/* Monica says order history is showing up on hers. Lets get whatever she has in here instead of this lonely button.  */}
+
       <Button
         variant="outlined"
         onClick={() => {
           navigate(`/OrderHistory`);
         }}
       >
-        Order History Tester
+        Order History
       </Button>
-    </div>
+
+    </>
+
   );
 }

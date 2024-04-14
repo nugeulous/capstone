@@ -59,6 +59,7 @@ const Login = ({ setToken, setRole, setUser }) => {
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
+      navigate("/account");
       console.log(result)
     } catch (error) {
       setError("Demo Login Error");

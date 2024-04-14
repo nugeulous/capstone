@@ -11,8 +11,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import PetsIcon from "@mui/icons-material/Pets";
 
-const pages = ["Home", "Services", "Playground", "About Us"];
+
+const pages = ["Playground", "Home",  "About Us"];
 const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
 const ownerSettings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
 const notSignedInSettings = ["Login", "Register", "Petsitter Login", "Petsitter Register"]
@@ -65,13 +67,14 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                 }} sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
+                  fontSize: 40,
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "inherit",
                   textDecoration: "none",
                 }} >
                 AllTails
+                <PetsIcon sx={{ fontSize: 40 }}/>
               </IconButton>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
