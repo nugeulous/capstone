@@ -6,13 +6,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Sheet from "@mui/joy/Sheet";
-import FileUpload from "./FileUpload";
 import Age from "./Age";
 import Weight from "./Weight";
-import { addPet } from "../../API/api";
 import "./PetInfo.css"
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
-
+import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 export default function PetInfo({ user }) {
   const [pet, setPet] = useState("");
   const [name, setName] = useState("");
@@ -26,55 +25,62 @@ export default function PetInfo({ user }) {
   const [favoriteToy, setFavoriteToy] = useState("");
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
+  const [ownerId, setOwnerId] = useState("")
   const [error, setError] = useState(null);
   
-
   const handleGenderChange = (event) => {
     setGender(event.target.value);
   };
-
   const handleChange = (event) => {
     setSterile(event.target.value);
   };
  
-  async function handleSubmit(event) {
+  const handleSubmit = async (event, ownerId) => {
     event.preventDefault();
-    setFile(null);
-    setName("");
-    setAge(0);
-    setGender(null);
-    setAnimalType("");
-    setBreed("");
-    setWeight("");
-    setSterile("");
-    setFavoriteToy("");
-    setFavoriteTreat("");
-    setPersonality("");
-   
     try {
-      const result = await addPet({
-        file,
-        name,
-        age,
-        gender,
-        breed,
-        animalType,
-        weight,
-        sterile,
-        favoriteToy,
-        favoriteTreat,
-        personality,
-        ownerId: user.id }
-      );
-      setPet(result.pet);
-      console.log(result.pet);
-      navigate
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("age", age);
+      formData.append("gender", gender);
+      formData.append("breed", breed);
+      formData.append("animalType", animalType);
+      formData.append("weight", weight);
+      formData.append("file", file);
+      formData.append("sterile", sterile);
+      formData.append("favoriteToy", favoriteToy);
+      formData.append("favoriteTreat", favoriteTreat);
+      formData.append("personality", personality);
+      formData.append("ownerId", ownerId);
+      const response = await axios.post(`${API_URL}/pets/addPet`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }); 
+      console.log(response.data);
+      console.log(ownerId)
+      setName("");
+      setAge(0);
+      setGender(null);
+      setBreed("");
+      setAnimalType("");
+      setWeight("");
+      setFile(null);
+      setSterile("");
+      setFavoriteToy("");
+      setFavoriteTreat("");
+      setPersonality("");
+      setOwnerId("")
     } catch (error) {
       setError(error.message);
       console.log(error);
     }
   }
-
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+    }
+  };
   if (!user) {
     return <NoAccess/>
   } else if (user.role !== "owner") {
@@ -85,21 +91,47 @@ export default function PetInfo({ user }) {
     <Sheet className="PetDisplay"
       component="form"
       noValidate
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleSubmit(e, user.id)}
       color="neutral"
       variant="soft"
     >
       <div className="home">
         <h1>Tell us About your Pet</h1>
         <h2>Show us a Picture:</h2>
-        <FileUpload file={file} setFile={setFile} />
-        <h2>Name:</h2>
+              <input
+                type="file"
+                id="photo"
+                name="photo"
+                onChange={handleImageChange}
+              />
+            {file && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: 100,
+                  height: 100,
+                }}
+              >
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`Uploaded photo`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "inherit",
+                    borderRadius: 20,
+                  }}
+                />
+              </div>
+            )}
+         <h2>Name:</h2>
         <TextField
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
           id="outlined-basic"
-          label="Name 🐶"
+          label="Name"
           variant="outlined"
         />
         <h2>Gender:</h2>
@@ -121,7 +153,7 @@ export default function PetInfo({ user }) {
         <TextField
           required
           id="outlined-basic"
-          label="Breed 🐕"
+          label="Breed"
           variant="outlined"
           value={breed}
           onChange={(e) => setBreed(e.target.value)}
@@ -130,7 +162,7 @@ export default function PetInfo({ user }) {
         <TextField
             required
             id="outlined-basic"
-            label="Animal Type 🐕"
+            label="Animal Type"
             variant="outlined"
             value={animalType}
             onChange={(e) => setAnimalType(e.target.value)}
@@ -155,7 +187,7 @@ export default function PetInfo({ user }) {
           value={favoriteToy}
           onChange={(e) => setFavoriteToy(e.target.value)}
           id="outlined-basic"
-          label="Toy 🎾"
+          label="Toy"
           variant="outlined"
         />
         <h2>Favorite treat:</h2>
@@ -163,7 +195,7 @@ export default function PetInfo({ user }) {
           value={favoriteTreat}
           onChange={(e) => setFavoriteTreat(e.target.value)}
           id="outlined-basic"
-          label="treat 🦴"
+          label="treat"
           variant="outlined"
         />
         <h2>Personality:</h2>

@@ -1,13 +1,26 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
-
-export default function Account({ user, token, setUser }) {
+import { getPetsByOwnerId } from "../API/api";
+export default function Account({ user, token }) {
   const [error, setError] = useState(null);
+  const [pets, setPets] = useState([]);
   const navigate = useNavigate();
+  const ownerId = user.id;
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const petsData = await getPetsByOwnerId(ownerId);
+          setPets(petsData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchPets();
+  }, [ownerId]);
   if (error) return <div>Error: {error}</div>;
   if (!user && !token) {
     // User is not logged in, render a message
@@ -27,7 +40,9 @@ export default function Account({ user, token, setUser }) {
       <p>Phone Number: {user.phone} </p>
       <p>Address: {user.address} </p>
       <h2>Pet(s)</h2>
-      <SinglePet user={user} token={token} setUser={setUser} />
+      {pets.map((pet) => (
+      <SinglePet key={pet.id} pet={pet} />
+      ))}
       <Button
         variant="text"
         onClick={() => {
