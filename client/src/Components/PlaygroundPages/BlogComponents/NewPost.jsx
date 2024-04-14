@@ -7,35 +7,61 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createPost } from "../../../API/api";
+import noAccess from "../../../images/noAccess.png";
 
 const NewPost = ({ user, onNewPost }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   async function handleSubmit(event) {
     event.preventDefault();
+    setTitle("");
+    setContent("");
+
     try {
-        let ownerid;
-        let petsitterid;
+      let ownerid;
+      let petsitterid;
       if (user.role === "owner") {
         ownerid = user.id;
       } else {
         petsitterid = user.id;
       }
-     const newPost = { title, content, ownerid, petsitterid};
+      const newPost = { title, content, ownerid, petsitterid };
       const result = await createPost(newPost);
       onNewPost(result);
-      
+      console.log(result, "SHOW ME THE RESULTS");
       setTitle("");
       setContent("");
     } catch (error) {
       setError(error.message);
       console.log(error);
     }
-    setTitle("");
-    setContent("");
   }
 
+  if (!user) {
+      return (
+        <div  style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+        }}>
+<img style={{ width: "400px", height: "auto" }} src={noAccess} alt="" />
+        <p
+        >
+        please log in to make a post
+      </p>
+      <Button
+        onClick={() => {
+          navigate(`/login`);
+        }}
+      >
+        LOGIN
+      </Button>
+            </div>
+    );
+  }
   return (
     <Container component="main" maxWidth="xs">
       <Box

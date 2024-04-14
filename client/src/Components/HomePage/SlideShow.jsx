@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { getAllEvents } from "../../API/eventsApi";
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import "./SlideShow.css";
 
 
 const SlideShow = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [slide, setSlide] = useState(0);
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
 
-  const goToNextSlide = () => {
-    const nextIndex = (currentIndex + 1) % slides.length;
-    setCurrentIndex(nextIndex);
+  const nextSlide = () => {
+    setSlide(slide === events.length - 1 ? 0 : slide + 1);
   };
 
-  const goToPreviousSlide = () => {
-    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
-    setCurrentIndex(prevIndex);
+  const prevSlide = () => {
+    setSlide(slide === 0 ? events.length - 1 : slide - 1);
   };
 
   useEffect(() => {
@@ -31,17 +30,52 @@ const SlideShow = () => {
     getEvents();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 8000); // Change 3000 to the desired interval in milliseconds
+
+    // Return a cleanup function to reset slide to 0 when it reaches the end of the cycle
+    return () => {
+      clearInterval(interval);
+      if (slide === events.length - 1) {
+        setTimeout(() => {
+          setSlide(0);
+        }, 8000); // Wait for 3 seconds before resetting slide to 0
+      }
+    };
+  }, [slide, events]); // Re-run the effect when slide or events change
+
+
   return (
-    <div className="slideshow-container">
-      {events.map((event, index) => (
-        <div
-          key={index}
-          className={`slide ${index === currentIndex ? "active" : ""}`}
-          style={{ backgroundImage: `url(${event.file})`}}
-        />
-      ))}
-      <button className="button" onClick={goToPreviousSlide}>Previous</button>
-      <button className="button" onClick={goToNextSlide}>Next</button>
+    <div className="carousel">
+      <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
+      {events.map((event, idx) => {
+        return (
+          <img
+            src={event.file}
+            key={idx}
+            className={slide === idx ? "slide" : "slide slide-hidden"}
+          />
+        );
+      })}
+      <BsArrowRightCircleFill
+        onClick={nextSlide}
+        className="arrow arrow-right"
+      />
+      <span className="indicators">
+        {events.map((_, idx) => {
+          return (
+            <button
+              key={idx}
+              className={
+                slide === idx ? "indicator" : "indicator indicator-inactive"
+              }
+              onClick={() => setSlide(idx)}
+            ></button>
+          );
+        })}
+      </span>
     </div>
   );
 };

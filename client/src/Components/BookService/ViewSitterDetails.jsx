@@ -34,7 +34,7 @@ export default function ViewSitterDetails({token}) {
             <div className="left-photo-box">
             
             <div>
-                <img className="sitter-img" src={petsitter.image_file} alt="" />
+                <img className="sitter-img" src={petsitter.file} alt="" />
             </div>
 
             <div>{petsitter.fname + " " + petsitter.lname}

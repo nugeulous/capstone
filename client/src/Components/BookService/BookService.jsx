@@ -109,7 +109,7 @@ export default function BookService({token}) {
             key={index}>
 
             <div className="sitter-image-container">
-              <img className="sitter-image" src={petsitter.image_file} alt="" />
+              <img className="sitter-image" src={petsitter.file} alt="" />
             </div>
 
             <div>
