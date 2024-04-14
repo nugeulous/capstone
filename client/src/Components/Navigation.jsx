@@ -91,6 +91,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
           </Box>
           <Box sx={{ flexGrow: 0, color: "white", display: "flex" }}>
             <Tooltip title="Open settings">
+              <>
               <IconButton onClick={() => {
                   navigate(`/account`);
                 }} sx={{ p: 1, color: "white" }} >
@@ -99,6 +100,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}> 
               <Avatar />
               </IconButton>
+              </>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

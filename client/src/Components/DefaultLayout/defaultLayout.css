@@ -202,11 +202,11 @@ h1 {
   padding: 10px;
   margin-bottom: 20px;
 }
-/* .sitters-container {
+.sitters-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-} */
+}
 
 .sitter-card {
   width: 400px; 

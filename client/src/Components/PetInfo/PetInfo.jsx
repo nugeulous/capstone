@@ -177,9 +177,6 @@ export default function PetInfo({ user }) {
           onChange={(e) => setPersonality(e.target.value)}
         />
         <div>
-          <Button type="submit" variant="outlined">
-            Submit
-          </Button>
         </div>
       </div>
     </Sheet>

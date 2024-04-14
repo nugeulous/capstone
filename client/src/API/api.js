@@ -54,6 +54,7 @@ export const fetchOwner = async (token) => {
     });
     if (!response.ok) throw new Error("Please log in or create an account!");
     const owner = await response.json();
+    console.log('OWNER: ', owner)
     return owner;
   } catch (error) {
     console.error("Error fetching account:", error);
@@ -341,6 +342,35 @@ export const getUserById = async (userId) => {
     return user;
   } catch (error) {
     console.error("Error fetching user:", error);
+    throw error;
+  }
+};
+
+export const addAvailability = async ({
+    petsitterId,
+    startDate, 
+    endDate, 
+    startTime, 
+    endTime }
+  ) => {
+  try {
+    const response = await fetch(`${API_URL}/availability/addAvailability `, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        petsitterId,
+        startDate, 
+        endDate, 
+        startTime, 
+        endTime
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("error: unable to add availability");
     throw error;
   }
 };

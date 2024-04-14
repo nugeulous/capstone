@@ -3,7 +3,8 @@ const availabilityRouter = express.Router();
 
 const {  
     getAllAvailability, 
-    getAvailablePetsitters
+    getAvailablePetsitters,
+    createAvailability
 } = require('../db/index');
 
 // middleware that helps with catching any errors along the way to next router
@@ -33,5 +34,26 @@ availabilityRouter.get('/petsitters', async (req, res, next) => {
       
   } 
 });  
+
+// Add availability
+availabilityRouter.post('/addAvailability', async (req, res, next) => {
+  try {
+    const { petsitterId,
+      startDate, 
+      endDate, 
+      startTime, 
+      endTime } = req.body;
+
+    const pet = await createAvailability({ petsitterId,
+      startDate, 
+      endDate, 
+      startTime, 
+      endTime });
+
+    res.send({ pet });
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
   module.exports = availabilityRouter;

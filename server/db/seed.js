@@ -97,12 +97,13 @@ async function dropTables() {
 
         CREATE TABLE availability (
           id SERIAL PRIMARY KEY,
-          petsitter_id INTEGER REFERENCES petsitters(id),
-          date DATE,
-          start_time TIME,
-          end_time TIME,
+          petsitterId INTEGER REFERENCES petsitters(id),
+          startDate DATE,
+          endDate DATE,
+          startTime TIME,
+          endTime TIME,
             CONSTRAINT fk_petsitters
-            FOREIGN KEY(petsitter_id)
+            FOREIGN KEY(petsitterId)
             REFERENCES petsitters(id)
             ON DELETE CASCADE
           );
@@ -354,38 +355,43 @@ async function dropTables() {
       console.log("Starting to create availability...");
   
       await createAvailability({
-        petsitter_id: "1",
-        date: '10-10-24',
-        start_time: '09:00:00',
-        end_time: '14:00:00',
+        petsitteId: "1",
+        startDate: '10-10-24',
+        endDate: '12-12-24',
+        startTime: '09:00:00',
+        endTime: '14:00:00',
       });
 
       await createAvailability({
-        petsitter_id: "2",
-        date: '09-17-24',
-        start_time: '8:00:00',
-        end_time: '12:00:00',
+        petsitterId: "2",
+        startDate: '01-17-24',
+        endDate: '12-31-24',
+        startTime: '8:00:00',
+        endTime: '12:00:00',
       });
 
       await createAvailability({
-        petsitter_id: "3",
-        date: '01-08-24',
-        start_time: '12:00:00',
-        end_time: '16:00:00',
+        petsitterId: "3",
+        startDate: '01-08-24',
+        endTime: '12-30-24',
+        startTime: '12:00:00',
+        endTime: '16:00:00',
       });
 
       await createAvailability({
-        petsitter_id: "4",
-        date: '11-12-24',
-        start_time: '14:00:00',
-        end_time: '23:00:00',
+        petsitterId: "4",
+        startDate: '01-12-24',
+        endDate: '12-15-24',
+        startTime: '14:00:00',
+        endTime: '23:00:00',
       });
 
       await createAvailability({
-        petsitter_id: "5",
-        date: '11-12-24',
-        start_time: '14:00:00',
-        end_time: '23:00:00',
+        petsitterId: "5",
+        startDate: '01-12-24',
+        endDate: '12-19-24',
+        startTime: '14:00:00',
+        endTime: '23:00:00',
       });
 
       console.log("Finished creating availability!");

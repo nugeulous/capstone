@@ -17,21 +17,33 @@ export default function BookService({token}) {
 
   // confirm token exists / user logged in
   // useEffect makes a call while still allowing this component to render
-  const getAccount = useCallback(async () => {
-    try {
-      // useEffect will not continue until fetchAccount(token) returns a promise
-      const fetchedAccount = await fetchOwner(token);
-      // update state to store the fetched account
-      setOwner(fetchedAccount);
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [token, fetchOwner, setOwner, setError]);
+  // OLD MAY KEEP
+  // const getAccount = useCallback(async () => {
+  //   try {
+  //     // useEffect will not continue until fetchAccount(token) returns a promise
+  //     const fetchedAccount = await fetchOwner(token);
+  //     // update state to store the fetched account
+  //     setOwner(fetchedAccount);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // }, [token]);
 
   // only re-renders when dependency changes (stored in array) - avoid infinite rerender or slow page
   useEffect(() => {
-    getAccount();
-  }, [getAccount]);
+    console.log('getting owner details')
+    const getOwner = async () => {
+      try {
+      // useEffect will not continue until fetchAccount(token) returns a promise
+      const response = await fetchOwner(token);
+      // update state to store the fetched account
+      console.log('response: ', response);
+      setOwner(response);
+    } catch (error) {
+      setError(error.message);
+    }
+    }
+  }, [token]);
   
   if (error) return <div>Error: {error}</div>;
   
@@ -95,7 +107,7 @@ export default function BookService({token}) {
         </form>
         <div className="sitters-container">{petSitterDetails.filter((petsitter) => {
 
-          return parseInt(petsitter.start_time) <= parseInt(startTimeInput) && parseInt(petsitter.end_time) >= parseInt(endTimeInput);
+          return parseInt(petsitter.startTime) <= parseInt(startTimeInput) && parseInt(petsitter.endTime) >= parseInt(endTimeInput);
 
         }).map((petsitter, index)=>{
           return <div 
