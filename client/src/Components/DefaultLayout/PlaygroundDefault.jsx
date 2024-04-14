@@ -1,8 +1,9 @@
 import React from "react";
 import "../DefaultLayout/defaultLayout.css";
-import walking from "../../images/walking.jpg";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import puppypile from "../../images/puppypile.jpeg"
+
 
 const PlaygroundDefault = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const PlaygroundDefault = () => {
             navigate(`/Playground`);
           }}
         >
-          <img src={walking} alt="" className="pgDefault-img" />
+          <img src={puppypile} alt="" className="pgDefault-img" />
         </Button>
       </div>
 

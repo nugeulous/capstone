@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState, useEffect } from "react";
 import { fetchOrdersByOwnerId } from '../API/api';
+import NoAccess from './PlaygroundPages/EventsComponents/NoAccess';
 
 export default function OrderHistory({ user }) {
     const [orders, setOrders] = useState([]);
@@ -38,7 +39,7 @@ useEffect(() => {
       
         </div> 
        ))} 
-      {error && <p>Error: {error}</p>}
+      {error && <NoAccess/>}
     </div>
         </div>
 

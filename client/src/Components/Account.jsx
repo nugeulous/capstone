@@ -4,6 +4,7 @@ import Sheet from '@mui/joy/Sheet';
 import { useState, useEffect } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 import { getPetsByOwnerId } from "../API/api";
+import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
 export default function Account({ user, token }) {
   const [error, setError] = useState(null);
   const [pets, setPets] = useState([]);
@@ -23,7 +24,7 @@ export default function Account({ user, token }) {
   if (error) return <div>Error: {error}</div>;
   if (!user && !token) {
     // User is not logged in, render a message
-    return <p>Please log in or create an account.</p>;
+    return <NoAccess/>
   }
   if (user.role !== "owner") {
     return <p>Oops, this is not the right page for a Petsitter</p>;
@@ -49,6 +50,14 @@ export default function Account({ user, token }) {
         }}
         >
         + Add Pet
+      </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          navigate(`/OrderHistory`);
+        }}
+      >
+        Order History
       </Button>
     </div>
     </Sheet>
