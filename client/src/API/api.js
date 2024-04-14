@@ -61,45 +61,23 @@ export const fetchOwner = async (token) => {
   }
 };
 
-export const addPet = async ({
-  file,
-  name,
-  age,
-  gender,
-  sterile,
-  breed,
-  animalType,
-  weight,
-  favoriteToy,
-  favoriteTreat,
-  personality,
-  ownerId}
-) => {
+export const addPet = async (petData) => {
   try {
+    const formData = new FormData();
+    for (const key in petData) {
+      formData.append(key, petData[key])
+    }
     const response = await fetch(`${API_URL}/pets/addPet `, {
       method: "POST",
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      body: JSON.stringify({
-        file,
-        name,
-        age,
-        gender,
-        sterile,
-        breed,
-        animalType,
-        weight,
-        favoriteToy,
-        favoriteTreat,
-        personality,
-        ownerId
-      }),
-    });
+      });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error("error from register");
+    console.error("error from adding pet:", error);
     throw error;
   }
 };
