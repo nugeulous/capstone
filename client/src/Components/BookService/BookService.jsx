@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 import ReviewBookingDetails from "./ReviewBookingDetails"
+import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 
 // pass in token
 export default function BookService({token}) {
@@ -38,7 +39,7 @@ export default function BookService({token}) {
   
   // User is not logged in, render a message
   if (!token) {
-    return <p>Please log in or create an account.</p>;
+    return <NoAccess/>
   }
 
   // get all owner info when pressing submit
@@ -59,7 +60,7 @@ export default function BookService({token}) {
   // filter for owners with specific availability
     return (
         <div className="home">
-            <h1 className="book-walk-title">Book a Walk</h1>
+            <h1 className="book-walk-title">Book A Service!</h1>
         <form className="sitters-filter" onSubmit={handleSubmit}>
           <label>Day:
             <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)}/>

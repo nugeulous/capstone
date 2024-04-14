@@ -50,7 +50,7 @@ const NewPost = ({ user, onNewPost }) => {
 <img style={{ width: "400px", height: "auto" }} src={noAccess} alt="" />
         <p
         >
-        please log in to make a post
+Please log in or register for an account to access this feature.
       </p>
       <Button
         onClick={() => {
