@@ -16,15 +16,15 @@ const { getOwnerById } = require('../db/owners');
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
-    const { title, address, date, time, description, eventType, petType, ownerid } = req.body; 
+    const { title, address, date, time, description, eventType, petType, userId } = req.body; 
     const photoPath = req.file ? req.file.filename : null; 
 
-    const idUser = parseInt(ownerid);
+    const idUser = parseInt(userId);
     const userHasId = await getOwnerById(idUser);
     if (!userHasId) {
       return res.status(400).send({ error: 'User does not exist' })
     }
-    const event = await createEvent({ title, address, date, time, file: photoPath, description, eventType, petType, ownerid: idUser });
+    const event = await createEvent({ title, address, date, time, file: photoPath, description, eventType, petType, userId: idUser });
 
     res.send({ event });
   } catch (error) {
@@ -71,10 +71,10 @@ eventsRouter.get('/:eventId', async (req, res, next) => {
 });
 
 // Get events by Owner ID
-eventsRouter.get('/owner/:ownerId', async (req, res, next) => { //needs updating
+eventsRouter.get('/owner/:userId', async (req, res, next) => { //needs updating
   try {
-    const ownerId = req.params.ownerId; // needs updating
-    const events = await getEventsByOwnerId(ownerId); // needs updating
+    const userId = req.params.userId; // needs updating
+    const events = await getEventsByOwnerId(userId); // needs updating
     res.send(events);
   } catch (error) {
     next(error);

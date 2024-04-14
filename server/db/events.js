@@ -48,13 +48,13 @@ async function createEvent({ title, address, date, time, file, description, even
     }
   }
 
-  async function getEventsByOwnerId(ownerid) { // needs updating to user (User || petsitter)
+  async function getEventsByOwnerId(userId) { // needs updating to user (User || petsitter)
     try {
       const { rows: events } = await client.query(`
         SELECT *
         FROM events
-        WHERE ownerid=$1
-      `, [ownerid]); // needs updating
+        WHERE userId=$1
+      `, [userId]); // needs updating
   
       return events;
     } catch (error) {

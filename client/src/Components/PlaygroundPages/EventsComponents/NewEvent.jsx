@@ -20,11 +20,11 @@ const NewEvent = ({ user }) => {
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
   const [petType, setPetType] = useState("");
-  const [ownerId, setOwnerId] = useState("")
+  const [userId, setUserId] = useState("")
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e, ownerId) => {
+  const handleSubmit = async (e, userId) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -36,7 +36,7 @@ const NewEvent = ({ user }) => {
       formData.append("description", description);
       formData.append("eventType", eventType);
       formData.append("petType", petType);
-      formData.append("ownerid", ownerId); // new
+      formData.append("userId", userId); // new
 
       const response = await axios.post(`${API_URL}/events/new-event`, formData, {
         headers: {
@@ -44,7 +44,7 @@ const NewEvent = ({ user }) => {
         },
       });      
       console.log(response.data);
-      console.log(ownerId);
+      console.log(userId);
       setTitle("");
       setAddress("");
       setDate("");
@@ -53,7 +53,7 @@ const NewEvent = ({ user }) => {
       setDescription("");
       setEventType("");
       setPetType("");
-      setOwnerId("");
+      setUserId("");
       navigate("/playground");
     } catch (error) {
       setError(error.message);
