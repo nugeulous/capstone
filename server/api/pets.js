@@ -50,6 +50,19 @@ petsRouter.post('/addPet', upload.single('file'), async (req, res, next) => {
     res.sendFile(filePath);
   })
 
+petsRouter.get('/getPhoto', (req, res) => {
+  const fileName = req.query.fileName;
+  if (!fileName) {
+    return res.status(400).send({ error: 'File name is required' });
+  }
+
+  const filePath = path.join(__dirname, `../public/uploads/${fileName}`);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send({ error: 'File not found' });
+  }
+
+  res.sendFile(filePath);
+})
   // Get pet by ID
 petsRouter.get('/:eventId', async (req, res, next) => {
   try {
