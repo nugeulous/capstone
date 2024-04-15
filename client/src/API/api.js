@@ -217,7 +217,7 @@ export const fetchAvailablePetsitters = async (token) => {
   }
 };
 
-export const createPost = async ({ title, content, ownerid, petsitterid }) => {
+export const createPost = async ({ title, content, likes, ownerid, petsitterid }) => {
   try {
     const response = await fetch(`${API_URL}/posts/createPost`, {
       method: "POST",
@@ -227,6 +227,7 @@ export const createPost = async ({ title, content, ownerid, petsitterid }) => {
       body: JSON.stringify({
         title,
         content,
+        likes,
         ownerid,
         petsitterid,
       }),
@@ -235,6 +236,28 @@ export const createPost = async ({ title, content, ownerid, petsitterid }) => {
     return result;
   } catch (error) {
     console.error("error creating post");
+    throw error;
+  }
+};
+
+export const createComment = async ({postid, commentContent, ownerid, petsitterid}) => {
+  try {
+    const response = await fetch(`${API_URL}/comments/createComment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postid,
+        content: commentContent,
+        ownerid,
+        petsitterid,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("error creating comment");
     throw error;
   }
 };

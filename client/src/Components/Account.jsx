@@ -4,12 +4,15 @@ import Sheet from '@mui/joy/Sheet';
 import { useState, useEffect } from "react";
 import SinglePet from "./PetInfo/SinglePet";
 import { getPetsByOwnerId } from "../API/api";
+import "./Account.css";
 import NoAccess from "./PlaygroundPages/EventsComponents/NoAccess";
+
 export default function Account({ user, token }) {
   const [error, setError] = useState(null);
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
   const ownerId = user.id;
+  
   useEffect(() => {
     const fetchPets = async () => {
       try {
@@ -29,37 +32,36 @@ export default function Account({ user, token }) {
   if (user.role !== "owner") {
     return <p>Oops, this is not the right page for a Petsitter</p>;
    }
-  return (
+
+   return (
     <Sheet color="neutral" variant="soft">
-    <div className="account">
-      <h1>Account</h1>
-      <h2>Owner</h2>
-      <p>First Name: {user.fname}</p>
-      <p>Last Name: {user.lname} </p>
-      <p>Email: {user.email} </p>
-      <p>Phone Number: {user.phone} </p>
-      <p>Address: {user.address} </p>
-      <h2>Pet(s)</h2>
-      {pets.map((pet) => (
-      <SinglePet key={pet.id} pet={pet} />
-      ))}
-      <Button
-        variant="text"
-        onClick={() => {
-          navigate(`/Select Animal Type`);
-        }}
-        >
-        + Add Pet
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/OrderHistory`);
-        }}
-      >
-        Order History
-      </Button>
-    </div>
+      <div className="account">
+        <h1>Account</h1>
+        <div className="owner-info">
+          <h2>Owner</h2>
+          <p>First Name: {user.fname}</p>
+          <p>Last Name: {user.lname}</p>
+          <p>Email: {user.email}</p>
+          <p>Phone Number: {user.phone}</p>
+          <p>Address: {user.address}</p>
+          <Button
+            variant="text"
+            onClick={() => {
+              navigate(`/Pet Info`);
+            }}
+          >
+            + Add Pet
+          </Button>
+        </div>
+        <div className="pet-info">
+          <h2>Pet(s)</h2>
+          <div className="pet-list">
+            {pets.map((pet) => (
+              <SinglePet key={pet.id} pet={pet} />
+            ))}
+          </div>
+        </div>
+      </div>
     </Sheet>
   );
 }

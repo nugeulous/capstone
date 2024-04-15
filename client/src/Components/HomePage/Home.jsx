@@ -3,12 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import SlideShow from "./SlideShow";
 import Services from "../../Components/DefaultLayout/Services";
-export default function Home() {
+export default function Home({ user } ) {
   const navigate = useNavigate();
 
   return (
     <>
-      <h1>Home</h1>
+ <h1
+        style={{
+          fontFamily: "Arial, sans-serif",
+          fontSize: "45px",
+          textAlign: "center",
+        }}
+      >
+        Welcome Back, {user.fname}!
+      </h1>
       <div style={{
         display: 'flex',
         justifyContent: 'center',

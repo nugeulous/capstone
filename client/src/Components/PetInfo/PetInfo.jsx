@@ -14,11 +14,8 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function PetInfo({ user }) {
-
   const navigate = useNavigate();
   const { petType } = useParams();
-
-  const [pet, setPet] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [gender, setGender] = useState("Male");
