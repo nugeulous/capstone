@@ -23,7 +23,7 @@ import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
 import ReviewBookingDetails from "./Components/BookService/ReviewBookingDetails";
-import AddAvailability from "./Components/AddAvailability";
+import AddAvailability from "./Components/SitterAvailability/AddAvailability";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
