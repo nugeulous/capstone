@@ -10,7 +10,7 @@ import Age from "./Age";
 import Weight from "./Weight";
 import "./PetInfo.css"
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function PetInfo({ user }) {
