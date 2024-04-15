@@ -23,6 +23,7 @@ import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
 import ReviewBookingDetails from "./Components/BookService/ReviewBookingDetails";
+import AddAvailability from "./Components/AddAvailability";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
@@ -131,6 +132,7 @@ function App() {
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
         <Route path="/OrderHistory" element={<OrderHistory token={token} setToken={setToken} user={user} setUser={setUser} />} />
+        <Route path="/AddAvailability" element={<AddAvailability token={token} setToken={setToken} user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );
