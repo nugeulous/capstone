@@ -9,7 +9,7 @@
 
 .petType img {
   width: 100%;
-  max-width: 20rem;
+  max-width: 25rem;
   min-width: 9rem;
   height: 12rem;
   border-radius: 10px;
@@ -43,6 +43,9 @@
 .petType:hover .caption {
   opacity: 1;
   padding: 0;
+  font-size: 35px;
+  font-weight: bold;
+  color: #39c4e7;
 }
 
 h1 {
@@ -64,7 +67,8 @@ h1 {
   margin-top: 5px;
   text-transform: none;
 }
-p {
-  font-size: 20px;
-  color: #1f98b5;
+
+.title p {
+  font-size: 25px;
+  color: #6f8aae;
 }

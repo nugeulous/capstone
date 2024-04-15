@@ -7,13 +7,13 @@ import fish from "../../images/fish.webp";
 import hamster from "../../images/hamster.jpeg";
 import reptiles from "../../images/reptiles3.jpeg";
 import pig from "../../images/pig.jpeg";
-import walking from "../../images/walking.jpg";
 import SpaIcon from "@mui/icons-material/Spa";
-import PetsIcon from "@mui/icons-material/Pets";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import PetsIcon from "@mui/icons-material/Pets";
+import SavingsIcon from "@mui/icons-material/Savings";
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 
 const SelectAnimalType = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const SelectAnimalType = () => {
             >
             <img src={cat} alt="" />
             <div className="caption">
-                <SpaIcon sx={{ fontSize: 40 }} />
+                <PetsIcon sx={{ fontSize: 40 }} />
                 <p>Cat</p>
             </div>
         </Button>
@@ -53,7 +53,7 @@ const SelectAnimalType = () => {
         >
           <img src={dogs} alt="" />
           <div className="caption">
-            <SpaIcon sx={{ fontSize: 40 }} />
+            <PetsIcon sx={{ fontSize: 40 }} />
             <p>Dog</p>
           </div>
         </Button>
@@ -82,7 +82,7 @@ const SelectAnimalType = () => {
             >
             <img src={pig} alt="" />
             <div className="caption">
-                <SpaIcon sx={{ fontSize: 40 }} />
+                <SavingsIcon sx={{ fontSize: 40 }} />
                 <p>Pig</p>
             </div>
             </Button>
@@ -95,7 +95,7 @@ const SelectAnimalType = () => {
             >
             <img src={reptiles} alt="" />
             <div className="caption">
-                <SpaIcon sx={{ fontSize: 40 }} />
+                <EmojiEmotionsIcon sx={{ fontSize: 40 }} />
                 <p>Reptile</p>
             </div>
             </Button>
@@ -108,7 +108,7 @@ const SelectAnimalType = () => {
         >
           <img src={hamster} alt="" />
           <div className="caption">
-            <SpaIcon sx={{ fontSize: 40 }} />
+            <PetsIcon sx={{ fontSize: 40 }} />
             <p>Hamster</p>
           </div>
         </Button>

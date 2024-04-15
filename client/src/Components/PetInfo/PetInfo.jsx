@@ -26,7 +26,7 @@ export default function PetInfo({ user }) {
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
   const [sterile, setSterile] = useState("Yes");
-  const [animalType, setAnimalType] = useState("")
+  const [animalType, setAnimalType] = useState(petType)
   const [favoriteToy, setFavoriteToy] = useState("");
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
@@ -75,6 +75,7 @@ export default function PetInfo({ user }) {
       setFavoriteTreat("");
       setPersonality("");
       setOwnerId("")
+      navigate("/Account");
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -103,11 +104,12 @@ export default function PetInfo({ user }) {
       <div className="home">
         <h1>Tell us About your Pet</h1>
         <h2>Animal Type:</h2>
-        <TextField
-            required
+        <TextField 
+            disabled
             id="outlined-basic"
-            label="Animal Type 🐕"
-            variant="outlined"
+            label="Animal Type"
+            variant="filled"
+            color="success"
             value={petType}
             onChange={(e) => setAnimalType(e.target.value)}
           />        
@@ -172,15 +174,6 @@ export default function PetInfo({ user }) {
           value={breed}
           onChange={(e) => setBreed(e.target.value)}
         />
-        <h2>Animal Type:</h2>
-        <TextField
-            required
-            id="outlined-basic"
-            label="Animal Type"
-            variant="outlined"
-            value={animalType}
-            onChange={(e) => setAnimalType(e.target.value)}
-          />         
         <h2>Weight:</h2>
         <Weight weight={weight} setWeight={setWeight} />
         <h2>Neutered/Spayed:</h2>
