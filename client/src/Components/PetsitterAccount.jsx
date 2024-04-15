@@ -15,6 +15,22 @@ export default function PetsitterAccount({ user }) {
   if (user.role !== "petsitter") {
     return <p>Oops, this is not the right page for a Pet Owner</p>;
    }
+
+    // get all owner info when pressing submit
+    async function handleSubmit(event) {
+      event.preventDefault();
+  
+      // GET petsitter info
+      try {
+        const result = await fetchAvailablePetsitters(token);
+        setPetsitterDetails(result);
+        console.log('PETSITTER DETAILS--->', petSitterDetails)
+      } catch (error) {
+        console.log('ERROR FROM FETCH---->', error)
+        setError("Can't fetch info");
+      }
+      }
+
   return (
     <Sheet color="neutral" variant="soft">
     <div className="account">

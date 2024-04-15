@@ -78,3 +78,16 @@
 .caption {
   font-size: 15px;
 }
+
+/* CONFIRM BOOKING DETAILS */
+.container {
+  display: grid;
+  grid-template-areas: 
+              "";
+}
+/* 
+.scheduling-details
+
+.sitter-details
+
+.pricing */
