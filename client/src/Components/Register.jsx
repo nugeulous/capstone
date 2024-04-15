@@ -60,7 +60,7 @@ const Register = ({ setToken, setUser, setRole }) => {
       return;
     }
     try {
-      const result = await register(fname,lname,email,address,phone,password, address,);
+      const result = await register(fname,lname,email,address,phone,password, address);
       setToken(result.token);
       setRole(result.owner.role);
       setUser(result.owner);

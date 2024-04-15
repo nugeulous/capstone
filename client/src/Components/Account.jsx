@@ -46,7 +46,7 @@ export default function Account({ user, token }) {
       <Button
         variant="text"
         onClick={() => {
-          navigate(`/Pet Info`);
+          navigate(`/Select Animal Type`);
         }}
         >
         + Add Pet
