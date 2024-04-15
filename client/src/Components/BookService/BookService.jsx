@@ -4,6 +4,7 @@ import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 import ReviewBookingDetails from "./ReviewBookingDetails"
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
+import "./css.css"
 
 // pass in token
 export default function BookService({token}) {
@@ -95,7 +96,7 @@ export default function BookService({token}) {
             <input type="submit"/>
           </label>
         </form>
-        <div className="events">{petSitterDetails.filter((petsitter) => {
+        <div className="sitters-container">{petSitterDetails.filter((petsitter) => {
 
           return parseInt(petsitter.start_time) <= parseInt(startTimeInput) && parseInt(petsitter.end_time) >= parseInt(endTimeInput);
 
@@ -119,7 +120,7 @@ export default function BookService({token}) {
               </p>
             </div>
 
-            <div className="booknow-button">
+            <div className="sitter-details">
             <Button 
               id="myButton"
               type="button"
@@ -128,7 +129,7 @@ export default function BookService({token}) {
                 navigate(`/ReviewBookingDetails`
                 , { state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput}});
               }}>Book Now</Button>
-
+            <br />
             <Button 
               id="myButton"
               type="button"
