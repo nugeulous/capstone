@@ -11,7 +11,11 @@ import Weight from "./Weight";
 import "./PetInfo.css"
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+import { useNavigate, useParams } from "react-router-dom";
+
 export default function PetInfo({ user }) {
+  const navigate = useNavigate();
+  const { petType } = useParams();
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [gender, setGender] = useState("Male");
@@ -19,7 +23,7 @@ export default function PetInfo({ user }) {
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
   const [sterile, setSterile] = useState("Yes");
-  const [animalType, setAnimalType] = useState("")
+  const [animalType, setAnimalType] = useState(petType)
   const [favoriteToy, setFavoriteToy] = useState("");
   const [favoriteTreat, setFavoriteTreat] = useState("");
   const [personality, setPersonality] = useState("");
@@ -68,6 +72,7 @@ export default function PetInfo({ user }) {
       setFavoriteTreat("");
       setPersonality("");
       setOwnerId("")
+      navigate("/Account");
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -95,6 +100,16 @@ export default function PetInfo({ user }) {
     >
       <div className="home">
         <h1>Tell us About your Pet</h1>
+        <h2>Animal Type:</h2>
+        <TextField 
+            disabled
+            id="outlined-basic"
+            label="Animal Type"
+            variant="filled"
+            color="success"
+            value={petType}
+            onChange={(e) => setAnimalType(e.target.value)}
+          />        
         <h2>Show us a Picture:</h2>
               <input
                 type="file"
@@ -156,15 +171,6 @@ export default function PetInfo({ user }) {
           value={breed}
           onChange={(e) => setBreed(e.target.value)}
         />
-        <h2>Animal Type:</h2>
-        <TextField
-            required
-            id="outlined-basic"
-            label="Animal Type"
-            variant="outlined"
-            value={animalType}
-            onChange={(e) => setAnimalType(e.target.value)}
-          />         
         <h2>Weight:</h2>
         <Weight weight={weight} setWeight={setWeight} />
         <h2>Neutered/Spayed:</h2>

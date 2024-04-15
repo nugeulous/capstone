@@ -28,6 +28,11 @@ import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
+import CssBaseline from "@mui/material/CssBaseline";
+import SelectAnimalType from "./Components/PetInfo/SelectAnimalType";
+import LikedEvents from "./Components/HomePage/LikedEvents";
+
+
 
 function App() {
   const [token, setToken] = useState(
@@ -65,10 +70,11 @@ function App() {
       window.localStorage.removeItem("token");
     }
 
-  }, [token, role]);
+  }, [token, role, user]);
 
   return (
     <div>
+      <CssBaseline />
       <NavBar setToken={setToken} token={token} setRole={setRole} role={role} setUser={setUser}/>
       <Routes>
         <Route path="/" element={<AboutUs />} />
@@ -107,8 +113,9 @@ function App() {
         <Route path="/Petsitter Account" element={<PetsitterAccount token={token} setToken={setToken} user={user}/>} />
         <Route path="/About Us" element={<AboutUs />} />
         <Route path="/Playground" element={<Playground token={token} user={user} />} />
-        <Route path="/new-event" element={<NewEvent token={token}  user={user} />} />
-        <Route path="/events/:id" element={<EventPage token={token} />} />
+        <Route path="/new-event" element={<NewEvent token={token} user={user} />} />
+        <Route path="/liked-events" element={<LikedEvents token={token} user={user} />} />
+        <Route path="/events/:id" element={<EventPage user={user} token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
         <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
@@ -118,6 +125,8 @@ function App() {
         <Route path="/Trainers" element={<Trainers token={token} />} />
         <Route path="/Messages" element={<Messages token={token} />} />
         <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
+        <Route path="/pet info/:petType" element={<PetInfo token={token} user={user} />} />
+        <Route path="/Select Animal Type" element={<SelectAnimalType token={token} user={user} />} />
         <Route path="/ReviewBookingDetails" element={<ReviewBookingDetails token={token} />} />
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />

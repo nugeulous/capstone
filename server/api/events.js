@@ -9,6 +9,8 @@ const {
   getAllEvents,
   getEventById,
   getEventsByOwnerId,
+  addUserLikedEvent,
+  getAllUserLikedEvents
 } = require('../db/index');
 
 const { getOwnerById } = require('../db/owners');
@@ -71,15 +73,35 @@ eventsRouter.get('/:eventId', async (req, res, next) => {
 });
 
 // Get events by Owner ID
-eventsRouter.get('/owner/:ownerId', async (req, res, next) => { //needs updating
+eventsRouter.get('/owner/:userId', async (req, res, next) => { //needs updating
   try {
-    const ownerId = req.params.ownerId; // needs updating
-    const events = await getEventsByOwnerId(ownerId); // needs updating
+    const userId = req.params.userId; // needs updating
+    const events = await getEventsByOwnerId(userId); // needs updating
     res.send(events);
   } catch (error) {
     next(error);
   }
 });
 
+eventsRouter.post('/:userId/liked-events', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const eventId = req.body.eventId;
+    await addUserLikedEvent(userId, eventId);
+    res.status(200).send({ message: 'Event added to liked events' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+eventsRouter.get('/:userId/liked-events', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const likedEvents = await getAllUserLikedEvents(userId);
+    res.send(likedEvents);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = eventsRouter;

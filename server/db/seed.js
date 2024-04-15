@@ -25,6 +25,7 @@ async function dropTables() {
       DROP TABLE IF EXISTS posts CASCADE;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS pets; 
+      DROP TABLE IF EXISTS liked_events;
       DROP TABLE IF EXISTS events;
       DROP TABLE IF EXISTS availability;
       DROP TABLE IF EXISTS petsitters;
@@ -119,7 +120,15 @@ async function dropTables() {
           description TEXT NOT NULL,
           eventType VARCHAR(50) NOT NULL,
           petType VARCHAR(50),
-          userId INTEGER REFERENCES owners(id) ON DELETE CASCADE
+          userId INTEGER REFERENCES owners(id) ON DELETE CASCADE,
+          likedByUsers INTEGER[] 
+        );
+
+        CREATE TABLE liked_events (
+          id SERIAL PRIMARY KEY,
+          event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
+          user_id INTEGER REFERENCES owners(id) ON DELETE CASCADE,
+          UNIQUE(event_id, user_id)
         );
 
         CREATE TABLE orders (

@@ -2,12 +2,13 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import SlideShow from "./SlideShow";
-
-export default function Home({ user }) {
+import Services from "../../Components/DefaultLayout/Services";
+export default function Home({ user } ) {
   const navigate = useNavigate();
+
   return (
-    <div className="home">
-      <h1
+    <>
+ <h1
         style={{
           fontFamily: "Arial, sans-serif",
           fontSize: "45px",
@@ -16,47 +17,36 @@ export default function Home({ user }) {
       >
         Welcome Back, {user.fname}!
       </h1>
-      <SlideShow />
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/BookService`);
-        }}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <SlideShow />
+      </div>
+      <Services />
+      <div
+      style={{display: "flex", justifyContent: "center", gap: 10}}
       >
-        Take a Walk
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Groomers`);
-        }}
-      >
-        Groom your baby
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Trainers`);
-        }}
-      >
-        Teach your pet new tricks
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          navigate(`/Sitters`);
-        }}
-      >
-        Find a siiter
-      </Button>
       <Button
         variant="outlined"
         onClick={() => {
           navigate(`/OrderHistory`);
         }}
       >
-        Order History Tester
+        Order History
       </Button>
-    </div>
+
+        <Button
+          variant="outlined"
+          onClick={() => {
+            navigate(`/liked-events`);
+          }}
+        >
+          Liked Events
+        </Button>
+      </div>
+  
+    </>
   );
 }

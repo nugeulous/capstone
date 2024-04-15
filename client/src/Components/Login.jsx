@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -11,7 +10,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { login } from "../API/api";
 function Copyright(props) {
@@ -31,7 +29,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-const defaultTheme = createTheme();
 const Login = ({ setToken, setRole, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,6 +59,7 @@ const Login = ({ setToken, setRole, setUser }) => {
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
+      navigate("/account");
       console.log(result)
     } catch (error) {
       setError("Demo Login Error");
@@ -71,7 +69,6 @@ const Login = ({ setToken, setRole, setUser }) => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -80,7 +77,7 @@ const Login = ({ setToken, setRole, setUser }) => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "#135b6d" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -120,14 +117,14 @@ const Login = ({ setToken, setRole, setUser }) => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
+            sx={{ mt: 3, mb: 2, bgcolor: "#135b6d" }}
           >
             Sign In
           </Button>
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
+            sx={{ mt: 3, mb: 2, bgcolor: "#135b6d" }}
             onClick={demoLogin}
           >
             Demo Login
