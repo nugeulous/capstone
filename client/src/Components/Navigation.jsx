@@ -11,10 +11,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import PetsIcon from "@mui/icons-material/Pets";
 
-const pages = ["Home", "Services", "Playground", "About Us"];
-const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
-const ownerSettings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
+const pages = ["Playground", "Home",  "About Us"];
+const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Logout"];
+const ownerSettings = ["Switch to Caretaker", "Account", "Logout"];
 const notSignedInSettings = ["Login", "Register", "Petsitter Login", "Petsitter Register"]
 const authPages = [];
 
@@ -39,7 +40,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
     <AppBar
       position="static"
       sx={{
-        background: "linear-gradient(#E61EAD, #3E0A41);",
+        background: "linear-gradient(#09203f, #1f98b5);",
       }}
     >
       <Container maxWidth="xl">
@@ -60,7 +61,20 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
               textDecoration: "none",
             }}
           >
-            AllTails
+            <IconButton onClick={() => {
+                  navigate(`/`);
+                }} sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontSize: 40,
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }} >
+                AllTails
+                <PetsIcon sx={{ fontSize: 40 }}/>
+              </IconButton>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -89,11 +103,15 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                 </Button>
               ))}
           </Box>
-          <Box sx={{ flexGrow: 0, color: "white", display: "block" }}>
+          <Box sx={{ flexGrow: 0, color: "white", display: "flex" }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}>
+              <IconButton onClick={() => {
+                  navigate(`/account`);
+                }} sx={{ p: 1, color: "white" }} >
                 My Account
-                <Avatar />
+              </IconButton>
+             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}> 
+              <Avatar />
               </IconButton>
             </Tooltip>
             <Menu
@@ -122,6 +140,8 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                       setRole("");
                       setUser();
                       navigate("/login");
+                    } else if (setting === "Switch to Caretaker"){
+                      navigate("/Petsitter Login");
                     } else {
                       navigate(`/${setting.toLowerCase()}`);
                     }

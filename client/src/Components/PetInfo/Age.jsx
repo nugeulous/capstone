@@ -22,7 +22,7 @@ export default function Age({ age, setAge }) {
       };
 
     return (
-    <Box sx={{ width: 300, left: "1000px" }}>
+      <Box sx={{ width: 300, margin: "0 auto" }}>
     <Slider
       marks={marks}
       step={1}

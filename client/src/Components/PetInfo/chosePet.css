@@ -1,0 +1,74 @@
+
+.petTypes {
+  margin: 30px auto;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.petType img {
+  width: 100%;
+  max-width: 25rem;
+  min-width: 9rem;
+  height: 12rem;
+  border-radius: 10px;
+  display: block;
+  object-fit: cover;
+}
+
+.petType {
+  flex-basis: 31%;
+  position: relative; 
+}
+
+.caption {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 15, 152, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.petType:hover .caption {
+  opacity: 1;
+  padding: 0;
+  font-size: 35px;
+  font-weight: bold;
+  color: #39c4e7;
+}
+
+h1 {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: #212EA0;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 50px 0 15px;
+}
+
+.title h2 {
+  font-size: 32px;
+  color: #16427b;
+  margin-top: 5px;
+  text-transform: none;
+}
+
+.title p {
+  font-size: 25px;
+  color: #6f8aae;
+}

@@ -1,32 +1,32 @@
 const express = require('express');
 const eventsRouter = express.Router();
-const multer = require('multer');
 const path = require('path'); 
+const fs = require('fs');
+const upload = require('./multerApi');
 
 const {
   createEvent,
   getAllEvents,
-  getEventById
+  getEventById,
+  getEventsByOwnerId,
+  addUserLikedEvent,
+  getAllUserLikedEvents
 } = require('../db/index');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../public/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')
-  }
-})
-
-const upload = multer({ storage: storage })
+const { getOwnerById } = require('../db/owners');
 
 //Create event
 eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) => {
   try {
-    const { title, address, date, time, description, event_type, pet_type } = req.body;
+    const { title, address, date, time, description, eventType, petType, userId } = req.body; 
     const photoPath = req.file ? req.file.filename : null; 
-    const event = await createEvent({ title, address, date, time, file: photoPath, description, event_type, pet_type });
+
+    const idUser = parseInt(userId);
+    const userHasId = await getOwnerById(idUser);
+    if (!userHasId) {
+      return res.status(400).send({ error: 'User does not exist' })
+    }
+    const event = await createEvent({ title, address, date, time, file: photoPath, description, eventType, petType, userId: idUser });
 
     res.send({ event });
   } catch (error) {
@@ -36,12 +36,14 @@ eventsRouter.post('/new-event', upload.single('file'), async (req, res, next) =>
 
 eventsRouter.get('/getPhoto', (req, res) => {
   const fileName = req.query.fileName;
-
   if (!fileName) {
     return res.status(400).send({ error: 'File name is required' });
   }
 
   const filePath = path.join(__dirname, `../public/uploads/${fileName}`);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send({ error: 'File not found' });
+  }
 
   res.sendFile(filePath);
 })
@@ -66,9 +68,40 @@ eventsRouter.get('/:eventId', async (req, res, next) => {
     }
     res.send(event);
   } catch (error) {
-    next(error); // Forward error to error handling middleware
+    next(error); 
   }
 });
 
+// Get events by Owner ID
+eventsRouter.get('/owner/:userId', async (req, res, next) => { //needs updating
+  try {
+    const userId = req.params.userId; // needs updating
+    const events = await getEventsByOwnerId(userId); // needs updating
+    res.send(events);
+  } catch (error) {
+    next(error);
+  }
+});
+
+eventsRouter.post('/:userId/liked-events', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const eventId = req.body.eventId;
+    await addUserLikedEvent(userId, eventId);
+    res.status(200).send({ message: 'Event added to liked events' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+eventsRouter.get('/:userId/liked-events', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const likedEvents = await getAllUserLikedEvents(userId);
+    res.send(likedEvents);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = eventsRouter;

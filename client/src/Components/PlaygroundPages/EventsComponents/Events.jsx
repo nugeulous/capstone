@@ -11,7 +11,7 @@ const Events = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [eventType, setEventType] = useState("");
+  const [eventByType, setEventByType] = useState("");
 
   const searchFields = {
     display: "flex",
@@ -44,10 +44,10 @@ const Events = () => {
     setSearchTerm("");
     setStartDate("");
     setEndDate("");
-    setEventType("");
+    setEventByType("");
   };
 
-  const eventTypes = [
+  const eventByTypes = [
     "Birthday",
     "Pet-freindly Picnic",
     "Yappy Hours",
@@ -62,8 +62,8 @@ const Events = () => {
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (!startDate || new Date(event.date) >= new Date(startDate)) &&
       (!endDate || new Date(event.date) <= new Date(endDate)) &&
-      (!eventType ||
-        event.event_type.toLowerCase().includes(eventType.toLowerCase()))
+      (!eventByType ||
+        event.eventtype.toLowerCase().includes(eventByType.toLowerCase()))
   );
 
   return (
@@ -71,7 +71,7 @@ const Events = () => {
       <p>Hang out with Alltails users in local areas that
           provides a safe haven for your pets to engage in lively play sessions.</p>
       <div style={searchFields}>
-        <Button
+        <Button 
           onClick={() => {
             navigate(`/new-event`);
           }}
@@ -100,12 +100,12 @@ const Events = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
         <select
-          value={eventType}
+          value={eventByType}
           style={inputStyle}
-          onChange={(e) => setEventType(e.target.value)}
+          onChange={(e) => setEventByType(e.target.value)}
         >
           <option value="">All</option>
-          {eventTypes.map((type, index) => (
+          {eventByTypes.map((type, index) => (
             <option key={index} value={type}>
               {type}
             </option>

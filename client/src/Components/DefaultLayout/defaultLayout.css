@@ -1,7 +1,7 @@
 .hero {
   width: 100%;
   min-height: 70vh;
-  background: linear-gradient(rgba(8, 0, 58, 0.7), rgba(8, 0, 58, 0.7)),
+  background: linear-gradient(rgba(88, 131, 146, 0.7), rgba(107, 144, 157, 0.7)),
     url(../../images/allpets.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -22,9 +22,12 @@
 }
 
 .hero-text p {
-  max-width: 700px;
+  font-size: large;
+  max-width: 700plx;
   margin: 10px auto 20px;
   line-height: 1.4;
+  font-weight: bold;
+  color: #000F38;
 }
 
 
@@ -150,12 +153,11 @@ h1 {
   width: 360px; 
   height: 380px; 
   margin: 10px; 
-  background-color: rgb(205, 184, 206);
+  background: linear-gradient(#f3f5f5, #7cb0bd); 
   border-radius: 10px;
   overflow: hidden; 
   position: relative;
   transition: transform 0.3s; 
-  border: #423146 3px solid;
 }
 
 /* Styling for when a user hovers over a event card. */
@@ -173,7 +175,7 @@ h1 {
 .event-image {
   width: 200px; 
   height: 200px; 
-
+  border-radius: 5px;
   object-fit: cover;
   display: grid;
   margin-left: 80px;
@@ -191,7 +193,6 @@ h1 {
 }
 
 /* SITTER BOOKING */
-/* Styling for sitter cards (where they vary from event cards only). */
 .sitters-filter {
   display: flex;
   flex-wrap: wrap;
@@ -200,56 +201,31 @@ h1 {
   padding: 10px;
   margin-bottom: 20px;
 }
-.sitters {
+
+.sitters-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .sitter-card {
-  width: 360px; 
-  height: 380px; 
+  width: 400px; 
+  height: 425px; 
   margin: 10px; 
-  background-color: rgb(250, 230, 250);
+  background-color: rgb(240, 237, 237);
   border-radius: 10px;
-  overflow: hidden; 
-  position: relative;
-  transition: transform 0.3s; 
   border: #423146 3px solid;
 }
-
-.booknow-button {
-  margin-left: 30px;
-}
-
 .sitter-details {
-  flex-direction: column; 
   align-items: center;
-  justify-content: center; 
-  color: #000; 
-  font-size: 18px; 
+  justify-content: center;  
   text-align: center; 
-  margin-top: -30px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-.sitter-image-container {
-  height: 300px; 
-  padding: 10px; 
-}
-
-/* Styling for the event's image. */
 .sitter-image {
-  width: 200px; 
+  width: 100px; 
   height: 200px; 
-
-  object-fit: cover;
-  display: grid;
+  border-radius: 10px;
+  object-fit: scale-down;
   margin-top: 40px;
-  margin-left: 70px;
-}
-
-.book-walk-title {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  margin-top: 50px;
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
 import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
 
 export default function PetsitterAccount({ user }) {
   const [error, setError] = useState(null);
@@ -25,6 +26,14 @@ export default function PetsitterAccount({ user }) {
       <p>Phone Number: {user.phone} </p>
       <p>Address: {user.address} </p>
     </div>
+    <h2>Sitter Availability</h2>
+    <Button 
+    id="myButton"
+    type="button"
+    variant="outlined"
+    onClick={() => {
+      navigate(`/AddAvailability`);
+    }}>Add Availability</Button>
     </Sheet>
   );
 }

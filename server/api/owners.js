@@ -25,7 +25,7 @@ ownersRouter.get("/", async (req, res, next) => {
 
 ownersRouter.post("/register", async (req, res, next) => {
   try {
-    const { email, password, fname, lname, address, phone, image, gender } =
+    const { email, password, fname, lname, address, phone, file, gender } =
       req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
@@ -36,7 +36,7 @@ ownersRouter.post("/register", async (req, res, next) => {
       lname,
       address,
       phone,
-      image,
+      file,
       gender,
     });
     const token = jwt.sign({ id: owner.id, email, role: owner.role, owner }, JWT_SECRET, {
@@ -90,7 +90,7 @@ ownersRouter.post("/login", async (req, res, next) => {
 ownersRouter.put("/:id", async (req, res, next) => {
   try {
     const ownerId = req.params.id;
-    const { email, password, fname, lname, address, phone, image, gender } =
+    const { email, password, fname, lname, address, phone, file, gender } =
       req.body;
 
     const updatedOwner = await updateOwner(ownerId, {
@@ -100,7 +100,7 @@ ownersRouter.put("/:id", async (req, res, next) => {
       lname,
       address,
       phone,
-      image,
+      file,
       gender,
     });
 
@@ -119,6 +119,20 @@ ownersRouter.get("/me", requireOwner, async (req, res, next) => {
     } else {
       next(error);
     }
+  }
+});
+
+ownersRouter.get('/:ownerId', async (req, res, next) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const owner = await getOwnerById(ownerId);
+
+    if (!owner) {
+      return res.status(404).json({ error: 'Owner not found' });
+    }
+    res.json(owner);
+  } catch (error) {
+    next(error);
   }
 });
 

@@ -11,7 +11,7 @@ export default function Weight({ weight, setWeight }) {
       setWeight(event.target.value);
     };
     return (
-    <Box sx={{ maxWidth: 120 }}>
+    <Box sx={{ maxWidth: 120, marginLeft: "auto", marginRight: "auto" }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Weight</InputLabel>
         <Select

@@ -1,14 +1,14 @@
 const { client } = require("./client.js");
 
-async function createOwner({ email, password, fname, lname, address, phone, image, gender }) {
+async function createOwner({ email, password, fname, lname, address, phone, file, gender }) {
     try {
       const { rows: [owner] } = await client.query(`
-        INSERT INTO owners(email, password, fname, lname, address, phone, image, gender, role) 
+        INSERT INTO owners(email, password, fname, lname, address, phone, file, gender, role) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, address, phone, image, gender, "owner"]
+        [email, password, fname, lname, address, phone, file, gender, "owner"]
       );
       delete owner.password;
       return owner;
@@ -17,12 +17,12 @@ async function createOwner({ email, password, fname, lname, address, phone, imag
     }
   }
 
-async function updateOwner(ownerId, { email, password, fname, lname, address, phone, image, gender }) {
+async function updateOwner(ownerId, { email, password, fname, lname, address, phone, file, gender }) {
 
   try {
     const { rows: [updatedOwner] } = await client.query(`
         UPDATE owners
-        SET email=$1, password=$2, fname=$3, lname=$4, address=$5, phone=$6, image=$7, gender=$8
+        SET email=$1, password=$2, fname=$3, lname=$4, address=$5, phone=$6, file=$7, gender=$8
         WHERE id=$9
         RETURNING *;
       `, Object.values(fields));
@@ -59,9 +59,9 @@ async function getOwner(email) {
     }
   }
 
-async function getOwnerById(id) {
+  async function getOwnerById(id) {
     try {
-      const { rows: [ owner ] } = await client.query(`
+      const { rows: [owner] } = await client.query(`
         SELECT id, email, fname, lname, phone, address, active, role
         FROM owners
         WHERE id=$1
@@ -70,7 +70,7 @@ async function getOwnerById(id) {
       if (!owner) {
         throw {
           name: "OwnerNotFoundError",
-          message: "A owner with that id does not exist"
+          message: "An owner with that id does not exist"
         }
       }
     
@@ -78,7 +78,7 @@ async function getOwnerById(id) {
     } catch (error) {
       throw error;
     }
-  }
+  }  
 
 async function getOwnerByEmail(email) {
     try {

@@ -1,28 +1,30 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Grid, Select, MenuItem } from "@mui/material/";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import NoAccess from "./NoAccess";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
-const NewEvent = () => {
+const NewEvent = ({ user }) => {
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-  const [event_type, setEventType] = useState("");
-  const [pet_type, setPetType] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [petType, setPetType] = useState("");
+  const [userId, setUserId] = useState("")
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, userId) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -32,8 +34,9 @@ const NewEvent = () => {
       formData.append("time", time);
       formData.append("file", file);
       formData.append("description", description);
-      formData.append("event_type", event_type);
-      formData.append("pet_type", pet_type);
+      formData.append("eventType", eventType);
+      formData.append("petType", petType);
+      formData.append("userId", userId); // new
 
       const response = await axios.post(`${API_URL}/events/new-event`, formData, {
         headers: {
@@ -41,6 +44,7 @@ const NewEvent = () => {
         },
       });      
       console.log(response.data);
+      console.log(userId);
       setTitle("");
       setAddress("");
       setDate("");
@@ -49,7 +53,7 @@ const NewEvent = () => {
       setDescription("");
       setEventType("");
       setPetType("");
-      setError("");
+      setUserId("");
       navigate("/playground");
     } catch (error) {
       setError(error.message);
@@ -62,6 +66,15 @@ const NewEvent = () => {
       setFile(file);
     }
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  } 
+  
+  if (!user) {
+    // User is not logged in, render a message
+    return <NoAccess />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,7 +98,7 @@ const NewEvent = () => {
         <Typography component="h1" variant="h5">
           Create New Event
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={(e) => handleSubmit(e, user.id)} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -115,8 +128,8 @@ const NewEvent = () => {
                 required
                 fullWidth
                 id="date"
-                label="Event Date"
                 name="date"
+                type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
@@ -178,11 +191,11 @@ const NewEvent = () => {
               <Select
                 required
                 fullWidth
-                name="event_type"
+                name="eventType"
                 label="Event Type"
-                id="event_type"
+                id="eventType"
                 defaultValue="Birthday"
-                value={event_type}
+                value={eventType}
                 onChange={(e) => setEventType(e.target.value)}
               >
                 <MenuItem value="">Select Event Type</MenuItem>
@@ -199,10 +212,10 @@ const NewEvent = () => {
               <TextField
                 required
                 fullWidth
-                name="pet_type"
+                name="petType"
                 label="pets type"
-                id="pet_type"
-                value={pet_type}
+                id="petType"
+                value={petType}
                 onChange={(e) => setPetType(e.target.value)}
               />
             </Grid>
@@ -211,7 +224,7 @@ const NewEvent = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: "secondary.main" }}
+            sx={{ mt: 3, mb: 2, bgcolor: "#135b6d" }}
           >
             Submit
           </Button>

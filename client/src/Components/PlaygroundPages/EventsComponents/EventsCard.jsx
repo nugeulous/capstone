@@ -27,7 +27,6 @@ const EventsCard = ({ event }) => {
           <img className="event-image" src={imagePath} alt={event.title} />
           <p>{event.address}</p>
           <p>{formattedDate} {formattedTime}</p>
-          <p>{event.event_type}</p>
         </div>
       </Link>
     </div>

@@ -1,30 +1,11 @@
-import { useState, useEffect } from "react";
-import { getPetsByOwnerId } from "../../API/api";
-const SinglePet = ({ user }) => {
-  const [pets, setPets] = useState([]);
-  const [error, setError] = useState(null);
-
-  const ownerId = user.id;
-
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const petsData = await getPetsByOwnerId(ownerId);
-        if (!petsData) {
-          setPets(petsData);
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    fetchPets();
-  }, [ownerId]);
-
+const SinglePet = ({ pet }) => {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+  const photoPath = `${API_URL}/pets/getPhoto?fileName=`
+  const imagePath = photoPath + pet.file;
   return (
     <div>
-      {pets.map((pet) => (
-        <div key={pet.id}>
-          <p>{pet.image}</p>
+        <div >
+          <img src={imagePath} alt={pet.name}   style={{ maxHeight: "200px", maxWidth: "200px",  objectFit: "cover" }} />
           <p>Name: {pet.name}</p>
           <p>Age: {pet.age} </p>
           <p>Gender: {pet.gender} </p>
@@ -35,8 +16,6 @@ const SinglePet = ({ user }) => {
           <p>Favorite Treat: {pet.favoritetreat} </p>
           <p>Personality: {pet.personality} </p>
         </div> 
-       ))} 
-      {error && <p>Error: {error}</p>}
     </div>
   );
 };

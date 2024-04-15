@@ -76,9 +76,15 @@ apiRouter.use('/availability', availabilityRouter);
 const eventsRouter = require('./events');
 apiRouter.use('/events', eventsRouter);
 
-// ROUTER: /api/uploads
-const photosRouter = require('./photos');
-apiRouter.use('/photos', photosRouter);
+// ROUTER: /api/orders
+const ordersRouter = require('./orders');
+apiRouter.use('/orders', ordersRouter);
+
+const postsRouter = require('./posts');
+apiRouter.use('/posts', postsRouter);
+
+const commentsRouter = require('./comments');
+apiRouter.use('/comments', commentsRouter);
 
 // ROUTER: return error message if error hits in conditional
 apiRouter.use((error, req, res, next) => {
