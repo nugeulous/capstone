@@ -28,10 +28,9 @@ export default function ViewSitterDetails({token}) {
     );
 
     return (
-          <div className="petsitter-details-container">
+          <div className="container">
 
-            {/* left box start */}
-            <div className="left-photo-box">
+            <div className="vertical-box">
             
             <div>
                 <img className="sitter-img" src={petsitter.file} alt="" />
@@ -63,14 +62,13 @@ export default function ViewSitterDetails({token}) {
             </div>
 
             </div>
-            {/* end left box */}
 
-            <div className="about-me">About Me
+            <div className="horizontal-box">About Me
             <br />
             <br />
               <div>{petsitter.aboutme} </div>
             </div>
-            <div className="reviews">Reviews
+            <div className="horizontal-box">Reviews
             </div>
 
           </div>
