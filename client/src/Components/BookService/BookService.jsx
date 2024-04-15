@@ -105,7 +105,7 @@ export default function BookService({token}) {
             <input type="submit"/>
           </label>
         </form>
-        <div className="sitters-container">{petSitterDetails.filter((petsitter) => {
+        <div className="events">{petSitterDetails.filter((petsitter) => {
 
           return parseInt(petsitter.startTime) <= parseInt(startTimeInput) && parseInt(petsitter.endTime) >= parseInt(endTimeInput);
 
@@ -119,7 +119,9 @@ export default function BookService({token}) {
 
             key={index}>
 
-            <img className="sitter-image" src={petsitter.image_file} alt="" />
+            <div className="sitter-image-container">
+              <img className="sitter-image" src={petsitter.image_file} alt="" />
+            </div>
 
             <div>
               <p className="sitter-details">
@@ -127,7 +129,7 @@ export default function BookService({token}) {
               </p>
             </div>
 
-            <div className="sitter-details">
+            <div className="booknow-button">
             <Button 
               id="myButton"
               type="button"
@@ -136,7 +138,7 @@ export default function BookService({token}) {
                 navigate(`/ReviewBookingDetails`
                 , { state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput}});
               }}>Book Now</Button>
-            <br />
+
             <Button 
               id="myButton"
               type="button"

@@ -209,27 +209,46 @@ h1 {
 }
 
 .sitter-card {
-  width: 400px; 
+  width: 360px; 
   height: 380px; 
   margin: 10px; 
-  background-color: rgb(240, 237, 237);
+  background-color: rgb(250, 230, 250);
   border-radius: 10px;
+  overflow: hidden; 
+  position: relative;
+  transition: transform 0.3s; 
   border: #423146 3px solid;
 }
 
+.booknow-button {
+  margin-left: 30px;
+}
+
 .sitter-details {
+  flex-direction: column; 
   align-items: center;
-  justify-content: center;  
+  justify-content: center; 
+  color: #000; 
+  font-size: 18px; 
   text-align: center; 
+  margin-top: -30px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.sitter-image-container {
+  height: 300px; 
+  padding: 10px; 
+}
+
+/* Styling for the event's image. */
 .sitter-image {
-  width: 100px; 
+  width: 200px; 
   height: 200px; 
-  border-radius: 10px;
-  object-fit: scale-down;
+
+  object-fit: cover;
+  display: grid;
   margin-top: 40px;
+  margin-left: 70px;
 }
 
 .book-walk-title {
