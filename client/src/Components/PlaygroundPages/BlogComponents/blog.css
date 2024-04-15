@@ -36,6 +36,17 @@
     color: #555;
   }
   
+  .comment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .comment p {
+    margin: 0;
+  }
+  
+  
   /* Error message styling */
   .error-message {
     color: red;

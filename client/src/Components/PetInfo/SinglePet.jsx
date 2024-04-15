@@ -5,7 +5,7 @@ const SinglePet = ({ pet }) => {
   return (
     <div>
         <div >
-          <img src={imagePath} alt={pet.name} />
+          <img src={imagePath} alt={pet.name}   style={{ maxHeight: "200px", maxWidth: "200px",  objectFit: "cover" }} />
           <p>Name: {pet.name}</p>
           <p>Age: {pet.age} </p>
           <p>Gender: {pet.gender} </p>

@@ -37,8 +37,8 @@ export default function Playground({ user }) {
             variant={showEvents ? "contained" : "outlined"}
             onClick={handleToggleEvents}
             sx={{
-              backgroundColor: showEvents ? "#007bff" : "transparent",
-              color: showEvents ? "#fff" : "#007bff",
+              backgroundColor: showEvents ? "#135b6d" : "transparent",
+              color: showEvents ? "#fff" : "#135b6d",
             }}
           >
             Show Events
@@ -47,8 +47,8 @@ export default function Playground({ user }) {
             variant={!showEvents ? "contained" : "outlined"}
             onClick={handleToggleBlog}
             sx={{
-              backgroundColor: !showEvents ? "#007bff" : "transparent",
-              color: !showEvents ? "#fff" : "#007bff",
+              backgroundColor: !showEvents ? "#135b6d" : "transparent",
+              color: !showEvents ? "#fff" : "#135b6d",
             }}
           >
             Show Blog

@@ -10,7 +10,8 @@ const {
     createAvailability,
     createEvent,
     createPost,
-    createOrder
+    createOrder,
+    createComment,
   } = require('./index');
 
 
@@ -20,6 +21,7 @@ async function dropTables() {
   
       // have to make sure to drop in correct order
       await client.query(`      
+      DROP TABLE IF EXISTS comments CASCADE;
       DROP TABLE IF EXISTS posts CASCADE;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS pets; 
@@ -142,6 +144,8 @@ async function dropTables() {
           id SERIAL PRIMARY KEY,
           title VARCHAR(255) NOT NULL,
           content TEXT NOT NULL,
+          likes INTEGER,
+          file varchar(255),
           active BOOLEAN DEFAULT true,
           ownerid INTEGER,
           petsitterid INTEGER,
@@ -153,6 +157,16 @@ async function dropTables() {
             FOREIGN KEY(petsitterid)
             REFERENCES petsitters(id)
             ON DELETE CASCADE
+        );
+
+        CREATE TABLE comments (
+          id SERIAL PRIMARY KEY,
+          content TEXT NOT NULL,
+          likes INTEGER,
+          postid INTEGER REFERENCES posts(id) ON DELETE CASCADE,
+          ownerid INTEGER REFERENCES owners(id) ON DELETE CASCADE,
+          petsitterid INTEGER REFERENCES petsitters(id) ON DELETE CASCADE,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
 
       `);
@@ -505,6 +519,7 @@ async function dropTables() {
         await createPost({
             title: "Welcome to the Pet Lovers Community!",
             content: "We're thrilled to welcome you to our community of pet lovers. Feel free to introduce yourself and share stories about your beloved pets.",
+            likes:100,
             ownerid: 1, // Assuming ownerId 1 corresponds to the first owner created in the database
             ownerName: `${owner1.rows[0].fname} ${owner1.rows[0].lname}`
         });
@@ -512,6 +527,7 @@ async function dropTables() {
         await createPost({
             title: "Tips for a Healthy Cat Diet",
             content: "Here are some tips to ensure your feline friend is getting the nutrients they need for a healthy diet. Remember, a well-fed cat is a happy cat!",
+            likes:12,
             ownerid: 1, // Assuming ownerId 1 corresponds to the first owner created in the database
             ownerName: `${owner1.rows[0].fname} ${owner1.rows[0].lname}`
         });
@@ -519,6 +535,7 @@ async function dropTables() {
         await createPost({
             title: "Finding the Right Dog Walker",
             content: "Looking for a reliable dog walker? Share your experiences and recommendations here!",
+            likes:47,
             ownerid: 2, // Assuming ownerId 2 corresponds to the second owner created in the database
             ownerName: `${owner2.rows[0].fname} ${owner2.rows[0].lname}`
         });
@@ -526,6 +543,7 @@ async function dropTables() {
         await createPost({
             title: "Exciting News: New Dog Walking Slots Available!",
             content: "I'm excited to announce that I have openings for dog walking sessions starting next week. Contact me to schedule your furry friend's walk!",
+            likes:2,
             petsitterid: 1, // Assuming petsitterId 1 corresponds to the first petsitter created in the database
             petsitterName: `${petsitter1.rows[0].fname} ${petsitter1.rows[0].lname}`
         });
@@ -533,6 +551,7 @@ async function dropTables() {
         await createPost({
             title: "Cat Sitting Services Available",
             content: "Need someone to care for your feline companion while you're away? Look no further! I offer reliable and loving cat sitting services.",
+            likes:12,
             petsitterid: 2, // Assuming petsitterId 2 corresponds to the second petsitter created in the database
             petsitterName: `${petsitter2.rows[0].fname} ${petsitter2.rows[0].lname}`
         });
@@ -634,6 +653,59 @@ async function dropTables() {
     }
   }
 
+  async function createInitialComments() {
+    try {
+        console.log("Starting to create initial comments...");
+
+        // Fetch the IDs of posts from the database
+        const post1 = await client.query("SELECT id FROM posts WHERE title = 'Welcome to the Pet Lovers Community!'");
+        const post2 = await client.query("SELECT id FROM posts WHERE title = 'Tips for a Healthy Cat Diet'");
+        const post3 = await client.query("SELECT id FROM posts WHERE title = 'Finding the Right Dog Walker'");
+        const post4 = await client.query("SELECT id FROM posts WHERE title = 'Exciting News: New Dog Walking Slots Available!'");
+        const post5 = await client.query("SELECT id FROM posts WHERE title = 'Cat Sitting Services Available'");
+
+        // Fetch the IDs of owners from the database
+        const owner1 = await client.query("SELECT id FROM owners WHERE fname = 'Albathy'");
+        const owner2 = await client.query("SELECT id FROM owners WHERE fname = 'Sandreth'");
+
+        // Create initial comments with associated post and owner IDs
+        await createComment({
+            content: "Great community! Looking forward to connecting with other pet lovers.",
+            postid: post1.rows[0].id,
+            ownerid: owner1.rows[0].id
+        });
+
+        await createComment({
+            content: "Thanks for sharing these helpful tips!",
+            postid: post2.rows[0].id,
+            ownerid: owner2.rows[0].id
+        });
+
+        await createComment({
+            content: "Nice post! I'm currently looking for a dog walker too.",
+            postid: post3.rows[0].id,
+            ownerid: owner2.rows[0].id
+        });
+
+        await createComment({
+            content: "Exciting news indeed! Do you offer group walks or just individual ones?",
+            postid: post4.rows[0].id,
+            ownerid: owner1.rows[0].id
+        });
+
+        await createComment({
+            content: "I might need your services soon. How can I contact you?",
+            postid: post5.rows[0].id,
+            ownerid: owner1.rows[0].id
+        });
+
+        console.log("Finished creating initial comments!");
+    } catch (error) {
+        console.error("Error creating initial comments!");
+        throw error;
+    }
+}
+  
   async function rebuildDB() {
     try {
       console.log("Starting rebuildDb...")
@@ -647,13 +719,14 @@ async function dropTables() {
       await createInitalEvent();
       await createInitialPosts();
       await createInitialOrders();
+      await createInitialComments(); // Add this line to create initial comments
       console.log("Finished rebuildDb! SEEDING COMPLETE.")
-
+  
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
     }
   }
-
-rebuildDB()
-  .catch(console.error);
+  
+  rebuildDB()
+    .catch(console.error);

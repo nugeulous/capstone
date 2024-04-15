@@ -5,5 +5,6 @@ module.exports = {
   ...require("./availability.js"),
   ...require("./events.js"),
   ...require("./orders.js"),
-  ...require("./posts.js")
+  ...require("./posts.js"),
+  ...require("./comments.js")
 }

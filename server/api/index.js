@@ -83,6 +83,9 @@ apiRouter.use('/orders', ordersRouter);
 const postsRouter = require('./posts');
 apiRouter.use('/posts', postsRouter);
 
+const commentsRouter = require('./comments');
+apiRouter.use('/comments', commentsRouter);
+
 // ROUTER: return error message if error hits in conditional
 apiRouter.use((error, req, res, next) => {
   // TODO: proper error handling to send back to client - not showing up on client side

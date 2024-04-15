@@ -3,11 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import SlideShow from "./SlideShow";
 
-export default function Home() {
-    const navigate = useNavigate();
+export default function Home({ user }) {
+  const navigate = useNavigate();
   return (
     <div className="home">
-      <h1>Home</h1>
+      <h1
+        style={{
+          fontFamily: "Arial, sans-serif",
+          fontSize: "45px",
+          textAlign: "center",
+        }}
+      >
+        Welcome Back, {user.fname}!
+      </h1>
       <SlideShow />
       <Button
         variant="outlined"

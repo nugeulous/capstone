@@ -13,8 +13,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Home", "Services", "Playground", "About Us"];
-const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Favorites", "Messages", "Logout"];
-const ownerSettings = ["Switch to Caretaker", "Account", "Favorites", "Messages", "Logout"];
+const petsitterSettings = ["Switch to Pet Owner", "Petsitter Account", "Logout"];
+const ownerSettings = ["Switch to Caretaker", "Account", "Logout"];
 const notSignedInSettings = ["Login", "Register", "Petsitter Login", "Petsitter Register"]
 const authPages = [];
 
