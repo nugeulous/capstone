@@ -112,7 +112,7 @@ async function dropTables() {
 
         CREATE TABLE events (
           id SERIAL PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
+          title VARCHAR(26) NOT NULL,
           address TEXT NOT NULL,
           date DATE NOT NULL,
           time TIME NOT NULL,
