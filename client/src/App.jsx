@@ -23,7 +23,7 @@ import PetsitterRegister from "./Components/PetsitterRegister";
 import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
 import ReviewBookingDetails from "./Components/BookService/ReviewBookingDetails";
-import AddAvailability from "./Components/AddAvailability";
+import AddAvailability from "./Components/SitterAvailability/AddAvailability";
 import PaymentInfo from "./Components/PaymentInfo";
 import OrderConfirmed from "./Components/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
@@ -40,7 +40,13 @@ function App() {
     window.localStorage.getItem("token") ?? null
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    if (localStorage.getItem("user")) {
+      const obj = JSON.parse(localStorage.getItem("user"));
+      return obj;
+    }
+    return null;
+  });
   const [role, setRole] = useState(
     window.localStorage.getItem("role") ?? null
   );
@@ -72,6 +78,17 @@ function App() {
     }
 
   }, [token, role, user]);
+
+  // if (user) {
+  //   window.localStorage.setItem("user", user);
+  //   if (!user) {
+  //     handleUser();
+  //   }
+  // } else {
+  //   window.localStorage.removeItem("token");
+  // }
+
+// }, [token, role, user]);
 
   return (
     <div>

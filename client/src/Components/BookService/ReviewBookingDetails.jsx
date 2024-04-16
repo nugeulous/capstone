@@ -4,8 +4,9 @@ import { useLocation } from "react-router-dom";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
+import "./Styling.css"
 
-export default function ReviewBookingDetails({ details, endTime, startTime, date }) {
+export default function ReviewBookingDetails({details, endTime, startTime, date}) {
     const location = useLocation();
     const sitterDetails = location.state.details;
     const startTimeInput = location.state.startTime;

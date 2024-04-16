@@ -64,6 +64,8 @@ const PetsitterRegister = ({ setToken, setRole, setUser }) => {
       setToken(result.token);
       setRole(result.petsitter.role);
       setUser(result.petsitter);
+      localStorage.setItem("user", result.petsitter)
+      localStorage.setItem("token", result.token);
       navigate("/petsitter account");
     } catch (error) {
       setError(error.message);

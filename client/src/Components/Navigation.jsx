@@ -139,6 +139,9 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
                       setToken("");
                       setRole("");
                       setUser();
+                      localStorage.removeItem("token")
+                      localStorage.removeItem("user")
+                      localStorage.removeItem("role")
                       navigate("/login");
                     } else if (setting === "Switch to Caretaker"){
                       navigate("/Petsitter Login");

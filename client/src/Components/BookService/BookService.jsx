@@ -4,7 +4,7 @@ import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
 import ReviewBookingDetails from "./ReviewBookingDetails"
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
-import "./css.css"
+import "./Styling.css"
 
 // pass in token
 export default function BookService({token}) {

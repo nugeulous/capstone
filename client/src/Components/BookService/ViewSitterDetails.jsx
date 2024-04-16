@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchPetsitter, getPetsitterById } from "../../API/api";
 import { Button } from "@mui/material";
-import "./css.css"
+import "./Styling.css"
 
 export default function ViewSitterDetails({token}) {
     // capture petsitter id from parameter

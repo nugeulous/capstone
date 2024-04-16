@@ -101,7 +101,8 @@ async function dropTables() {
         CREATE TABLE availability (
           id SERIAL PRIMARY KEY,
           petsitter_id INTEGER REFERENCES petsitters(id),
-          date DATE,
+          start_date DATE,
+          end_date DATE,
           start_time TIME,
           end_time TIME,
             CONSTRAINT fk_petsitters
@@ -378,35 +379,40 @@ async function dropTables() {
   
       await createAvailability({
         petsitter_id: "1",
-        date: '10-10-24',
+        start_date: '01-10-24',
+        end_date: '12-12-24',
         start_time: '09:00:00',
         end_time: '14:00:00',
       });
 
       await createAvailability({
         petsitter_id: "2",
-        date: '09-17-24',
+        start_date: '01-10-24',
+        end_date: '12-12-24',
         start_time: '8:00:00',
         end_time: '12:00:00',
       });
 
       await createAvailability({
         petsitter_id: "3",
-        date: '01-08-24',
+        start_date: '01-10-24',
+        end_date: '12-12-24',
         start_time: '12:00:00',
         end_time: '16:00:00',
       });
 
       await createAvailability({
         petsitter_id: "4",
-        date: '11-12-24',
+        start_date: '01-10-24',
+        end_date: '12-12-24',
         start_time: '14:00:00',
         end_time: '23:00:00',
       });
 
       await createAvailability({
         petsitter_id: "5",
-        date: '11-12-24',
+        start_date: '01-10-24',
+        end_date: '12-12-24',
         start_time: '14:00:00',
         end_time: '23:00:00',
       });
