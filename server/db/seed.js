@@ -112,7 +112,7 @@ async function dropTables() {
 
         CREATE TABLE events (
           id SERIAL PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
+          title VARCHAR(26) NOT NULL,
           address TEXT NOT NULL,
           date DATE NOT NULL,
           time TIME NOT NULL,
@@ -495,7 +495,7 @@ async function dropTables() {
       });
       
       await createEvent({
-        title: "Canine Obedience Training Workshop",
+        title: "Canine Obedience Training",
         address: "PetSmart Training Center, Chicago",
         date: "September 5, 2024",
         time: "2:00 PM",
