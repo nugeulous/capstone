@@ -47,8 +47,23 @@
     }
   }
 
+  async function getPetsitterAvailabilityById(userId) {
+    try {
+      const { rows: availability } = await client.query(`
+          SELECT *
+          FROM availability
+          WHERE petsitter_id=$1
+      `, [userId]);
+      return availability;
+    } catch (error) {
+      console.log(error, 'No petsitter availability found')
+      throw error;
+    }
+  }
+
   module.exports = {
     getAllAvailability,
     createAvailability,
-    getAvailablePetsitters
+    getAvailablePetsitters,
+    getPetsitterAvailabilityById
   }

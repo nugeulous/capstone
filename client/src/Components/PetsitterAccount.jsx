@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import Sheet from '@mui/joy/Sheet';
 import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
+import { fetchPetsitterAvailabilityById } from "../API/availabilityApi";
 
 export default function PetsitterAccount({ user }) {
   const [error, setError] = useState(null);
+  const [petsitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
 
   if (error) return <div>Error: {error}</div>;
@@ -16,20 +18,20 @@ export default function PetsitterAccount({ user }) {
     return <p>Oops, this is not the right page for a Pet Owner</p>;
    }
 
-    // get all owner info when pressing submit
-    async function handleSubmit(event) {
-      event.preventDefault();
-  
-      // GET petsitter info
+   useEffect(() => {
+    const fetchAvailability = async () => {
       try {
-        const result = await fetchAvailablePetsitters(token);
+        const result = await fetchPetsitterAvailabilityById(user.id);
         setPetsitterDetails(result);
-        console.log('PETSITTER DETAILS--->', petSitterDetails)
+        console.log('PETSITTER DETAILS--->', result)
       } catch (error) {
         console.log('ERROR FROM FETCH---->', error)
         setError("Can't fetch info");
       }
-      }
+    };
+
+    fetchAvailability();
+  }, [user]);
 
   return (
     <Sheet color="neutral" variant="soft">

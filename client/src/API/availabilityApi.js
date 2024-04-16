@@ -20,7 +20,6 @@ export const addAvailability = async ({petsitter_id,
         }),
       });
       const result = await response.json();
-      console.log('RESULT FROM CALL:', result)
       return result;
     } catch (error) {
       console.error("Unable to post new availability", error.message);
@@ -28,10 +27,20 @@ export const addAvailability = async ({petsitter_id,
     }
   };
 
-  const fetchPetsitterById = async function() => {
+export const fetchPetsitterAvailabilityById = async function(userId) {
     try {
-
-    } catch {
-      
+      const response = await fetch(`${API_URL}/availability/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) throw new Error("Petsitter not found");
+      const petsitter = await response.json();
+      console.log('PETSITTER AVAILABILITY:', petsitter)
+      return petsitter;
+    } catch (error) {
+      console.error("Unable to post new availability", error.message);
+      throw error;
     }
-  }
+  };

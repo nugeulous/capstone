@@ -4,7 +4,8 @@ const availabilityRouter = express.Router();
 const {  
     getAllAvailability, 
     getAvailablePetsitters,
-    createAvailability
+    createAvailability,
+    getPetsitterAvailabilityById
 } = require('../db/index');
 
 // middleware that helps with catching any errors along the way to next router
@@ -45,7 +46,20 @@ availabilityRouter.post("/addavailability", async (req, res, next) => {
   } catch (error){
     console.log(error);
   }
-  
   })
+
+    // Get availability by petsitter ID
+  availabilityRouter.get('/:userId', async (req, res, next) => {
+  try {
+    const user = req.params.userId;
+    const availability = await getPetsitterAvailabilityById(user);
+    if (!availability) {
+      return res.status(404).send({ error: "Availability not found" });
+    }
+    res.send(availability);
+  } catch (error) {
+    next(error); // Forward error to error handling middleware
+  }
+});
 
   module.exports = availabilityRouter;
