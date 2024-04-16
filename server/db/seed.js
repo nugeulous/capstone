@@ -495,7 +495,7 @@ async function dropTables() {
       });
       
       await createEvent({
-        title: "Canine Obedience Training Workshop",
+        title: "Canine Obedience Training",
         address: "PetSmart Training Center, Chicago",
         date: "September 5, 2024",
         time: "2:00 PM",

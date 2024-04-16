@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Grid, Select, MenuItem } from "@mui/material/";
 import Box from "@mui/material/Box";
@@ -20,12 +20,25 @@ const NewEvent = ({ user }) => {
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
   const [petType, setPetType] = useState("");
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
+
+
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    if (newTitle.length > 26) {
+      setMessage("Your title is too long (maximum 26 characters)");
+    } else {
+      setMessage(null);
+    }
+    setTitle(newTitle);
+  };
 
   const handleSubmit = async (e, userId) => {
     e.preventDefault();
+
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -38,11 +51,15 @@ const NewEvent = ({ user }) => {
       formData.append("petType", petType);
       formData.append("userId", userId); // new
 
-      const response = await axios.post(`${API_URL}/events/new-event`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });      
+      const response = await axios.post(
+        `${API_URL}/events/new-event`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log(response.data);
       console.log(userId);
       setTitle("");
@@ -54,6 +71,7 @@ const NewEvent = ({ user }) => {
       setEventType("");
       setPetType("");
       setUserId("");
+      setError(null);
       navigate("/playground");
     } catch (error) {
       setError(error.message);
@@ -69,8 +87,8 @@ const NewEvent = ({ user }) => {
 
   if (error) {
     return <div>Error: {error}</div>;
-  } 
-  
+  }
+
   if (!user) {
     // User is not logged in, render a message
     return <NoAccess />;
@@ -98,7 +116,12 @@ const NewEvent = ({ user }) => {
         <Typography component="h1" variant="h5">
           Create New Event
         </Typography>
-        <Box component="form" noValidate onSubmit={(e) => handleSubmit(e, user.id)} sx={{ mt: 3 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={(e) => handleSubmit(e, user.id)}
+          sx={{ mt: 3 }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -108,9 +131,14 @@ const NewEvent = ({ user }) => {
                 label="Event Title"
                 autoFocus
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={handleTitleChange}
               />
             </Grid>
+            {message && (
+            <Typography color="error" align="center" sx={{ mt: 2, paddingLeft: 7 }}>
+              {message}
+            </Typography>
+          )}
             <Grid item xs={12}>
               <TextField
                 required
@@ -122,7 +150,7 @@ const NewEvent = ({ user }) => {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -145,7 +173,7 @@ const NewEvent = ({ user }) => {
                 onChange={(e) => setTime(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={12} >
+            <Grid item xs={12} sm={12}>
               <input
                 type="file"
                 id="photo"
@@ -200,7 +228,9 @@ const NewEvent = ({ user }) => {
               >
                 <MenuItem value="">Select Event Type</MenuItem>
                 <MenuItem value="Birthday">Birthday</MenuItem>
-                <MenuItem value="Pet-freindly Picnic">Pet-freindly Picnic</MenuItem>
+                <MenuItem value="Pet-freindly Picnic">
+                  Pet-freindly Picnic
+                </MenuItem>
                 <MenuItem value="Pet Parade">Pet Parade</MenuItem>
                 <MenuItem value="Hike">Hike</MenuItem>
                 <MenuItem value="Training Workshop">Training Workshop</MenuItem>
@@ -220,6 +250,7 @@ const NewEvent = ({ user }) => {
               />
             </Grid>
           </Grid>
+        
           <Button
             type="submit"
             fullWidth
