@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getAllLikedEventsByUser } from "../../API/eventsApi";
 
 const LikedEvents = ({ user }) => {
@@ -21,19 +20,29 @@ const LikedEvents = ({ user }) => {
     fetchLikedEvents();
   }, [user]);
 
+  const eventStyle = {
+    border: '5px solid',
+    borderRadius: '5px',
+    padding: '10px',
+    marginBottom: '20px',
+    textAlign: 'center',
+    boxShadow: '0 4px 8px 0', 
+  };
+
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h2>Liked Events</h2>
-      <ul>
+      <div style={{ margin: '0 auto', maxWidth: '600px' }}>
         {likedEvents.map((event) => (
-          <div key={event.id}>
-            <h3>{event.title}</h3>
-            <h6>{event.date}</h6>
+          <div key={event.id} style={eventStyle}>
+            <h2>{event.title}</h2>
+            <h3>{event.date}</h3>
           </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
 export default LikedEvents;
+

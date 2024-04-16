@@ -1,0 +1,20 @@
+.account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .add-pet-button {
+    align-self: flex-end;
+    margin-right: 20px;
+  }
+  
+  .owner-info, .pet-info {
+    margin-top: 20px;
+  }
+  
+  .pet-info {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }

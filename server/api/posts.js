@@ -1,5 +1,9 @@
 const express = require('express');
 const postsRouter = express.Router();
+const path = require('path'); 
+const fs = require('fs');
+const upload = require('./multerApi');
+
 
 const {
     createPost,
@@ -10,8 +14,8 @@ const {
 // Endpoint to create a new post
 postsRouter.post('/createPost', async (req, res, next) => {
     try {
-        const { title, content, ownerid, petsitterid } = req.body;
-        const newPost = await createPost({ title, content, ownerid, petsitterid });
+        const { title, content, likes, ownerid, petsitterid } = req.body;
+        const newPost = await createPost({ title, content, likes, ownerid, petsitterid });
         res.status(201).json(newPost);
     } catch (error) {
         next(error);
