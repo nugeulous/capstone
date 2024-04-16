@@ -8,6 +8,7 @@ export default function Home({ user } ) {
 
   return (
     <>
+ {user ? 
  <h1
         style={{
           fontFamily: "Arial, sans-serif",
@@ -16,7 +17,8 @@ export default function Home({ user } ) {
         }}
       >
         Welcome Back, {user.fname}!
-      </h1>
+      </h1> : <h1></h1>
+      }
       <div style={{
         display: 'flex',
         justifyContent: 'center',

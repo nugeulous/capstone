@@ -11,7 +11,10 @@ export default function Account({ user, token }) {
   const [error, setError] = useState(null);
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
-  const ownerId = user.id;
+  let ownerId;
+  if (user && user.id) {
+    ownerId = user.id;
+  };
   
   useEffect(() => {
     const fetchPets = async () => {
