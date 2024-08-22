@@ -17,10 +17,16 @@ AllTails provides pet owners with functionality to book a pet sitter for a wide 
 - MUI
 - Heroku
 
-## Table of Contents
-### - [Installation] (#Installation)
+# Table of Contents
+- [Installation](#installation)
+- [API](https://github.com/nugeulous/capstone/edit/bobadillamonica5-patch-1/README.md#api)
+- [Authentication](#authentication)
+- [Deployment](#deployment)
+- [Known Issues and Areas for Improvement](#known-issues-and-areas-for-improvement)
+- [Credits](#credits)
 
-## Installation
+# Installation
+Instructions for installation.
 **Step 1 - Clone the repo by posting the following in your terminal:**
 
 `git clone https://github.com/nugeulous/capstone.git`
@@ -50,12 +56,7 @@ After installation, you can use the `psql` command-line tool to interact with yo
 
 **HEROKU**
 
-Install the Heroku CLI (Command Line Interface). You can download it from the Heroku official website. Follow the instructions for your OS.
-Once installed, log in with:
-
-`bash`
-`heroku login`
-
+Install the Heroku CLI (Command Line Interface). You can download it from the Heroku official website. Follow the instructions for your OS to log in.
 After that, you can use the CLI to deploy your app by pushing it to a Heroku Git repository.
 <br>
 <br>  
@@ -68,7 +69,7 @@ After that, you can use the CLI to deploy your app by pushing it to a Heroku Git
 `PORT = your_port`
 <br>
 <br>  
-## Usage
+# Usage
 **1 - Starting the app**
 
 `npm run dev`  
@@ -102,7 +103,9 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 <br>
 <br> 
 
-## API
+# API
+
+Documentation for API
 
 **Base URL:**
 `API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api"`
@@ -111,8 +114,8 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 **Endpoints**
 ### POST
 **1 - Register Owner**
-- Method: POST
-- URL: /owners/register
+- Method: `POST`
+- URL: `/owners/register`
 - Description: Creates a new owner account.
 - Request Body:
 
@@ -147,8 +150,8 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 <br>  
 
 **2 - Login Owner**
-- Method: POST
-- URL: /owners/login
+- Method: `POST`
+- URL: `/owners/login`
 - Description: Authenticates an owner and returns a JWT token.
 - Request Body:
 ```
@@ -177,8 +180,8 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 ```
 
 **3 - Add Pet**
-- Method: POST
-- URL: /pets/addPet
+- Method: `POST`
+- URL: `/pets/addPet`
 - Description: Adds a new pet to the owner's account.
 - Request Body: FormData with pet data (e.g., name, age, breed, etc.)
 - Response (Success):
@@ -193,8 +196,8 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 ```
 
 **4 - Register Petsitter**
-- Method: POST
-- URL: /petsitters/register
+- Method: `POST`
+- URL: `/petsitters/register`
 - Description: Creates a new petsitter account.
 - Request Body:
 ```
@@ -209,10 +212,10 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 ```
 
 **5 - Login Petsitter**
-Method: POST
-URL: /petsitters/login
-Description: Authenticates a petsitter and returns a JWT token.
-Request Body:
+- Method: `POST`
+- URL: `/petsitters/login`
+- Description: Authenticates a petsitter and returns a JWT token.
+- Request Body:
 ```
 {
   "email": "jane@example.com",
@@ -221,10 +224,25 @@ Request Body:
 ```
 <br>  
 
+**6 - Create Comment**
+- Method: `POST`
+- URL: `/comments/createComment`
+- Description: Creates a new comment on a post.
+- Request Body:
+```
+{
+  "postid": 1,
+  "content": "I am interested!",
+  "ownerid": 1,
+  "petsitterid": 2
+}
+```
+<br>
+
 ### GET
 **1 - Fetch Owner Profile**
-- Method: GET
-- URL: /owners/me
+- Method: `GET`
+- URL: `/owners/me`
 - Description: Retrieves the authenticated owner's profile.
 - Headers:
 - Authorization: Bearer <JWT_TOKEN>
@@ -244,10 +262,11 @@ Request Body:
   "error": "Please log in or create an account!"
 }
 ```
-<br>  
-**5 - Get Pet by ID**
-- Method: GET
-- URL: /pets/{id}
+<br> 
+
+**2 - Get Pet by ID**
+- Method: `GET`
+- URL: `/pets/{id}`
 - Description: Retrieves a specific pet by its ID.
 - Response (Success):
 ```
@@ -258,9 +277,11 @@ Request Body:
   "breed": "Golden Retriever"
 }
 ```
-**6 - Get Pets by Owner ID**
-- Method: GET
-- URL: /pets/owner/{ownerId}
+<br> 
+
+**3 - Get Pets by Owner ID**
+- Method: `GET`
+- URL: `/pets/owner/{ownerId}`
 - Description: Retrieves all pets belonging to a specific owner.
 - Response (Success):
 ```
@@ -279,25 +300,25 @@ Request Body:
   }
 ]
 ```
+<br>
 
+**4 - Fetch Petsitter Profile**
+- Method: `GET`
+- URL: `/petsitters/me`
+- Description: Retrieves the authenticated petsitter's profile.
+- Headers:
+- Authorization: Bearer <JWT_TOKEN>
 
-Fetch Petsitter Profile
-Method: GET
-URL: /petsitters/me
-Description: Retrieves the authenticated petsitter's profile.
-Headers:
-Authorization: Bearer <JWT_TOKEN>
-Fetch Available Petsitters
-Method: GET
-URL: /availability/petsitters
-Description: Retrieves a list of available petsitters.
+**5 - Fetch Available Petsitters**
+- Method: `GET`
+- URL: `/availability/petsitters`
+- Description: Retrieves a list of available petsitters.
 Create Post
 Method: POST
 URL: /posts/createPost
 Description: Creates a new post.
 Request Body:
-json
-Copy code
+```
 {
   "title": "Pet Sitting Offer",
   "content": "Available for pet sitting in NYC",
@@ -305,41 +326,38 @@ Copy code
   "ownerid": 1,
   "petsitterid": 2
 }
+```
 
+**6 - Get All Posts**
+- Method: `GET`
+- URL: `/posts`
+- Description: Retrieves all posts.
 
-Create Comment
-Method: POST
-URL: /comments/createComment
-Description: Creates a new comment on a post.
-Request Body:
-json
-Copy code
-{
-  "postid": 1,
-  "content": "I am interested!",
-  "ownerid": 1,
-  "petsitterid": 2
-}
+**7 - Fetch Orders by Owner ID**
+- Method: `GET`
+- URL: `/orders/{id}`
+- Description: Retrieves all orders for a specific owner.
 
+**8 - Get Petsitter by ID**
+- Method: `GET`
+- URL: `/petsitters/{id}`
+- Description: Retrieves a specific petsitter by their ID.
 
-Get All Posts
-Method: GET
-URL: /posts
-Description: Retrieves all posts.
-Delete Post
-Method: DELETE
-URL: /posts/{postId}
-Description: Deletes a specific post.
-Fetch Orders by Owner ID
-Method: GET
-URL: /orders/{id}
-Description: Retrieves all orders for a specific owner.
-Get Petsitter by ID
-Method: GET
-URL: /petsitters/{id}
-Description: Retrieves a specific petsitter by their ID.
-Get Owner by ID
-Method: GET
-URL: /owners/{userId}
-Description: Retrieves a specific owner by their ID.
+**9 - Get Owner by ID**
+- Method: `GET`
+- URL: `/owners/{userId}`
+- Description: Retrieves a specific owner by their ID.
+<br>
+<br>
+
+# DELETE
+**1 - Delete Post**
+- Method: `DELETE`
+- URL: `/posts/{postId}`
+- Description: Deletes a specific post.
+
+# Authentication
+# Deployment
+# Known Issues and Areas for Improvement
+# Credits
 
