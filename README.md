@@ -4,7 +4,7 @@ AllTails provides pet owners with functionality to book a pet sitter for a wide 
 **FEATURES:**
 - Join or host a pet event in your area
 - Post about a topic you’d like to discuss with other pet owners
-- Post about a service needed/offered
+- Post about a petcare service needed / offered
 - Book a service (i.e., grooming, walking, boarding)
 
 **TECH STACK:**
@@ -27,13 +27,17 @@ AllTails provides pet owners with functionality to book a pet sitter for a wide 
 
 # Installation
 Instructions for installation.
+
+<br>
+
 **Step 1 - Clone the repo by posting the following in your terminal:**
 
 `git clone https://github.com/nugeulous/capstone.git`
 
 `cd capstone`
   
-<br>  
+<br>
+
 **Step 2 - Install dependencies:**
 
 `npm install`
@@ -47,7 +51,7 @@ Instructions for installation.
 `npm install @mui/icons-material`
 
 `npm install express`
-
+<br>
 
 **POSTGRESQL**
 
@@ -99,6 +103,7 @@ Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate 
 <br> 
 
 **4 - Demo Account**
+
 Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate to > My Account > Demo Login (below Sign In)
 <br>
 <br> 
@@ -111,9 +116,9 @@ Documentation for API
 `API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api"`
 <br>  
 
-**Endpoints**
+### **Endpoints**
 ### POST
-**1 - Register Owner**
+**1 - Register as an Owner**
 - Method: `POST`
 - URL: `/owners/register`
 - Description: Creates a new owner account.
@@ -149,7 +154,7 @@ Documentation for API
 ```
 <br>  
 
-**2 - Login Owner**
+**2 - Login as an Owner**
 - Method: `POST`
 - URL: `/owners/login`
 - Description: Authenticates an owner and returns a JWT token.
@@ -183,7 +188,9 @@ Documentation for API
 - Method: `POST`
 - URL: `/pets/addPet`
 - Description: Adds a new pet to the owner's account.
-- Request Body: FormData with pet data (e.g., name, age, breed, etc.)
+- Request Body:
+  
+  - FormData with pet data (e.g., name, age, breed, etc.)
 - Response (Success):
 ```
 {
@@ -202,16 +209,23 @@ Documentation for API
 - Request Body:
 ```
 {
-  "fname": "Jane",
-  "lname": "Smith",
-  "email": "jane@example.com",
+  "name": "Jane",
+  "age": "2",
+  "gender": "female",
   "address": "456 Park Ave",
-  "phone": "987-654-3210",
-  "password": "Password123!"
+  "breed": "GSP",
+  "animalType": "dog",
+  "weight": "100 lbs",
+  "file": "0000011010010101010101010101",
+  "sterile": "Yes",
+  "favoriteToy": "Bone",
+  "favoriteTreat": "Bacon",
+  "personality": "crazy gal!",
+  "ownerId": "3"
 }
 ```
 
-**5 - Login Petsitter**
+**5 - Login as a Petsitter**
 - Method: `POST`
 - URL: `/petsitters/login`
 - Description: Authenticates a petsitter and returns a JWT token.
@@ -220,6 +234,16 @@ Documentation for API
 {
   "email": "jane@example.com",
   "password": "Password123!"
+}
+```
+- Response (Success):
+```
+{
+  "token": "jwt-token-here",
+  "petsitter": {
+    "id": 1,
+    "email": "john@example.com"
+  }
 }
 ```
 <br>  
@@ -238,6 +262,21 @@ Documentation for API
 }
 ```
 <br>
+
+**7 - Create Post**
+- Method: `POST`
+- URL: `/posts/createPost`
+- Description: Creates a new post.
+- Request Body:
+```
+{
+  "title": "Pet Sitting Offer",
+  "content": "Available for pet sitting in NYC",
+  "likes": 0,
+  "ownerid": 1,
+  "petsitterid": 2
+}
+```
 
 ### GET
 **1 - Fetch Owner Profile**
@@ -313,20 +352,6 @@ Documentation for API
 - Method: `GET`
 - URL: `/availability/petsitters`
 - Description: Retrieves a list of available petsitters.
-Create Post
-Method: POST
-URL: /posts/createPost
-Description: Creates a new post.
-Request Body:
-```
-{
-  "title": "Pet Sitting Offer",
-  "content": "Available for pet sitting in NYC",
-  "likes": 0,
-  "ownerid": 1,
-  "petsitterid": 2
-}
-```
 
 **6 - Get All Posts**
 - Method: `GET`
@@ -348,16 +373,46 @@ Request Body:
 - URL: `/owners/{userId}`
 - Description: Retrieves a specific owner by their ID.
 <br>
-<br>
 
-# DELETE
+### DELETE
 **1 - Delete Post**
 - Method: `DELETE`
 - URL: `/posts/{postId}`
 - Description: Deletes a specific post.
 
 # Authentication
+
+JWT Tokens are required for protected endpoints such as fetching user profiles, available petsitters, etc. Include the JWT token in the Authorization header of the request as follows:
+
+`Authorization: Bearer <JWT_TOKEN>`
+
+<br>
+<br>  
+
 # Deployment
+
+**Production URL:** [https://alltails-23975acfa4a1.herokuapp.com/](https://alltails-23975acfa4a1.herokuapp.com/)
+
+**Deployment Instructions:** See [Installation](#installation) > POSTGRESQL > HEROKU
+
+<br>
+<br>  
+
 # Known Issues and Areas for Improvement
+
+- **API Calls - Error Message**: Need to create Response (Error) messages for all API calls. Currently, the Response (Error) is only programmed for some calls.
+- **Petsitter Login - JWT:** Need to ensure the JWT authentication is working. It's working for owner login, but not always with petsitter login. We've noted the appropriate Response (Success) to the request in the API documentation but it needs to be fixed in the code. 
+
+<br>
+<br>  
+
+
 # Credits
+
+The project was a collaborative effort across five web development engineers as a part of their coding bootcamp final Capstone project.
+- Ryan Nugent
+- Monica Bobadilla
+- Roy Badell
+- Khiry Maynard
+- Jordan Munioz
 
