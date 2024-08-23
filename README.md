@@ -93,12 +93,12 @@ After that, you can use the CLI to deploy your app by pushing it to a Heroku Git
 
 **2 - Logging in**
 
-Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate to > My Account > Login > Input First Name, Last Name, Email, Phone Number, Address, Password
+Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate to > My Account > Login > Input First Name, Last Name, Email, Phone Number, Address, Password > Sign In
 <br>
 <br>  
 **3 - Signing up**
 
-Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate to > My Account > Register > Input Email and Password > Register
+Open the [site link](https://alltails-23975acfa4a1.herokuapp.com/) and navigate to > My Account > Register > Input Email and Password > Sign Up
 <br>
 <br> 
 
@@ -189,8 +189,22 @@ Documentation for API
 - URL: `/pets/addPet`
 - Description: Adds a new pet to the owner's account.
 - Request Body:
-  
-  - FormData with pet data (e.g., name, age, breed, etc.)
+```
+{
+  name: "Buddy",
+  age: 3,
+  gender: "Male",
+  breed: "Golden Retriever",
+  animalType: "Dog",
+  weight: 30,  // weight in kilograms
+  file: null,  // assuming you'd replace this with a real file object or Blob
+  sterile: true,
+  favoriteToy: "Tennis Ball",
+  favoriteTreat: "Peanut Butter",
+  personality: "Playful and friendly",
+  ownerId: "12345"
+}
+```
 - Response (Success):
 ```
 {
@@ -284,7 +298,7 @@ Documentation for API
 - URL: `/owners/me`
 - Description: Retrieves the authenticated owner's profile.
 - Headers:
-- Authorization: Bearer <JWT_TOKEN>
+  - Authorization: Bearer <INSERT_JWT_TOKEN>
 - Response (Success):
 ```
 {
@@ -345,8 +359,8 @@ Documentation for API
 - Method: `GET`
 - URL: `/petsitters/me`
 - Description: Retrieves the authenticated petsitter's profile.
-- Headers:
-- Authorization: Bearer <JWT_TOKEN>
+  - Header:
+    - Authorization: Bearer <JWT_TOKEN>
 
 **5 - Fetch Available Petsitters**
 - Method: `GET`
@@ -384,7 +398,7 @@ Documentation for API
 
 JWT Tokens are required for protected endpoints such as fetching user profiles, available petsitters, etc. Include the JWT token in the Authorization header of the request as follows:
 
-`Authorization: Bearer <JWT_TOKEN>`
+`Authorization: Bearer <INSERT_JWT_TOKEN>`
 
 <br>
 <br>  
