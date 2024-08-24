@@ -37,7 +37,6 @@ export const fetchPetsitterAvailabilityById = async function(userId) {
       });
       if (!response.ok) throw new Error("Petsitter not found");
       const petsitter = await response.json();
-      console.log('PETSITTER AVAILABILITY:', petsitter)
       return petsitter;
     } catch (error) {
       console.error("Unable to post new availability", error.message);

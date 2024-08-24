@@ -44,6 +44,7 @@ export const login = async (email, password) => {
   }
 };
 
+// with token, make API call
 export const fetchOwner = async (token) => {
   try {
     const response = await fetch(`${API_URL}/owners/me`, {
@@ -53,9 +54,15 @@ export const fetchOwner = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // if response not OK (not logged in or no account), throw error
+    console.log('response ok?', response, response.ok)
     if (!response.ok) throw new Error("Please log in or create an account!");
+
+    // otherwise, set value of owner = response
     const owner = await response.json();
     return owner;
+    
   } catch (error) {
     console.error("Error fetching account:", error);
     throw error;

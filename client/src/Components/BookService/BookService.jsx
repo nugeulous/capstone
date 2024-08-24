@@ -2,15 +2,15 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchOwner, fetchAvailablePetsitters } from "../../API/api";
 import { Button } from "@mui/material";
-import ReviewBookingDetails from "./ReviewBookingDetails"
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 import "./Styling.css"
 
-// pass in token
+// when BookService page loads, pass in token to ensure person navigating page is logged in
 export default function BookService({token}) {
 
   const [owner, setOwner] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [startTimeInput, setStartTimeInput] = useState("10:00");
   const [endTimeInput, setEndTimeInput] = useState("11:00");
   const [dateInput, setDateInput] = useState("2024-10-10");
@@ -18,30 +18,35 @@ export default function BookService({token}) {
   const [petSitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
 
+  // User is not logged in, render a message
+    if (!token) {
+      return <NoAccess/>;
+    }
+
   // confirm token exists / user logged in
-  // useEffect makes a call while still allowing this component to render
+  // useEffect calls getAccount while still allowing this component to render; will not continue until fetchOwner(token) returns a promise
   const getAccount = useCallback(async () => {
     try {
-      // useEffect will not continue until fetchAccount(token) returns a promise
       const fetchedAccount = await fetchOwner(token);
-      // update state to store the fetched account
+      // update state to store the fetched owner account
       setOwner(fetchedAccount);
     } catch (error) {
       setError(error.message);
     }
-  }, [token, fetchOwner, setOwner, setError]);
+  }, [token, setOwner, setError]);
 
+  // useEffect runs getAccount (above)
   // only re-renders when dependency changes (stored in array) - avoid infinite rerender or slow page
   useEffect(() => {
-    getAccount();
-  }, [getAccount]);
+    // Ensure token exists before attempting fetch
+    if (token) { 
+      getAccount();
+    } else {
+      setLoading(false); 
+    }
+  }, [getAccount, token]);
   
   if (error) return <div>Error: {error}</div>;
-  
-  // User is not logged in, render a message
-  if (!token) {
-    return <NoAccess/>
-  }
 
   // get all owner info when pressing submit
   async function handleSubmit(event) {
@@ -58,7 +63,7 @@ export default function BookService({token}) {
     }
     }
     
-  // filter for owners with specific availability
+  // filter for petsitters with specific availability
     return (
         <div className="home">
             <h1 className="book-walk-title">Book A Service!</h1>
