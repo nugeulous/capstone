@@ -33,6 +33,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import SelectAnimalType from "./Components/PetInfo/SelectAnimalType";
 import LikedEvents from "./Components/HomePage/LikedEvents";
 
+import { Provider } from 'react-redux';
+import store from "./redux/actions/store/store";
+
 
 
 function App() {
@@ -78,17 +81,6 @@ function App() {
     }
 
   }, [token, role, user]);
-
-  // if (user) {
-  //   window.localStorage.setItem("user", user);
-  //   if (!user) {
-  //     handleUser();
-  //   }
-  // } else {
-  //   window.localStorage.removeItem("token");
-  // }
-
-// }, [token, role, user]);
 
   return (
     <div>
@@ -136,8 +128,6 @@ function App() {
         <Route path="/events/:id" element={<EventPage user={user} token={token} />} />
         <Route path="/services" element={<Services token={token} />} />
         <Route path="/Favorites" element={<Favorites token={token} />} />
-        <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
-        <Route path="/BookService" element={<BookService token={token} />} />
         <Route path="/Sitters" element={<Sitters token={token} />} />
         <Route path="/Groomers" element={<Groomers token={token} />} />
         <Route path="/Trainers" element={<Trainers token={token} />} />
@@ -145,7 +135,11 @@ function App() {
         <Route path="/Pet Info" element={<PetInfo token={token} user={user} />} />
         <Route path="/pet info/:petType" element={<PetInfo token={token} user={user} />} />
         <Route path="/Select Animal Type" element={<SelectAnimalType token={token} user={user} />} />
+        
+        <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
         <Route path="/ReviewBookingDetails" element={<ReviewBookingDetails token={token} />} />
+        <Route path="/BookService" element={<BookService token={token} />} />
+
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
         <Route path="/OrderHistory" element={<OrderHistory token={token} setToken={setToken} user={user} setUser={setUser} />} />

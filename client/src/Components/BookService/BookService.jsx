@@ -49,78 +49,83 @@ export default function BookService({token}) {
   
   if (error) return <div>Error: {error}</div>;
 
-  // get all owner info when pressing submit
-  async function handleSubmit(event) {
-    event.preventDefault();
+// GET all petsitter info
+async function handleSubmit(event) {
+  event.preventDefault();
 
-    // GET all petsitter info
-    try {
-      const result = await fetchAvailablePetsitters(token);
-      setPetsitterDetails(result);
-    } catch (error) {
-      if (error.message === 'Failed to fetch') {
-        setError("Network error: Unable to reach the server. Please check your internet connection.");
-      } else if (error.response && error.response.status === 401) {
-        setError("Authorization error: Your session may have expired. Please log in again.");
-      } else if (error.response && error.response.status === 500) {
-        setError("Server error: Unable to retrieve petsitter details. Please try again later.");
-      } else {
-        setError(`Unexpected error: ${error.message}`);
-      }
+  try {
+    const result = await fetchAvailablePetsitters(token);
+    setPetsitterDetails(result);
+  } catch (error) {
+    if (error.message === 'Failed to fetch') {
+      setError("Network error: Unable to reach the server. Please check your internet connection.");
+    } else if (error.response && error.response.status === 401) {
+      setError("Authorization error: Your session may have expired. Please log in again.");
+    } else if (error.response && error.response.status === 500) {
+      setError("Server error: Unable to retrieve petsitter details. Please try again later.");
+    } else {
+      setError(`Unexpected error: ${error.message}`);
     }
   }
-  // filter for petsitters with specific availability
-    return (
-        <div className="home">
-            <h1 className="book-walk-title">Book A Service!</h1>
-        <form className="sitters-filter" onSubmit={handleSubmit}>
-          <label>Day:
-            <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)}/>
-          </label>
-          <label>Start Time:
-            <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
-          </label>
-          <label>End Time:
-            <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)}/>
-          </label>
-          <label>Pet:
-            <select onChange={(e) => setAnimalType(e.target.value)}>
-              <option value="Dog">Dog</option>
-              <option value="Cat">Cat</option>
-              <option value="Fish">Fish</option>
-              <option value="Bird">Bird</option>
-              <option value="Hamster">Hamster</option>
-              <option value="Reptile">Reptile</option>
-            </select>
-          </label>
-          <label>Pet Size:
-            <select>
-              <option value="Small">Small</option>
-              <option value="Medium">Medium</option>
-              <option value="Large">Large</option>
-            </select>
-          </label>
-          <label>Location:
-            <input type="text" placeholder=" 5 - Digit Zip Code" />
-          </label>
-          <label>
-            <input type="submit"/>
-          </label>
-        </form>
-        <div className="sitters-container">{petSitterDetails.filter((petsitter) => {
+}
 
-          return parseInt(petsitter.start_time) <= parseInt(startTimeInput) && parseInt(petsitter.end_time) >= parseInt(endTimeInput);
+// filter for petsitters with specific availability
+return (
+  <div className="home">
+    <h1 className="book-walk-title">Book A Service!</h1>
+    <form className="sitters-filter" onSubmit={handleSubmit}>
+      <label>Day:
+        <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} />
+      </label>
+      <label>Start Time:
+        <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
+      </label>
+      <label>End Time:
+        <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)} />
+      </label>
+      <label>Pet:
+        <select onChange={(e) => setAnimalType(e.target.value)}>
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
+          <option value="Fish">Fish</option>
+          <option value="Bird">Bird</option>
+          <option value="Hamster">Hamster</option>
+          <option value="Reptile">Reptile</option>
+        </select>
+      </label>
+      <label>Pet Size:
+        <select>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </label>
+      <label>Location:
+        <input type="text" placeholder="5 - Digit Zip Code" />
+      </label>
+      <label>
+        <input type="submit" />
+      </label>
+    </form>
 
-        }).map((petsitter, index)=>{
-          return <div 
-            
+    <div className="sitters-container">
+      {petSitterDetails.filter((petsitter) => {
+        return parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
+          parseInt(petsitter.end_time) >= parseInt(endTimeInput);
+      }).length === 0 ? (
+        <div>No petsitters available at this time.</div>
+      ) : (
+        petSitterDetails.filter((petsitter) => {
+          return parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
+            parseInt(petsitter.end_time) >= parseInt(endTimeInput);
+        }).map((petsitter, index) => (
+          <div
             className="sitter-card"
-            id="myButton" 
+            id="myButton"
             type="button"
             variant="outlined"
-
-            key={index}>
-
+            key={index}
+          >
             <div className="sitter-image-container">
               <img className="sitter-image" src={petsitter.file} alt="" />
             </div>
@@ -132,25 +137,33 @@ export default function BookService({token}) {
             </div>
 
             <div className="sitter-details">
-            <Button 
-              id="myButton"
-              type="button"
-              variant="outlined"
-              onClick={() => {
-                navigate(`/ReviewBookingDetails`
-                , { state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput}});
-              }}>Book Now</Button>
-            <br />
-            <Button 
-              id="myButton"
-              type="button"
-              variant="outlined"
-              onClick={() => {
-                navigate(`/petsitters/${petsitter.id}`);
-              }}>See Sitter Details</Button>
+              <Button
+                id="myButton"
+                type="button"
+                variant="outlined"
+                onClick={() => {
+                  navigate(`/ReviewBookingDetails`, {
+                    state: { details: petsitter, startTime: startTimeInput, endTime: endTimeInput, date: dateInput }
+                  });
+                }}
+              >
+                Book Now
+              </Button>
+              <br />
+              <Button
+                id="myButton"
+                type="button"
+                variant="outlined"
+                onClick={() => {
+                  navigate(`/petsitters/${petsitter.id}`);
+                }}
+              >
+                See Sitter Details
+              </Button>
             </div>
           </div>
-        })}</div>
-        </div>
-    );
-}
+        ))
+      )}
+    </div>
+  </div>
+)};
