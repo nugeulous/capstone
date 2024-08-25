@@ -18,15 +18,16 @@ export default function BookService({token}) {
   const [petSitterDetails, setPetsitterDetails] = useState([]);
   const navigate = useNavigate();
 
-  // User is not logged in, render a message
+  // confirm token exists (user logged in / has account)
+  // If user not logged in, render a message
     if (!token) {
       return <NoAccess/>;
     }
 
-  // confirm token exists / user logged in
   // useEffect calls getAccount while still allowing this component to render; will not continue until fetchOwner(token) returns a promise
   const getAccount = useCallback(async () => {
     try {
+      // api calll to fetch account
       const fetchedAccount = await fetchOwner(token);
       // update state to store the fetched owner account
       setOwner(fetchedAccount);
@@ -52,17 +53,22 @@ export default function BookService({token}) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // GET petsitter info
+    // GET all petsitter info
     try {
       const result = await fetchAvailablePetsitters(token);
       setPetsitterDetails(result);
-      console.log('PETSITTER DETAILS--->', petSitterDetails)
     } catch (error) {
-      console.log('ERROR FROM FETCH---->', error)
-      setError("Can't fetch info");
+      if (error.message === 'Failed to fetch') {
+        setError("Network error: Unable to reach the server. Please check your internet connection.");
+      } else if (error.response && error.response.status === 401) {
+        setError("Authorization error: Your session may have expired. Please log in again.");
+      } else if (error.response && error.response.status === 500) {
+        setError("Server error: Unable to retrieve petsitter details. Please try again later.");
+      } else {
+        setError(`Unexpected error: ${error.message}`);
+      }
     }
-    }
-    
+  }
   // filter for petsitters with specific availability
     return (
         <div className="home">
