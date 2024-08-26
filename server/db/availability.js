@@ -40,7 +40,6 @@
         FROM petsitters AS ps
         INNER JOIN availability AS av ON ps.id = av.petsitter_id
       `)
-      console.log('sitter avail: ', sitter_availabilities)
       return sitter_availabilities;
     } catch (error) {
       throw error;

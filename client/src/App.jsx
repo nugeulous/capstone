@@ -136,9 +136,32 @@ function App() {
         <Route path="/pet info/:petType" element={<PetInfo token={token} user={user} />} />
         <Route path="/Select Animal Type" element={<SelectAnimalType token={token} user={user} />} />
         
-        <Route path="/petsitters/:id" element={<ViewSitterDetails token={token} />} />
-        <Route path="/ReviewBookingDetails" element={<ReviewBookingDetails token={token} />} />
-        <Route path="/BookService" element={<BookService token={token} />} />
+        {/* Monica testing redux on 3x booking flow components
+        Wrapping components in Provider to enable access to */}
+        <Route 
+          path="/petsitters/:id" 
+          element={
+            <Provider store={store}>
+              <ViewSitterDetails token={token} />
+            </Provider>
+          } 
+        />
+        <Route 
+          path="/ReviewBookingDetails" 
+          element={
+            <Provider store={store}>
+              <ReviewBookingDetails token={token} />
+            </Provider>
+          } 
+        />
+        <Route 
+          path="/BookService" 
+          element={
+            <Provider store={store}>
+              <BookService token={token} />
+            </Provider>
+          } 
+        />
 
         <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
