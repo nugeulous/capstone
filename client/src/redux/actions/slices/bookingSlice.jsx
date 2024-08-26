@@ -1,37 +1,42 @@
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAvailablePetsitters } from '../../../API/api';
 
-// api call to fetch all petsitters
+// Async thunk for fetching petsitters
 export const fetchPetsitters = createAsyncThunk(
   'booking/fetchPetsitters',
   async (token) => {
     const response = await fetchAvailablePetsitters(token);
-    console.log('RESPONSE ---->: ', response)
     return response;
   }
 );
 
-// create empty slice to store booking details
+// Create slice for booking
 const bookingSlice = createSlice({
   name: 'booking',
   initialState: {
     petsitters: [],
     loading: false,
     error: null,
+    selectedSitter: null, // New state for selected sitter
   },
-  reducers: {},
+  reducers: {
+    setSitterDetails: (state, action) => {
+      state.selectedSitter = action.payload;
+    },
+    setBookingDetails: (state, action) => {
+      state.bookingDetails = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPetsitters.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchPetsitters.fulfilled, (state, action) => {
-        console.log('Action Type in fulfilled:', action.type);  // Log the action type
-        console.log('Payload received in fulfilled:', action.payload);  // Ensure the payload is correct
         state.loading = false;
-        state.petsitters = action.payload;  // Update petsitters array
-        console.log('Updated petsitters state:', state.petsitters);  // Check if the state is updated
-      })      
+        state.petsitters = action.payload;
+      })
       .addCase(fetchPetsitters.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
@@ -39,4 +44,5 @@ const bookingSlice = createSlice({
   },
 });
 
+export const { setSitterDetails, setBookingDetails } = bookingSlice.actions;
 export default bookingSlice.reducer;

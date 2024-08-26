@@ -1,12 +1,10 @@
-// configure store to manage state and reducers processing actions
 import { configureStore } from '@reduxjs/toolkit';
-import bookingReducer from '../reducers/bookingReducer';
+import bookingReducer from '../slices/bookingSlice'; 
 
 const store = configureStore({
   reducer: {
-    booking: bookingReducer,
+    booking: bookingReducer, // Use the reducer from createSlice
   },
 });
 
 export default store;
-
