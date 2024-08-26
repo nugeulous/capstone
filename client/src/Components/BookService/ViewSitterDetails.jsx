@@ -1,13 +1,11 @@
-
-
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Button } from "@mui/material";
 import "./Styling.css";
 
 export default function ViewSitterDetails() {
-  // store useNavigate to navigate to next page of flow  
-  const navigate = useNavigate();
+    // store useNavigate to navigate to next page of flow  
+    const navigate = useNavigate();
 
     // access selected petsitter details from Redux state
     const petsitter = useSelector((state) => state.booking.selectedSitter);
