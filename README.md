@@ -22,7 +22,7 @@ AllTails provides pet owners with functionality to book a pet sitter for a wide 
 - [API](https://github.com/nugeulous/capstone/edit/bobadillamonica5-patch-1/README.md#api)
 - [Authentication](#authentication)
 - [Deployment](#deployment)
-- [Known Issues and Areas for Improvement](#known-issues-and-areas-for-improvement)
+- [Known Issues and Future Enhancements](#known-issues-and-future-enhancements)
 - [Credits](#credits)
 
 # Installation
@@ -117,9 +117,8 @@ Documentation for API
 <br>  
 
 ### **Endpoints**
-### POST
+## POST
 **1 - Register as an Owner**
-- Method: `POST`
 - URL: `/owners/register`
 - Description: Creates a new owner account.
 - Request Body:
@@ -155,7 +154,6 @@ Documentation for API
 <br>  
 
 **2 - Login as an Owner**
-- Method: `POST`
 - URL: `/owners/login`
 - Description: Authenticates an owner and returns a JWT token.
 - Request Body:
@@ -185,7 +183,6 @@ Documentation for API
 ```
 
 **3 - Add Pet**
-- Method: `POST`
 - URL: `/pets/addPet`
 - Description: Adds a new pet to the owner's account.
 - Request Body:
@@ -196,8 +193,8 @@ Documentation for API
   gender: "Male",
   breed: "Golden Retriever",
   animalType: "Dog",
-  weight: 30,  // weight in kilograms
-  file: null,  // assuming you'd replace this with a real file object or Blob
+  weight: 30,
+  file: null,
   sterile: true,
   favoriteToy: "Tennis Ball",
   favoriteTreat: "Peanut Butter",
@@ -217,7 +214,6 @@ Documentation for API
 ```
 
 **4 - Register Petsitter**
-- Method: `POST`
 - URL: `/petsitters/register`
 - Description: Creates a new petsitter account.
 - Request Body:
@@ -240,7 +236,6 @@ Documentation for API
 ```
 
 **5 - Login as a Petsitter**
-- Method: `POST`
 - URL: `/petsitters/login`
 - Description: Authenticates a petsitter and returns a JWT token.
 - Request Body:
@@ -263,7 +258,6 @@ Documentation for API
 <br>  
 
 **6 - Create Comment**
-- Method: `POST`
 - URL: `/comments/createComment`
 - Description: Creates a new comment on a post.
 - Request Body:
@@ -278,7 +272,6 @@ Documentation for API
 <br>
 
 **7 - Create Post**
-- Method: `POST`
 - URL: `/posts/createPost`
 - Description: Creates a new post.
 - Request Body:
@@ -292,9 +285,8 @@ Documentation for API
 }
 ```
 
-### GET
+## GET
 **1 - Fetch Owner Profile**
-- Method: `GET`
 - URL: `/owners/me`
 - Description: Retrieves the authenticated owner's profile.
 - Headers:
@@ -304,8 +296,11 @@ Documentation for API
 {
   "id": 1,
   "email": "john@example.com",
+  "fname": "John",
+  "lname": "Doe",
   "address": "123 Main St",
-  "phone": "123-456-7890"
+  "phone": "123-456-7890",
+  ...
 }
 ```
 
@@ -318,22 +313,22 @@ Documentation for API
 <br> 
 
 **2 - Get Pet by ID**
-- Method: `GET`
 - URL: `/pets/{id}`
 - Description: Retrieves a specific pet by its ID.
 - Response (Success):
 ```
 {
-  "id": 1,
-  "name": "Buddy",
-  "age": 3,
-  "breed": "Golden Retriever"
+    "id": 1,
+    "name": "Miss Thang",
+    "animalType": "Cat",
+    "breed": "Tabby",
+    "age": "3",
+    ...
 }
 ```
 <br> 
 
 **3 - Get Pets by Owner ID**
-- Method: `GET`
 - URL: `/pets/owner/{ownerId}`
 - Description: Retrieves all pets belonging to a specific owner.
 - Response (Success):
@@ -344,55 +339,158 @@ Documentation for API
     "name": "Buddy",
     "age": 3,
     "breed": "Golden Retriever"
+    ...
   },
   {
     "id": 2,
     "name": "Max",
     "age": 5,
     "breed": "Labrador"
+    ...
   }
 ]
 ```
 <br>
 
 **4 - Fetch Petsitter Profile**
-- Method: `GET`
 - URL: `/petsitters/me`
 - Description: Retrieves the authenticated petsitter's profile.
   - Header:
     - Authorization: Bearer <JWT_TOKEN>
+- Response (Success):
+```
+{
+  "id": 1,
+  "email": "sammy@gmail.com",
+  "fname": "Samuel",
+  "lname": "Jackson",
+  "address": "Sactown, CA",
+  "phone": "916-432-7811",
+  ...
+}
+```
 
 **5 - Fetch Available Petsitters**
-- Method: `GET`
 - URL: `/availability/petsitters`
 - Description: Retrieves a list of available petsitters.
+- Response (Success):
+```
+[
+  {
+    "id": 1,
+    "fname": "Samuel",
+    "lname": "Jackson",
+    "dogs": true,
+    "cats": true,
+    "hourlyCost": 15,
+    ...
+  },
+  {
+    "id": 2,
+    "fname": "Bea",
+    "lname": "Joe",
+    "dogs": true,
+    "cats": false,
+    "hourlyCost": 22,
+    ...
+  }
+]
+```
 
 **6 - Get All Posts**
-- Method: `GET`
 - URL: `/posts`
 - Description: Retrieves all posts.
+- Response (Success):
+```
+[
+  {
+    "id": 1,
+    "title": "Welcome to the Pet Lovers Community!",
+    "content": "We're thrilled to welcome you...",
+    "likes": 100,
+    ...
+  },
+  {
+    "id": 2,
+    "title": "Tips for a Healthy Cat Diet",
+    "content": "Here are some tips to ensure...",
+    "likes": 12,
+    ...
+  }
+]
+```
 
 **7 - Fetch Orders by Owner ID**
-- Method: `GET`
 - URL: `/orders/{id}`
 - Description: Retrieves all orders for a specific owner.
+- Response (Success):
+```
+[
+  {
+    "id": 1,
+    "service_type": "Walk",
+    "start_date": "10/10/2024",
+    "price": "$4200",
+    ...
+  },
+  {
+    "id": 2,
+    "service_type": "Groom",
+    "start_date": "10/11/2024",
+    "price": "$9001",
+    ...
+  }
+]
+```
 
 **8 - Get Petsitter by ID**
-- Method: `GET`
 - URL: `/petsitters/{id}`
 - Description: Retrieves a specific petsitter by their ID.
+- Response (Success):
+```
+{
+  "id": 1,
+  "fname": "Samuel",
+  "lname": "Jackson",
+  "address": "Sactown, CA",
+  "dogs": true,
+  "cats": true,
+  ...
+}
+```
 
 **9 - Get Owner by ID**
-- Method: `GET`
 - URL: `/owners/{userId}`
 - Description: Retrieves a specific owner by their ID.
-<br>
+- Response (Success):
+  
+```
+{
+  "id": 1,
+  "fname": "John",
+  "lname": "Doe",
+  "email": "john@example.com",
+  "address": "123 Main St",
+  "phone": "123-456-7890",
+  ...
+}
+```
 
-### DELETE
+<br>  
+
+## DELETE
 **1 - Delete Post**
-- Method: `DELETE`
 - URL: `/posts/{postId}`
 - Description: Deletes a specific post.
+- Response (Success):
+```
+{
+  "message": "Post deleted successfully."
+}
+```
+
+<br>
+<br> 
 
 # Authentication
 
@@ -411,16 +509,17 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 
 <br>
 <br>  
+# Known Issues and Future Enhancements
 
-# Known Issues and Areas for Improvement
-
-- **API Calls - Error Message**: Need to create Response (Error) messages for all API calls. Currently, the Response (Error) is only programmed for some calls.
-- **Petsitter Login - JWT:** Need to ensure the JWT authentication is working. It's working for owner login, but not always with petsitter login. We've noted the appropriate Response (Success) to the request in the API documentation but it needs to be fixed in the code. 
+- **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API interactions.
+- **Data Formatting**: Standardize all data formatting to use camelCase. Some fields are still using snake_case.
+- **Logout Confirmation**: Add a confirmation page to confirm successful logout and improve the user experience.
+- **Booking Time Granularity**: Enhance the booking service by adding more detailed start time, end time, and date options to improve flexibility.
+- **HTML Optimization**: Refactor HTML to replace IDs with classes for improved scalability and maintainability.
+- **Redux Implementation**: Expand the use of Redux throughout the entire application; currently, it is only implemented in the booking flow.
 
 <br>
 <br>  
-
-
 # Credits
 
 The project was a collaborative effort across five web development engineers as a part of their coding bootcamp final Capstone project.
