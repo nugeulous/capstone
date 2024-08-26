@@ -512,7 +512,8 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 
 # Known Issues and Future Enhancements
 
-- **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API interactions.
+- **Testing**: Implement tests to ensure the site is performing as expected within each component.
+- **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API calls.
 - **Data Formatting**: Standardize all data formatting to use camelCase. Some fields are still using snake_case.
 - **Logout Confirmation**: Add a confirmation page to confirm successful logout and improve the user experience.
 - **Booking Time Granularity**: Enhance the booking service by adding more detailed start time, end time, and date options to improve flexibility.
