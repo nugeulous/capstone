@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookingReducer from '../slices/bookingSlice'; 
 
+// configure store to use the reducer from createSlice
 const store = configureStore({
   reducer: {
-    booking: bookingReducer, // Use the reducer from createSlice
+    booking: bookingReducer, 
   },
 });
 

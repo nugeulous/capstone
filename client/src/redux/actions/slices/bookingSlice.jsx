@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAvailablePetsitters } from '../../../API/api';
 
-// Async thunk for fetching petsitters
+// async thunk for fetching petsitters
 export const fetchPetsitters = createAsyncThunk(
   'booking/fetchPetsitters',
   async (token) => {
@@ -11,15 +11,19 @@ export const fetchPetsitters = createAsyncThunk(
   }
 );
 
-// Create slice for booking
+// create slice for booking
 const bookingSlice = createSlice({
   name: 'booking',
   initialState: {
+    // state to store all fetched petsitters from API
     petsitters: [],
     loading: false,
     error: null,
-    selectedSitter: null, // New state for selected sitter
+    // state for selected sitter and booking details
+    selectedSitter: null,
+    bookingDetails:null, 
   },
+  // actions to dispatch for booking flow
   reducers: {
     setSitterDetails: (state, action) => {
       state.selectedSitter = action.payload;
@@ -28,6 +32,7 @@ const bookingSlice = createSlice({
       state.bookingDetails = action.payload;
     }
   },
+  // actions to indicate status - see redux toolkit
   extraReducers: (builder) => {
     builder
       .addCase(fetchPetsitters.pending, (state) => {

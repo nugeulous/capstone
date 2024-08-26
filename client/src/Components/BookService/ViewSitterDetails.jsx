@@ -6,15 +6,17 @@ import { Button } from "@mui/material";
 import "./Styling.css";
 
 export default function ViewSitterDetails() {
-    const navigate = useNavigate();
+  // store useNavigate to navigate to next page of flow  
+  const navigate = useNavigate();
 
-    // Access selected petsitter details from Redux state
+    // access selected petsitter details from Redux state
     const petsitter = useSelector((state) => state.booking.selectedSitter);
 
     if (!petsitter) {
         return <div>No sitter details available.</div>;
     }
 
+    // render petsitter details
     return (
         <div className="container">
             <div className="vertical-box">

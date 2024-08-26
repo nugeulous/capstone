@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPetsitters, setSitterDetails } from '../../redux/actions/slices/bookingSlice';
+import { fetchPetsitters, setSitterDetails, setBookingDetails } from '../../redux/actions/slices/bookingSlice';
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 import "./Styling.css";
 
 export default function BookService({ token }) {
-  // store useDispatch to dispatch actions (fetchPetsitters + setSitterDetails)
+  // store useDispatch to dispatch actions (fetchPetsitters, setBookingDetails, setSitterDetails)
   const dispatch = useDispatch();
 
   // store useNavigate to navigate to next page of booking flow
@@ -39,8 +39,7 @@ export default function BookService({ token }) {
     }
   }, [dispatch, token]);
 
-  console.log('petsitters', petsitters)
-
+  // upon submission, updated submitted state to true
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
@@ -80,7 +79,7 @@ return (
     {/* Check if form has been submitted */}
     {submitted && (
       <div className="sitters-container">
-        {/* Filter and check if there are available sitters */}
+        {/* Filter based on input criteria and check if there are any available sitters */}
         {petsitters.filter((petsitter) => 
           parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
           parseInt(petsitter.end_time) >= parseInt(endTimeInput)
@@ -109,13 +108,28 @@ return (
                         type="button"
                         variant="outlined"
                         onClick={() => {
-                            navigate(`/ReviewBookingDetails`);
+                          // Create object to store booking inputs
+                          const bookingInfo = {
+                            petsitter, 
+                            date: dateInput,
+                            startTime: startTimeInput,
+                            endTime: endTimeInput,
+                            animalType
+                          };
+                          // Dispatch action to set sitter details                       
+                          dispatch(setSitterDetails(petsitter));
+                          // Dispatch action to set booking details
+                          dispatch(setBookingDetails(bookingInfo));   
+                          // navigate to booking details page
+                          navigate(`/ReviewBookingDetails`);
                         }}>Book Now</Button>
                   <br></br>
                   <Button
                     variant="outlined"
                     onClick={() => {
-                      dispatch(setSitterDetails(petsitter)); // Dispatch action to set sitter details
+                      // Dispatch action to set sitter details
+                      dispatch(setSitterDetails(petsitter));
+                      // navigate to petsitter details page
                       navigate(`/petsitters/${petsitter.id}`);
                     }}
                   >

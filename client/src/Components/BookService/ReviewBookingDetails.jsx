@@ -1,19 +1,23 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { setSitterDetails, setBookingDetails } from '../../redux/actions/slices/bookingSlice';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
 import "./Styling.css"
 
-export default function ReviewBookingDetails({details, endTime, startTime, date}) {
-    const location = useLocation();
-    const sitterDetails = location.state.details;
-    const startTimeInput = location.state.startTime;
-    const endTimeInput = location.state.endTime;
-    const dateInput = location.state.date;
+export default function ReviewBookingDetails() {
+    // store useNavigate to navigate to next page of flow  
     const navigate = useNavigate();
 
+    // access selected booking details from Redux state
+    const bookingInfo = useSelector((state) => state.booking.bookingDetails);
+
+    // access selected petsitter details from Redux state
+    const petsitter = useSelector((state) => state.booking.selectedSitter);
+
+    // define styling - TODO: shift to html css file
     const boxStyle = {
         border: '10px solid black',
         borderRadius: '5px',
@@ -29,6 +33,7 @@ export default function ReviewBookingDetails({details, endTime, startTime, date}
         marginBottom: '20px',
     };
 
+    // render booking details
     return (
         <div className="home" style={{ textAlign: 'center' }}>
             <h1 style={{ fontSize: '2rem', fontWeight: "bold" }}>Confirm Your Booking</h1>
@@ -37,22 +42,22 @@ export default function ReviewBookingDetails({details, endTime, startTime, date}
                     <AccessTimeIcon fontSize="large"></AccessTimeIcon>
                     <b style={{ fontSize: '1.5rem', marginLeft: '10px' }}> Time</b>
                     <br></br>
-                    {startTimeInput} - {endTimeInput}
+                    {bookingInfo.startTime} - {bookingInfo.endTime}
                 </div>
                 <div style={sectionStyle}>
                     <CalendarMonthIcon fontSize="large"></CalendarMonthIcon>
                     <b style={{ fontSize: '1.5rem', marginLeft: '10px' }}>   Date</b>
                     <br></br>
-                    {dateInput}
+                    {bookingInfo.date}
                 </div>
                 <div style={sectionStyle}>
                     <SportsMartialArtsIcon fontSize="large"></SportsMartialArtsIcon>
                     <b style={{ fontSize: '1.5rem', marginLeft: '10px' }}>Walker</b>
                     <br />
-                    {sitterDetails.fname + " " + sitterDetails.lname}
+                    {petsitter.fname + " " + petsitter.lname}
                 </div>
                 <div style={sectionStyle}>
-                    <b style={{ fontSize: '1.5rem' }}>Est. Total: ${sitterDetails.hourlycost}</b>
+                    <b style={{ fontSize: '1.5rem' }}>Est. Total: ${petsitter.hourlycost}</b>
                 </div>
             </div>
             <Button sx={{marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold"}}
