@@ -50,97 +50,101 @@ export default function BookService({ token }) {
   if (error) return <div>Error: {error}</div>;
 
   // Render form
-return (
-  <div className="home">
-    <h1 className="book-walk-title">Book A Service!</h1>
-    <form className="sitters-filter" onSubmit={handleSubmit}>
-      <label>Day:
-        <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} />
-      </label>
-      <label>Start Time:
-        <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
-      </label>
-      <label>End Time:
-        <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)} />
-      </label>
-      <label>Pet:
-        <select onChange={(e) => setAnimalType(e.target.value)}>
-          <option value="Dog">Dog</option>
-          <option value="Cat">Cat</option>
-          <option value="Fish">Fish</option>
-          <option value="Bird">Bird</option>
-          <option value="Hamster">Hamster</option>
-          <option value="Reptile">Reptile</option>
-        </select>
-      </label>
-      <input type="submit" />
-    </form>
+  return (
+    <div className="home">
+      <h1 className="book-walk-title">Book A Service!</h1>
+      <form className="sitters-filter" onSubmit={handleSubmit}>
+        <label>Day:
+          <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} />
+        </label>
+        <label>Start Time:
+          <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
+        </label>
+        <label>End Time:
+          <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)} />
+        </label>
+        <label>Pet:
+          <select onChange={(e) => setAnimalType(e.target.value)}>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Fish">Fish</option>
+            <option value="Bird">Bird</option>
+            <option value="Hamster">Hamster</option>
+            <option value="Reptile">Reptile</option>
+          </select>
+        </label>
+        <input type="submit" />
+      </form>
 
-    {/* Check if form has been submitted */}
-    {submitted && (
-      <div className="sitters-container">
-        {/* Filter based on input criteria and check if there are any available sitters */}
-        {petsitters.filter((petsitter) => 
-          parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-          parseInt(petsitter.end_time) >= parseInt(endTimeInput)
-        ).length === 0 ? (
-          <div>No petsitters available at this time.</div>
-        ) : (
-          // Map through the filtered petsitters and render them
-          petsitters
-            .filter((petsitter) => 
-              parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-              parseInt(petsitter.end_time) >= parseInt(endTimeInput)
-            )
-            .map((petsitter, index) => (
-              <div className="sitter-card" key={index}>
-                <div className="sitter-image-container">
-                  <img className="sitter-image" src={petsitter.file} alt="" />
+      {/* Check if form has been submitted */}
+      {submitted && (
+        <div className="sitters-container">
+          {/* filter based on input criteria and check if there are any available sitters */}
+          {petsitters.filter((petsitter) =>
+            // filter by date to check if the data input falls within the available date range
+            new Date(dateInput) >= new Date(petsitter.start_date) &&
+            new Date(dateInput) <= new Date(petsitter.end_date) &&
+            // filter by time to check if the selected time falls within the available time range
+            parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
+            parseInt(petsitter.end_time) >= parseInt(endTimeInput)
+          ).length === 0 ? (
+            <div>No petsitters available at this time.</div>
+          ) : (
+            // map through the filtered petsitters and render them
+            petsitters
+              .filter((petsitter) =>
+                parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
+                parseInt(petsitter.end_time) >= parseInt(endTimeInput)
+              )
+              .map((petsitter, index) => (
+                <div className="sitter-card" key={index}>
+                  <div className="sitter-image-container">
+                    <img className="sitter-image" src={petsitter.file} alt="" />
+                  </div>
+                  <div>
+                    <p className="sitter-details">
+                      {petsitter.fname + ' ' + petsitter.lname}
+                    </p>
+                  </div>
+                  <div className="sitter-details">
+                    <Button
+                      id="myButton"
+                      type="button"
+                      variant="outlined"
+                      onClick={() => {
+                        // Create object to store booking inputs
+                        const bookingInfo = {
+                          petsitter,
+                          date: dateInput,
+                          startTime: startTimeInput,
+                          endTime: endTimeInput,
+                          animalType
+                        };
+                        // Dispatch action to set sitter details                       
+                        dispatch(setSitterDetails(petsitter));
+                        // Dispatch action to set booking details
+                        dispatch(setBookingDetails(bookingInfo));
+                        // navigate to booking details page
+                        navigate(`/ReviewBookingDetails`);
+                      }}>Book Now</Button>
+                    <br></br>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        // Dispatch action to set sitter details
+                        dispatch(setSitterDetails(petsitter));
+                        // navigate to petsitter details page
+                        navigate(`/petsitters/${petsitter.id}`);
+                      }}
+                    >
+                      See Sitter Details
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <p className="sitter-details">
-                    {petsitter.fname + ' ' + petsitter.lname}
-                  </p>
-                </div>
-                <div className="sitter-details">
-                <Button
-                        id="myButton"
-                        type="button"
-                        variant="outlined"
-                        onClick={() => {
-                          // Create object to store booking inputs
-                          const bookingInfo = {
-                            petsitter, 
-                            date: dateInput,
-                            startTime: startTimeInput,
-                            endTime: endTimeInput,
-                            animalType
-                          };
-                          // Dispatch action to set sitter details                       
-                          dispatch(setSitterDetails(petsitter));
-                          // Dispatch action to set booking details
-                          dispatch(setBookingDetails(bookingInfo));   
-                          // navigate to booking details page
-                          navigate(`/ReviewBookingDetails`);
-                        }}>Book Now</Button>
-                  <br></br>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      // Dispatch action to set sitter details
-                      dispatch(setSitterDetails(petsitter));
-                      // navigate to petsitter details page
-                      navigate(`/petsitters/${petsitter.id}`);
-                    }}
-                  >
-                    See Sitter Details
-                  </Button>
-                </div>
-              </div>
-            ))
-        )}
-      </div>
-    )}
-  </div>
-)
+              ))
+          )}
+        </div>
+      )}
+    </div>
+  )
 }

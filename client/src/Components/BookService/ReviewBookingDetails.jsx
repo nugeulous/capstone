@@ -26,7 +26,7 @@ export default function ReviewBookingDetails() {
         textAlign: 'center',
         maxWidth: '500px',
         margin: '0 auto',
-        boxShadow: '0 8px 12px 0', 
+        boxShadow: '0 8px 12px 0',
     };
 
     const sectionStyle = {
@@ -60,7 +60,7 @@ export default function ReviewBookingDetails() {
                     <b style={{ fontSize: '1.5rem' }}>Est. Total: ${petsitter.hourlycost}</b>
                 </div>
             </div>
-            <Button sx={{marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold"}}
+            <Button sx={{ marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold" }}
                 variant="outlined"
                 onClick={() => {
                     navigate(`/PaymentInfo`);
@@ -68,7 +68,7 @@ export default function ReviewBookingDetails() {
             >
                 PAY
             </Button>
-            <Button sx={{marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold", marginLeft: 2}}
+            <Button sx={{ marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold", marginLeft: 2 }}
                 variant="outlined"
                 onClick={() => {
                     navigate(`/BookService`);
