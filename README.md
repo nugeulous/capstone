@@ -508,7 +508,8 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 **Deployment Instructions:** See [Installation](#installation) > POSTGRESQL > HEROKU
 
 <br>
-<br>  
+<br>
+
 # Known Issues and Future Enhancements
 
 - **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API interactions.
@@ -519,7 +520,8 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 - **Redux Implementation**: Expand the use of Redux throughout the entire application; currently, it is only implemented in the booking flow.
 
 <br>
-<br>  
+<br>
+
 # Credits
 
 The project was a collaborative effort across five web development engineers as a part of their coding bootcamp final Capstone project.
