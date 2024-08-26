@@ -40,13 +40,18 @@ const Login = ({ setToken, setRole, setUser }) => {
     setPassword("");
     try {
       const result = await login(email, password);
+      if (!result.role || !result.token || !result.owner){
+        console.error("Result role/token/owner is undefined. Result: ", result);
+        return;
+      }
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
       localStorage.setItem("user", JSON.stringify(result.owner));
       navigate("/account");
     } catch (error) {
-      setError("incorrect email or password");
+      console.error('error: ', error);
+      // setError("incorrect email or password");
     }
   }
 
@@ -151,3 +156,5 @@ const Login = ({ setToken, setRole, setUser }) => {
   );
 };
 export default Login;
+
+// update user -> specific naming
