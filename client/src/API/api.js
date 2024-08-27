@@ -1,5 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
+// register new user
 export const register = async (fname, lname, email, address, phone, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/register`, {
@@ -24,6 +25,7 @@ export const register = async (fname, lname, email, address, phone, password) =>
   }
 };
 
+// user login
 export const login = async (email, password) => {
   try {
     const response = await fetch(`${API_URL}/owners/login`, {
@@ -56,7 +58,6 @@ export const fetchOwner = async (token) => {
     });
 
     // if response not OK (not logged in or no account), throw error
-    console.log('response ok?', response, response.ok)
     if (!response.ok) throw new Error("Please log in or create an account!");
 
     // otherwise, set value of owner = response
@@ -69,6 +70,7 @@ export const fetchOwner = async (token) => {
   }
 };
 
+// add new pet
 export const addPet = async (petData) => {
   try {
     const formData = new FormData();
