@@ -39,9 +39,12 @@ import store from "./redux/actions/store/store";
 
 
 function App() {
+  // check local storage for token
   const [token, setToken] = useState(
     window.localStorage.getItem("token") ?? null
   );
+  
+  // check local storage for user
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(() => {
     if (localStorage.getItem("user")) {
@@ -50,6 +53,8 @@ function App() {
     }
     return null;
   });
+
+  // check local storage for role
   const [role, setRole] = useState(
     window.localStorage.getItem("role") ?? null
   );
@@ -61,6 +66,7 @@ function App() {
       window.localStorage.removeItem("role");
     }
 
+    // store  or petsitter owner token in user
     const handleUser = async () => {
       let user;
       if (role === 'owner'){
@@ -71,6 +77,7 @@ function App() {
       setUser(user);
     }
 
+    // if token exists, store it in user
     if (token) {
       window.localStorage.setItem("token", token);
       if (!user) {

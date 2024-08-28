@@ -1,4 +1,3 @@
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAvailablePetsitters } from '../../../API/api';
 
@@ -24,6 +23,7 @@ const bookingSlice = createSlice({
     bookingDetails:null, 
   },
   // actions to dispatch for booking flow
+  // update current state with booking details
   reducers: {
     setSitterDetails: (state, action) => {
       state.selectedSitter = action.payload;
@@ -32,7 +32,8 @@ const bookingSlice = createSlice({
       state.bookingDetails = action.payload;
     }
   },
-  // actions to indicate status - see redux toolkit
+  // extra reducers to indicate status of actions during AsyncThunk call
+  // allows for greater feedback to user - loading / error message
   extraReducers: (builder) => {
     builder
       .addCase(fetchPetsitters.pending, (state) => {

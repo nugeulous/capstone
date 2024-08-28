@@ -93,8 +93,11 @@ export default function BookService({ token }) {
             // map through the filtered petsitters and render them
             petsitters
               .filter((petsitter) =>
-                parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-                parseInt(petsitter.end_time) >= parseInt(endTimeInput)
+              new Date(dateInput) >= new Date(petsitter.start_date) &&
+              new Date(dateInput) <= new Date(petsitter.end_date) &&
+                
+              parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
+              parseInt(petsitter.end_time) >= parseInt(endTimeInput)
               )
               .map((petsitter, index) => (
                 <div className="sitter-card" key={index}>

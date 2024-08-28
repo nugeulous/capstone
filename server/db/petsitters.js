@@ -1,17 +1,17 @@
 const { client } = require("./client.js");
 
-async function createPetsitter({ email, password, fname, lname, address, phone, file, gender, dogs, cats, aboutMe, tagLine, hourlyCost, role}) {
+async function createPetsitter({ email, password, fname, lname, address, phone, file, gender, aboutMe, tagLine, hourlyCost, role, petTypes}) {
     try {
       const {
         rows: [petsitter],
       } = await client.query(
         `
-        INSERT INTO petsitters(email, password, fname, lname, address, phone, file, gender, dogs, cats, aboutMe, tagLine, hourlyCost, role) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) 
+        INSERT INTO petsitters(email, password, fname, lname, address, phone, file, gender, aboutMe, tagLine, hourlyCost, role, petTypes) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
         ON CONFLICT (email) DO NOTHING 
         RETURNING *;
       `,
-        [email, password, fname, lname, address, phone, file, gender, dogs, cats, aboutMe, tagLine, hourlyCost, "petsitter"]
+        [email, password, fname, lname, address, phone, file, gender, aboutMe, tagLine, hourlyCost, role, petTypes]
       );
         
       // petsitter array [email: , pw: ]
@@ -51,7 +51,7 @@ async function createPetsitter({ email, password, fname, lname, address, phone, 
     
     try {
       const { rows: [ petsitter ] } = await client.query(`
-        SELECT id, email, fname, lname, address, phone, file, active, dogs, cats, aboutMe, tagLine, hourlyCost, role
+        SELECT id, email, fname, lname, address, phone, file, active, aboutMe, tagLine, hourlyCost, role, petTypes
         FROM petsitters
         WHERE id=$1
       `, [id]);

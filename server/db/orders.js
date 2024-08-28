@@ -1,5 +1,6 @@
 const { client } = require("./client.js");
 
+// create petsitter booking
 async function createOrder({   
     service_type,
     start_date,
@@ -45,8 +46,7 @@ async function createOrder({
     }
   }
 
-//   GET All Orders
-
+//   get all bookings
 async function getAllOrders() {
     try {
       const { rows: orders } = await client.query(`
@@ -60,8 +60,7 @@ async function getAllOrders() {
     }
   }
 
-//   GET All Orders by Owner id / email
-
+//   get booking of 1 owner by id
 async function getOrdersByOwnerId(id) {
     try {
       const { rows:  order  } = await client.query(`

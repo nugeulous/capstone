@@ -28,7 +28,7 @@ petsittersRouter.get('/', async (req, res, next) => {
 
   petsittersRouter.post("/register", async (req, res, next) => {
     try {
-      const { email, password, fname, lname, address, phone, file, gender, dogs, cats, aboutMe, tagLine, hourlyCost } =
+      const { email, password, fname, lname, address, phone, file, gender, aboutMe, tagLine, hourlyCost, petTypes } =
         req.body;
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   
@@ -41,11 +41,10 @@ petsittersRouter.get('/', async (req, res, next) => {
         phone,
         file,
         gender,
-        dogs,
-        cats,
         aboutMe,
         tagLine,
-        hourlyCost
+        hourlyCost,
+        petTypes
       });
       const token = jwt.sign({ id: petsitter.id, email, role: petsitter.role, petsitter }, JWT_SECRET, {
         expiresIn: "8h",

@@ -13,7 +13,9 @@ availabilityRouter.use((req, res, next) => {
   next();
 });
 
-// GET all availability assoc with petsitter ids
+// Requests from client:
+
+// GET request for all availability assoc with petsitter ids
 availabilityRouter.get('/', async (req, res, next) => {
   try {
       const availabilities = await getAllAvailability();
@@ -25,7 +27,7 @@ availabilityRouter.get('/', async (req, res, next) => {
     } 
   });
 
-// GET availability and petsitter info through table join - availability router = /availability; now adding on /petsitters
+// GET request for availability and petsitter info through table join 
 availabilityRouter.get('/petsitters', async (req, res, next) => {
   try {
     const sitter_availabilities = await getAvailablePetsitters();
@@ -35,7 +37,7 @@ availabilityRouter.get('/petsitters', async (req, res, next) => {
   } 
 });
 
-// Create availability
+// Create availability POST
 availabilityRouter.post("/addavailability", async (req, res, next) => {
   try {
   const { petsitter_id, start_date, end_date, start_time, end_time } = req.body;
@@ -48,7 +50,7 @@ availabilityRouter.post("/addavailability", async (req, res, next) => {
   }
   })
 
-    // Get availability by petsitter ID
+    // GET availability by petsitter ID
   availabilityRouter.get('/:userId', async (req, res, next) => {
   try {
     const user = req.params.userId;
