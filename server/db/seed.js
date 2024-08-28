@@ -90,12 +90,11 @@ async function dropTables() {
           phone varchar(255) UNIQUE NOT NULL,
           file varchar(255),
           gender varchar(255),
-          dogs boolean DEFAULT false,
-          cats boolean DEFAULT false,
           aboutMe varchar(2000) NULL,
           tagLine varchar(2000) NULL,
           hourlyCost INTEGER NULL,
-          role varchar(255)
+          role varchar(255),
+          petTypes TEXT []
         );
 
         CREATE TABLE availability (
@@ -290,12 +289,11 @@ async function dropTables() {
         phone: "916-432-7811",
         file: "https://happybreath.com/wp-content/uploads/2021/04/Dog-Owner-Happy-Breath.jpg",
         gender: "non-binary",
-        dogs: true,
-        cats: true,
         aboutMe: "American actor, producer, and director. In a career spanning over four decades, Washington has received numerous accolades, including a Tony Award, two Academy Awards, three Golden Globe Awards and two Silver Bears.[1] He was honored with the Cecil B. DeMille Lifetime Achievement Award in 2016, the AFI Life Achievement Award in 2019, and in 2020 The New York Times named him the greatest actor of the 21st century.[2] In 2022, Washington received the Presidential Medal of Freedom.",
         tagLine: "Dogs are life",
         hourlyCost: 15,
-        role: null
+        role: null,
+        petTypes: ['dog', 'cat', 'fish', 'bird', 'hamster', 'reptile']
       });
 
       await createPetsitter({
@@ -307,12 +305,11 @@ async function dropTables() {
         phone: "222-333-7811",
         file: "https://www.thesprucepets.com/thmb/5venJp0fAeig2H01ETs8Vv7thZ4=/2546x0/filters:no_upscale():strip_icc()/dog-hi-five-FrankGaglione-getty-56a26a085f9b58b7d0c9f62e.jpg",
         gender: "girlllll",
-        dogs: true,
-        cats: false,
         aboutMe: "American singer-songwriter. A subject of widespread public interest, she has influenced the music industry and popular culture through her artistry, songwriting and entrepreneurship. She is an advocate of artists' rights and women's empowerment.",
         tagLine: "proud cat lady",
         hourlyCost: 22,
-        role: null
+        role: null,
+        petTypes: ['dog', 'cat', 'fish', 'bird', 'hamster', 'reptile']
       });
 
       await createPetsitter({
@@ -324,12 +321,11 @@ async function dropTables() {
         phone: "932-432-7811",
         file: "https://qph.cf2.quoracdn.net/main-qimg-9ec5c866cfe6d1efa0108ceade35585c",
         gender: "male",
-        dogs: false,
-        cats: true,
         aboutMe: "César Felipe Millán Favela is a Mexican-American dog psychologist. He is widely known for his Emmy-nominated television series Dog Whisperer with Cesar Millan, which was produced from 2004 to 2012 and is broadcast in more than 80 countries worldwide.",
         tagLine: "Two words: Dog. Whisperer.",
         hourlyCost: 25,
-        role: null
+        role: null,
+        petTypes: ['dog', 'cat', 'fish', 'bird', 'hamster', 'reptile']
       });
 
       await createPetsitter({
@@ -341,12 +337,11 @@ async function dropTables() {
         phone: "275-333-7811",
         file: "https://i0.wp.com/brownsburganimalclinic.com/wp-content/uploads/2023/06/catownerFI.jpg?fit=1024%2C568&ssl=1",
         gender: "female",
-        dogs: true,
-        cats: true,
         aboutMe: "Victoria Stilwell (born 20 July 1969) is an English author, dog trainer and television presenter. Stilwell has appeared as a pet behavior expert and served as a producer on several international TV series including Dogs Might Fly (Sky TV), Dogs With Extraordinary Jobs (Smithsonian Channel), and Greatest American Dog (CBS), and is best known as the star and creator of the dog training TV show It's Me or the Dog.",
         tagLine: "It's me or the dog",
         hourlyCost: 20,
-        role: null
+        role: null,
+        petTypes: ['dog', 'cat', 'fish', 'bird', 'hamster', 'reptile']
       });
 
       await createPetsitter({
@@ -358,12 +353,11 @@ async function dropTables() {
         phone: "233-443-7831",
         file: "https://i.guim.co.uk/img/media/e4ae055cd7e0b946e216e2a43a97fcf085c364e6/463_41_2032_1219/master/2032.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6a19aa0e164cc51f2a2770b8bff5776d",
         gender: "female",
-        dogs: false,
-        cats: true,
         aboutMe:"I'm Dasha, the leader of The Savitsky Cats. We are the family of super trained cats and humans. Originally, we all are from the Ukraine, and now we are in United States!",
         tagLine:"Happy to be here",
         hourlyCost: 30,
-        role: null
+        role: null,
+        petTypes: ['dog', 'cat', 'fish', 'bird', 'hamster', 'reptile']
       });
 
       console.log("Finished creating petsitters!");

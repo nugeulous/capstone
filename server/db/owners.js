@@ -27,7 +27,7 @@ async function updateOwner(ownerId, { email, password, fname, lname, address, ph
         RETURNING *;
       `, Object.values(fields));
   
-      return owner;
+      return updatedOwner;
     } catch (error) {
       throw error;
     }
@@ -46,6 +46,7 @@ async function getAllOwners() {
     }
   }
 
+  // TODO: duplicate function - confirm where this is used and remove
 async function getOwner(email) {
     try {
     const { rows: [owner] } = await client.query(`

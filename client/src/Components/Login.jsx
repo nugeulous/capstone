@@ -30,20 +30,26 @@ function Copyright(props) {
   );
 }
 const Login = ({ setToken, setRole, setUser }) => {
+
+  // update state with email, pw, error
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  // store navigate hook to move to new page
   const navigate = useNavigate(); 
   async function handleSubmit(event) {
     event.preventDefault();
     setEmail("");
     setPassword("");
     try {
+      // api call to determine if role, token, owner exist
       const result = await login(email, password);
       if (!result.role || !result.token || !result.owner){
         console.error("Result role/token/owner is undefined. Result: ", result);
         return;
       }
+      // if yes, update state
       setRole(result.role);
       setToken(result.token);
       setUser(result.owner);
@@ -56,7 +62,7 @@ const Login = ({ setToken, setRole, setUser }) => {
   }
 
   // a demo login for video creation / showing off to employers / easier testing purposes. 
-  // It may be a good ide to make this availiable in the navbar in case one gets logged out unexpectedly in the middle of a flow. 
+  // It may be a good idea to make this availiable in the navbar in case one gets logged out unexpectedly in the middle of a flow. 
   // the "p" is here because the computer didnt like that "event was already being used in the other function"
   async function demoLogin(p) {
     p.preventDefault();

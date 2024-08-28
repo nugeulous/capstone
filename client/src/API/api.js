@@ -217,7 +217,6 @@ export const fetchAvailablePetsitters = async (token) => {
         "Content-Type": "application/json"
       },
     });
-    console.log('CONVERTED TO JSON--->', response);
     if (!response.ok) throw new Error("Please log in or create an account!");
     const petsitters = await response.json();
     return petsitters;
