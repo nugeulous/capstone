@@ -44,6 +44,19 @@ export default function BookService({ token }) {
     event.preventDefault();
     setSubmitted(true);
   };
+  
+  // convert 12 hr to 24 hr
+  const convert12to24hr = (time12h) => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    if (hours === '12') {
+      hours = '00';
+    }
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+    return `${hours}:${minutes}`;
+  }
 
   // inform user of loading status or error if occurs 
   if (loading) return <div>Loading petsitters...</div>;
@@ -58,10 +71,11 @@ export default function BookService({ token }) {
           <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} />
         </label>
         <label>Start Time:
-          <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(e.target.value)} />
+          <input type="time" step={3600} value={startTimeInput} onChange={(e) => setStartTimeInput(convert12to24hr(e.target.value))
+          } />
         </label>
         <label>End Time:
-          <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(e.target.value)} />
+          <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(convert12to24hr(e.target.value))} />
         </label>
         <label>Pet:
           <select onChange={(e) => setAnimalType(e.target.value)}>
