@@ -34,6 +34,9 @@ export default function BookService({ token }) {
       dispatch(fetchPetsitters(token))
         .then((action) => {
           console.log('Fetched petsitters:', action.payload);
+          console.log(petsitters[0].end_date, 'start date AVAIL')
+          console.log(dateInput, 'date INPUT')
+          console.log(startTimeInput === petsitters[0].start_time)
         })
         .catch(err => console.error('Error in fetching petsitters:', err));
     }
