@@ -5,8 +5,8 @@ export default function OrderConfirmed() {
     return (
         <div className="home">
 <h1>Order Successful!</h1>
-<h2>A review of your order will appear here.. some day</h2>
-<h2>You can see your order history on your Home and Account page</h2>
+<h2>Thanks for booking with AllTails. 🐈</h2>
+<h2></h2>
 <Button
         variant="outlined"
         onClick={() => {

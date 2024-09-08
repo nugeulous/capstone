@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -33,14 +34,12 @@ export default function BookService({ token }) {
     if (token) {
       dispatch(fetchPetsitters(token))
         .then((action) => {
-          console.log('Fetched petsitters:', action.payload);
-          console.log(petsitters[0].end_date, 'start date AVAIL')
-          console.log(dateInput, 'date INPUT')
-          console.log(startTimeInput === petsitters[0].start_time)
         })
         .catch(err => console.error('Error in fetching petsitters:', err));
     }
   }, [dispatch, token]);
+
+  console.log('petsitters: ', petsitters)
 
   // upon submission, updated submitted state to true
   const handleSubmit = (event) => {
@@ -82,12 +81,13 @@ export default function BookService({ token }) {
         </label>
         <label>Pet:
           <select onChange={(e) => setAnimalType(e.target.value)}>
-            <option value="Dog">Dog</option>
-            <option value="Cat">Cat</option>
-            <option value="Fish">Fish</option>
-            <option value="Bird">Bird</option>
-            <option value="Hamster">Hamster</option>
-            <option value="Reptile">Reptile</option>
+          <option value="Input pet type">Input pet type.</option>
+            <option value="dog">dog</option>
+            <option value="cat">cat</option>
+            <option value="fish">fish</option>
+            <option value="bird">bird</option>
+            <option value="hamster">hamster</option>
+            <option value="reptile">reptile</option>
           </select>
         </label>
         <input type="submit" />
@@ -103,7 +103,10 @@ export default function BookService({ token }) {
             new Date(dateInput) <= new Date(petsitter.end_date) &&
             // filter by time to check if the selected time falls within the available time range
             parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-            parseInt(petsitter.end_time) >= parseInt(endTimeInput)
+            parseInt(petsitter.end_time) >= parseInt(endTimeInput) 
+            // filter by animal type
+            && petsitter.pettypes.includes(animalType)
+            // petsitter.pettypes.includes(animalType)
           ).length === 0 ? (
             <div>No petsitters available at this time.</div>
           ) : (

@@ -30,4 +30,17 @@ ordersRouter.get('/:id', async (req, res, next) => {
     }
   });
 
+  // book a service
+ordersRouter.post('/bookService', async (req, res, next) => {
+  try {
+    const { service_type, start_date, end_date, start_time, end_time, pet_type, petsitter_fname, price, paid } = req.body;
+
+    const order = await createOrder({ service_type, start_date, end_date, start_time, end_time, pet_type, petsitter_fname, price, paid });
+
+    res.send({ order });
+  } catch (error) {
+    next(error);
+  }
+})
+
 module.exports = ordersRouter;

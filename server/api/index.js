@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
 const { getOwnerById } = require('../db/owners');
-const { getPetsitterById} = require('../db/petsitters');
+const { getPetsitterById } = require('../db/petsitters');
 
 // set `req.user` if possible
 apiRouter.use(async (req, res, next) => {

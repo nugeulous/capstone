@@ -12,6 +12,10 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { setSitterDetails, setBookingDetails } from '../../redux/actions/slices/bookingSlice';
+import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
 function CreditCardForm() {
   const navigate = useNavigate();
@@ -20,8 +24,9 @@ function CreditCardForm() {
   const [creditCVC, setCreditCVC] = useState("");
   const [creditName, setCreditName] = useState("");
   const [creditValidationError, setCreditValidationError] = useState("");
+  const [error, setError] = useState("");
+  const bookingInfo = useSelector((state) => state.booking.bookingDetails);
 
-// Individual Validation Functions to Follow
 
   const checkCreditCard = () => {
     const results = creditCardNumber.match('^[0-9]{16}$');
@@ -89,12 +94,39 @@ function CreditCardForm() {
 
   // A function that clears inputs and either gives an error or lets you continue
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    
     setCreditCardNumber("");
     setCreditExpiration("");
     setCreditCVC("");
     setCreditName("");
+
+    try {          
+          const orderData = {
+          service_type: bookingInfo.petsitter.service_type,
+          start_date: bookingInfo.petsitter.start_date,
+          end_date: bookingInfo.petsitter.end_date,
+          start_time: bookingInfo.petsitter.start_time,
+          end_time: bookingInfo.petsitter.end_time,
+          pet_type: null, 
+          petsitter_fname: bookingInfo.petsitter.fname,
+          price: bookingInfo.petsitter.hourlycost,               
+          paid: true,                 
+          order_owner_id: null
+        }
+        const response = await axios.post(`${API_URL}/orders/bookService`, orderData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }); 
+        console.log(response.data);
+
+        navigate("/OrderConfirmed");
+      } catch (error) {
+        setError(error.message);
+        console.log(error);
+      }
 
     if (!validateForm()) {
       return;
@@ -161,4 +193,4 @@ function CreditCardForm() {
   );
 }
 
-export default CreditCardForm
+export default CreditCardForm;
