@@ -28,7 +28,7 @@ const NewEvent = ({ user }) => {
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
-    if (newTitle.length = 26) {
+    if (newTitle.length === 26) {
       setMessage("Your title is too long (maximum 26 characters)");
     } else {
       setMessage(null);
