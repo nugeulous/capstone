@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +8,7 @@ import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 import "./Styling.css";
 
 export default function BookService({ token }) {
-  // store useDispatch to dispatch actions (fetchPetsitters, setBookingDetails, setSitterDetails)
+  // store useDispatch to dispatch redux actions (fetchPetsitters, setBookingDetails, setSitterDetails)
   const dispatch = useDispatch();
 
   // store useNavigate to navigate to next page of booking flow
@@ -16,7 +17,7 @@ export default function BookService({ token }) {
   // use useSelector to extract petsitter data from Redux store state
   const { petsitters = [], loading, error } = useSelector((state) => state.booking);
 
-  // use useState to capture form inputs
+  // use useState to capture booking form inputs
   const [startTimeInput, setStartTimeInput] = useState("10:00");
   const [endTimeInput, setEndTimeInput] = useState("11:00");
   const [dateInput, setDateInput] = useState("2024-10-10");
@@ -28,24 +29,37 @@ export default function BookService({ token }) {
     return <NoAccess />;
   }
 
-  // when site loads, use token and dispatch to run fetchPetsitters action
-  useEffect(() => {
-    if (token) {
-      dispatch(fetchPetsitters(token))
-        .then((action) => {
-          console.log('Fetched petsitters:', action.payload);
-        })
-        .catch(err => console.error('Error in fetching petsitters:', err));
-    }
-  }, [dispatch, token]);
+  // inform user of loading status or error if occurs 
+  if (loading) return <div>Loading petsitters...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  // upon submission, updated submitted state to true
+  // DELETE when site loads, use token and dispatch to run fetchPetsitters action
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(fetchPetsitters(token))
+  //       .then((action) => {
+  //       })
+  //       .catch(err => console.error('Error in fetching petsitters:', err));
+  //   }
+  // }, [dispatch, token]);
+
+  // console.log('petsitters: ', petsitters)
+
+  // when user submits booking details, update submitted state to true
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
+
+  // dispatch fetchPetsitters to fetch ALL petsitters; filter all of this list
+    if (token) {
+      dispatch(fetchPetsitters(token))
+        .then((action) => {
+        })
+        .catch(err => console.error('Error in fetching petsitters:', err));
+    }
   };
   
-  // convert 12 hr to 24 hr
+  // convert 12 hr time (from booking form) to 24 hr
   const convert12to24hr = (time12h) => {
     const [time, modifier] = time12h.split(' ');
     let [hours, minutes] = time.split(':');
@@ -58,11 +72,7 @@ export default function BookService({ token }) {
     return `${hours}:${minutes}`;
   }
 
-  // inform user of loading status or error if occurs 
-  if (loading) return <div>Loading petsitters...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  // Render form
+  // Render booking form
   return (
     <div className="home">
       <h1 className="book-walk-title">Book A Service!</h1>
@@ -78,30 +88,33 @@ export default function BookService({ token }) {
           <input type="time" step={3600} value={endTimeInput} onChange={(e) => setEndTimeInput(convert12to24hr(e.target.value))} />
         </label>
         <label>Pet:
-          <select onChange={(e) => setAnimalType(e.target.value)}>
-            <option value="Dog">Dog</option>
-            <option value="Cat">Cat</option>
-            <option value="Fish">Fish</option>
-            <option value="Bird">Bird</option>
-            <option value="Hamster">Hamster</option>
-            <option value="Reptile">Reptile</option>
+          <select value={animalType} onChange={(e) => setAnimalType(e.target.value)}>
+          <option value="Input pet type">Input pet type.</option>
+            <option value="dog">dog</option>
+            <option value="cat">cat</option>
+            <option value="fish">fish</option>
+            <option value="bird">bird</option>
+            <option value="hamster">hamster</option>
+            <option value="reptile">reptile</option>
           </select>
         </label>
         <input type="submit" />
       </form>
 
-      {/* Check if form has been submitted */}
+      {/* Check if form has been submitted, then filter petsitters list to show subset of available sitters */}
       {submitted && (
         <div className="sitters-container">
-          {/* filter based on input criteria and check if there are any available sitters */}
           {petsitters.filter((petsitter) =>
             // filter by date to check if the data input falls within the available date range
             new Date(dateInput) >= new Date(petsitter.start_date) &&
             new Date(dateInput) <= new Date(petsitter.end_date) &&
             // filter by time to check if the selected time falls within the available time range
             parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-            parseInt(petsitter.end_time) >= parseInt(endTimeInput)
-          ).length === 0 ? (
+            parseInt(petsitter.end_time) >= parseInt(endTimeInput) 
+            // filter by animal type to find sitters available to work with specified animal type
+            && petsitter.pettypes.includes(animalType)
+
+            ).length === 0 ? (
             <div>No petsitters available at this time.</div>
           ) : (
             // map through the filtered petsitters and render them
@@ -111,7 +124,9 @@ export default function BookService({ token }) {
               new Date(dateInput) <= new Date(petsitter.end_date) &&
                 
               parseInt(petsitter.start_time) <= parseInt(startTimeInput) &&
-              parseInt(petsitter.end_time) >= parseInt(endTimeInput)
+              parseInt(petsitter.end_time) >= parseInt(endTimeInput) 
+              
+              && petsitter.pettypes.includes(animalType)
               )
               .map((petsitter, index) => (
                 <div className="sitter-card" key={index}>
@@ -135,7 +150,7 @@ export default function BookService({ token }) {
                           date: dateInput,
                           startTime: startTimeInput,
                           endTime: endTimeInput,
-                          animalType
+                          animal: animalType
                         };
                         // Dispatch action to set sitter details                       
                         dispatch(setSitterDetails(petsitter));

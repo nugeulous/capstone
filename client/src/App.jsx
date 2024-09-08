@@ -24,8 +24,8 @@ import PetsitterLogin from "./Components/PetsitterLogin";
 import PetsitterAccount from "./Components/PetsitterAccount";
 import ReviewBookingDetails from "./Components/BookService/ReviewBookingDetails";
 import AddAvailability from "./Components/SitterAvailability/AddAvailability";
-import PaymentInfo from "./Components/PaymentInfo";
-import OrderConfirmed from "./Components/OrderConfirmed";
+import PaymentInfo from "./Components/BookService/PaymentInfo";
+import OrderConfirmed from "./Components/BookService/OrderConfirmed";
 import OrderHistory from "./Components/OrderHistory";
 import { fetchOwner, fetchPetsitter } from "./API/api";
 import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
@@ -170,7 +170,14 @@ function App() {
           } 
         />
 
-        <Route path="/PaymentInfo" element={<PaymentInfo token={token} />} />
+        <Route 
+          path="/PaymentInfo" 
+          element={
+            <Provider store={store}>
+              <PaymentInfo token={token} />
+            </Provider>
+          } 
+        />
         <Route path="/OrderConfirmed" element={<OrderConfirmed token={token} />} />
         <Route path="/OrderHistory" element={<OrderHistory token={token} setToken={setToken} user={user} setUser={setUser} />} />
         <Route path="/AddAvailability" element={<AddAvailability token={token} setToken={setToken} user={user} setUser={setUser} />} />

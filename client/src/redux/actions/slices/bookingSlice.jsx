@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAvailablePetsitters } from '../../../API/api';
 
-// async thunk for fetching petsitters
+// fetch data from api async
+// action type => booking (slice name), fetchPetsitters(action)
 export const fetchPetsitters = createAsyncThunk(
   'booking/fetchPetsitters',
   async (token) => {
     const response = await fetchAvailablePetsitters(token);
+    console.log('RESPONSE: ', response[0].pettypes)
     return response;
   }
 );

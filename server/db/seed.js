@@ -408,7 +408,7 @@ async function dropTables() {
         start_date: '01-10-24',
         end_date: '12-12-24',
         start_time: '14:00:00',
-        end_time: 'e',
+        end_time: '23:00:00',
       });
 
       console.log("Finished creating availability!");
