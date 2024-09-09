@@ -535,7 +535,8 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
       - Applies filter successfully to render the appropriate subset of petsitters
       - Error handling when no petsitters available or API call fails
 - **Known Issues:**
-  - Storing user information in local storage - in some areas, user information is stored as an object but it needs to be converted to a string to be stored. When retrieving the user info, it needs to be parsed back into an object. 
+  - Storing user information in local storage - in some areas, user information is stored as an object but it needs to be converted to a string to be stored. When retrieving the user info, it needs to be parsed back into an object.
+  - Image uploading on events page needs to be fixed. 
 
 <br>
 <br>
