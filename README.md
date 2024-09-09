@@ -517,11 +517,25 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 - **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API calls.
 - **Data Formatting**: Standardize all data formatting to use camelCase. Some fields are still using snake_case.
 - **Logout Confirmation**: Add a confirmation page to confirm successful logout and improve the user experience.
-- **Booking form efficiencies**:
-  - Update timing to use epoch time on both the client and server side so that no format conversion is required.
-  - Query the database based on specific dates and times vs. fetching all petsitters, storing that information in memory, and add then rendering available petsitters. 
 - **HTML Optimization**: Refactor HTML to replace IDs with classes for improved scalability and maintainability.
 - **Redux Implementation**: Expand the use of Redux throughout the entire application; currently, it is only implemented in the booking flow.
+- **Booking Form**:
+  - **Efficiency -** Update timing to use epoch time on both the client and server side so that no format conversion is required.
+  - **Efficiency -** Query the database based on specific dates and times vs. fetching all petsitters, storing that information in memory, and add then rendering available petsitters.
+  - **UX**
+    - Filter by service type
+    - Implement more boundaries around inputs for booking (i.e., time limit).
+  - **TESTING**
+    - **Unit**
+      - Test that user cannot input invalid dates or times (i.e., training sessions >= 5 hours, grooming >= 2 hours)
+      - Date/time/etc filters update petsitter list appropriately
+      - State updates successfully when user fills out booking form
+    - **UI**
+      - Render date / time / animal type input fields
+      - Applies filter successfully to render the appropriate subset of petsitters
+      - Error handling when no petsitters available or API call fails
+- **Known Issues:**
+  - Storing user information in local storage - in some areas, user information is stored as an object but it needs to be converted to a string to be stored. When retrieving the user info, it needs to be parsed back into an object. 
 
 <br>
 <br>
