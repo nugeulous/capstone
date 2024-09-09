@@ -10,7 +10,7 @@ import AboutUs from "./Components/AboutUs";
 import Playground from "./Components/PlaygroundPages/Playground";
 import Trainers from "./Components/Trainers";
 import Groomers from "./Components/Groomers";
-import BookService from "./Components/BookService/BookService";
+import BookingForm from "./Components/BookService/BookingForm"
 import Sitters from "./Components/Sitters";
 import Services from "./Components/DefaultLayout/Services";
 import Favorites from "./Components/Favorites";
@@ -32,7 +32,6 @@ import ViewSitterDetails from "./Components/BookService/ViewSitterDetails";
 import CssBaseline from "@mui/material/CssBaseline";
 import SelectAnimalType from "./Components/PetInfo/SelectAnimalType";
 import LikedEvents from "./Components/HomePage/LikedEvents";
-
 import { Provider } from 'react-redux';
 import store from "./redux/actions/store/store";
 
@@ -75,6 +74,7 @@ function App() {
         user = await fetchPetsitter(token);        
       }
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
     }
 
     // if token exists, store it in user
@@ -162,10 +162,10 @@ function App() {
           } 
         />
         <Route 
-          path="/BookService" 
+          path="/BookingForm" 
           element={
             <Provider store={store}>
-              <BookService token={token} />
+              <BookingForm token={token} />
             </Provider>
           } 
         />

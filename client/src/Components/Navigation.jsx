@@ -36,6 +36,7 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  
   return (
     <AppBar
       position="static"
@@ -105,14 +106,16 @@ function NavBar({ token, setToken, setRole, setUser, role }) {
           </Box>
           <Box sx={{ flexGrow: 0, color: "white", display: "flex" }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={() => {
-                navigate(`/account`);
-              }} sx={{ p: 1, color: "white" }} >
-                My Account
-              </IconButton>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}>
-                <Avatar />
-              </IconButton>
+              <div>
+                <IconButton onClick={() => {
+                  navigate(`/account`);
+                }} sx={{ p: 1, color: "white" }} >
+                  My Account
+                </IconButton>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: "white" }}>
+                  <Avatar />
+                </IconButton>
+              </div>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

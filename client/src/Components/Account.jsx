@@ -41,7 +41,7 @@ export default function Account({ user, token }) {
       <div className="account">
         <h1>Account</h1>
         <div className="owner-info">
-          <h2>Owner</h2>
+          <h2>Personal Information</h2>
           <p>First Name: {user.fname}</p>
           <p>Last Name: {user.lname}</p>
           <p>Email: {user.email}</p>

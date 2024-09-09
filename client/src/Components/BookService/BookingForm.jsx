@@ -7,7 +7,7 @@ import { fetchPetsitters, setSitterDetails, setBookingDetails } from '../../redu
 import NoAccess from "../PlaygroundPages/EventsComponents/NoAccess";
 import "./Styling.css";
 
-export default function BookService({ token }) {
+export default function BookingForm({ token }) {
   // store useDispatch to dispatch redux actions (fetchPetsitters, setBookingDetails, setSitterDetails)
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ export default function BookService({ token }) {
   const [startTimeInput, setStartTimeInput] = useState("10:00");
   const [endTimeInput, setEndTimeInput] = useState("11:00");
   const [dateInput, setDateInput] = useState("2024-10-10");
-  const [animalType, setAnimalType] = useState(null);
+  const [animalType, setAnimalType] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   // run token check to confirm user has account and is logged in
@@ -32,18 +32,6 @@ export default function BookService({ token }) {
   // inform user of loading status or error if occurs 
   if (loading) return <div>Loading petsitters...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  // DELETE when site loads, use token and dispatch to run fetchPetsitters action
-  // useEffect(() => {
-  //   if (token) {
-  //     dispatch(fetchPetsitters(token))
-  //       .then((action) => {
-  //       })
-  //       .catch(err => console.error('Error in fetching petsitters:', err));
-  //   }
-  // }, [dispatch, token]);
-
-  // console.log('petsitters: ', petsitters)
 
   // when user submits booking details, update submitted state to true
   const handleSubmit = (event) => {

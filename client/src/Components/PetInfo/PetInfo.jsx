@@ -47,7 +47,7 @@ export default function PetInfo({ user }) {
       formData.append("breed", breed);
       formData.append("animalType", animalType);
       formData.append("weight", weight);
-      formData.append("file", file);
+      formData.append("file", null);
       formData.append("sterile", sterile);
       formData.append("favoriteToy", favoriteToy);
       formData.append("favoriteTreat", favoriteTreat);
@@ -109,8 +109,10 @@ export default function PetInfo({ user }) {
             color="success"
             value={petType}
             onChange={(e) => setAnimalType(e.target.value)}
-          />        
-        <h2>Show us a Picture:</h2>
+          />   
+        {/* 
+          TODO: fix picture uploads - image not populating
+          <h2>Show us a Picture:</h2>
               <input
                 type="file"
                 id="photo"
@@ -125,8 +127,8 @@ export default function PetInfo({ user }) {
                   width: 100,
                   height: 100,
                 }}
-              >
-                <img
+              > */}
+                {/* <img
                   src={URL.createObjectURL(file)}
                   alt={`Uploaded photo`}
                   style={{
@@ -137,7 +139,7 @@ export default function PetInfo({ user }) {
                   }}
                 />
               </div>
-            )}
+            )} */}
          <h2>Name:</h2>
         <TextField
           required

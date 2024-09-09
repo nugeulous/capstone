@@ -209,7 +209,9 @@ export const fetchPetsitter = async (token) => {
   }
 };
 
-export const fetchAvailablePetsitters = async (token) => {
+// requires token to authorize the request
+// use async to allow other code to continue executing
+export const fetchPetsitterAvailabilities = async (token) => {
   try {
     const response = await fetch(`${API_URL}/availability/petsitters`, {
       method: "GET",
@@ -219,9 +221,10 @@ export const fetchAvailablePetsitters = async (token) => {
     });
     if (!response.ok) throw new Error("Please log in or create an account!");
     const petsitters = await response.json();
+    console.log('PETSITTERS: ', petsitters)
     return petsitters;
   } catch (error) {
-    console.error("Error fetching petsitter account:", error);
+    console.error("Error fetching petsitter accounts:", error);
     throw error;
   }
 };

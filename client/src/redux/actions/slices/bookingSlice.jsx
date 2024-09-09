@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchAvailablePetsitters } from '../../../API/api';
+import { fetchPetsitterAvailabilities } from '../../../API/api';
 
-// fetch data from api async
-// action type => booking (slice name), fetchPetsitters(action)
+// fetch petsitter data using async thunk to provide status of call
+// action type = booking
+// action = fetchPetsitters
 export const fetchPetsitters = createAsyncThunk(
   'booking/fetchPetsitters',
   async (token) => {
-    const response = await fetchAvailablePetsitters(token);
-    console.log('RESPONSE: ', response[0].pettypes)
+    const response = await fetchPetsitterAvailabilities(token);
     return response;
   }
 );
@@ -24,9 +24,11 @@ const bookingSlice = createSlice({
     selectedSitter: null,
     bookingDetails:null, 
   },
-  // actions to dispatch for booking flow
-  // update current state with booking details
+
+  // reducers (functions) provide instructions for how to update current state with booking details
+  // reducers use state / action to return new state
   reducers: {
+    // action creators that return action objects 
     setSitterDetails: (state, action) => {
       state.selectedSitter = action.payload;
     },

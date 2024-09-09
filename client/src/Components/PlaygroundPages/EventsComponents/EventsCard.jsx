@@ -7,7 +7,9 @@ const EventsCard = ({ event }) => {
 
   const photoPath = `${API_URL}/events/getPhoto?fileName=`
 
-  const imagePath = event.file.startsWith('http') ? event.file : photoPath + event.file;
+  const imagePath = event?.file && event.file.startsWith('http') 
+  ? event.file 
+  : photoPath + (event?.file || '');
 
   const formattedDate = new Date(event.date).toLocaleDateString(undefined, {
     year: 'numeric',
