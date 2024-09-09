@@ -527,7 +527,7 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
     - Implement more boundaries around inputs for booking (i.e., time limit).
   - **TESTING**
     - **Unit**
-      - Test that user cannot input invalid dates or times (i.e., training sessions >= 5 hours, grooming >= 2 hours)
+      - Test that user cannot input invalid dates or times (i.e., training sessions <= 5 hours, grooming <= 2 hours)
       - Date/time/etc filters update petsitter list appropriately
       - State updates successfully when user fills out booking form
     - **UI**
