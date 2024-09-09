@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { setSitterDetails, setBookingDetails } from '../../redux/actions/slices/bookingSlice';
-import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
 function CreditCardForm() {
@@ -115,13 +114,20 @@ function CreditCardForm() {
           paid: true,                 
           order_owner_id: null
         }
-        const response = await axios.post(`${API_URL}/orders/bookService`, orderData, {
+        const response = await fetch(`${API_URL}/orders/bookService`, {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-        }); 
-        console.log(response.data);
-
+          body: JSON.stringify(orderData),
+        });
+    
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+    
+        const data = await response.json();
+        console.log(data);
         navigate("/OrderConfirmed");
       } catch (error) {
         setError(error.message);

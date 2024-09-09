@@ -1,7 +1,7 @@
-// pulls from db/index.js import of connecting to postgres db
+// pulls from db/index.js import connecting to postgres db
 const { client } = require('./client.js')
 // pulls from db/index.js options for configuration settings (host, port, username, pw)
-const {options} = require("pg/lib/defaults");
+const { options } = require("pg/lib/defaults");
 
 const {
     createOwner,
@@ -39,6 +39,8 @@ async function dropTables() {
       throw error;
     }
   }
+
+  // TODO: for orders table: update paid to boolean && add petsitter_id
 
   async function createTables() {
     try {

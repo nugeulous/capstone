@@ -64,7 +64,7 @@ const Register = ({ setToken, setUser, setRole }) => {
       setToken(result.token);
       setRole(result.owner.role);
       setUser(result.owner);
-      localStorage.setItem("user", result.owner);
+      localStorage.setItem("user", JSON.stringify(result.owner));
       navigate("/account");
     } catch (error) {
       setError(error.message);

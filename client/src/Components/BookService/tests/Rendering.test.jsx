@@ -4,14 +4,14 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import store from '../../../redux/actions/store/store';
 import React from 'react';
-import BookService from '../BookService';
+import BookingForm from '../BookingForm';
 
-describe('BookService component', () => {
+describe('BookingForm component', () => {
   it('renders the booking form', () => {
     render(
         <Provider store={store}>
         <MemoryRouter> {/* Wrap component with MemoryRouter */}
-          <BookService token="valid-token" />
+          <BookingForm token="valid-token" />
         </MemoryRouter>
       </Provider>
     );

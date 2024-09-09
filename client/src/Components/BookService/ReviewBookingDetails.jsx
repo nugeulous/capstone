@@ -71,7 +71,7 @@ export default function ReviewBookingDetails() {
             <Button sx={{ marginTop: 5, width: 240, height: 45, bgcolor: "#135b6d", color: "white", fontWeight: "bold", marginLeft: 2 }}
                 variant="outlined"
                 onClick={() => {
-                    navigate(`/BookService`);
+                    navigate(`/BookingForm`);
                 }}
             >
                 BACK TO SEARCH

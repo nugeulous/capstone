@@ -26,7 +26,7 @@ const Services = () => {
       <Button
           className="service"
           onClick={() => {
-            navigate(`/BookService`);
+            navigate(`/BookingForm`);
           }}
         >
           <img src={walking} alt="" />
@@ -38,7 +38,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/BookService`);
+            navigate(`/BookingForm`);
           }}
         >
           <img src={grooming} alt="" />
@@ -51,7 +51,7 @@ const Services = () => {
                 <Button
           className="service"
           onClick={() => {
-            navigate(`/BookService`);
+            navigate(`/BookingForm`);
           }}
         >
           <img src={dogtraining} alt="" />
@@ -63,7 +63,7 @@ const Services = () => {
         <Button
           className="service"
           onClick={() => {
-            navigate(`/BookService`);
+            navigate(`/BookingForm`);
           }}
         >
           <img src={petsitter} alt="" />
