@@ -8,6 +8,7 @@ AllTails provides pet owners with functionality to book a pet sitter for a wide 
 - Book a service (i.e., grooming, walking, boarding)
 
 **TECH STACK:**
+- Redux
 - React
 - Express.js
 - Node
@@ -370,7 +371,7 @@ Documentation for API
 }
 ```
 
-**5 - Fetch Available Petsitters**
+**5 - Fetch Petsitter Availabilities**
 - URL: `/availability/petsitters`
 - Description: Retrieves a list of available petsitters.
 - Response (Success):
@@ -516,7 +517,9 @@ JWT Tokens are required for protected endpoints such as fetching user profiles, 
 - **API Error Handling**: Implement more thorough error handling for all API calls. Currently, error responses are only created for a subset of API calls.
 - **Data Formatting**: Standardize all data formatting to use camelCase. Some fields are still using snake_case.
 - **Logout Confirmation**: Add a confirmation page to confirm successful logout and improve the user experience.
-- **Booking Time Granularity**: Enhance the booking service by adding more detailed start time, end time, and date options to improve flexibility.
+- **Booking form efficiencies**:
+  - Update timing to use epoch time on both the client and server side so that no format conversion is required.
+  - Query the database based on specific dates and times vs. fetching all petsitters, storing that information in memory, and add then rendering available petsitters. 
 - **HTML Optimization**: Refactor HTML to replace IDs with classes for improved scalability and maintainability.
 - **Redux Implementation**: Expand the use of Redux throughout the entire application; currently, it is only implemented in the booking flow.
 
